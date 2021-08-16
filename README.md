@@ -1,6 +1,6 @@
 # Lazzy.ts
 
-Lazzy.ts is an easy to use, fast and lightweight typescript library, without any dependencies, which provides an easy way to work lazy with all kinds of iterable objects.
+**Lazzy.ts** is an easy to use, fast and lightweight typescript library, without any dependencies, which provides an easy way to work lazy with all kinds of iterable objects.
 
 ## Installation
 
@@ -27,7 +27,7 @@ const result = source
     .filter((number) => number % 2 === 0)
     .reduce((prev, next) => prev + next, 0);
 
-console.log(result); // 20
+console.log(result); // 18
 ```
 
 With **lazzy.ts** it will look like this:
@@ -41,7 +41,7 @@ const result = Lazy.from(source) // result = [6, 12]
     .filter((number) => number % 2 === 0)
     .sum();
 
-console.log(result); // 20
+console.log(result); // 18
 ```
 
 So what is the difference? The result is the same, right? Why do we need this **lazzy.ts** library?
@@ -69,12 +69,12 @@ for (let i = 0; i < resultAfterMap.length; i++) {
     }
 }
 
-const result = 0; // Sum
+let result = 0; // Sum
 for (let i = 0; i < resultAfterFilter.length; i++) {
     result += resultAfterFilter[i];
 }
 
-console.log(result); // 20
+console.log(result); // 18
 ```
 
 So we have two newly created arrays and three 'for' loops.
@@ -83,16 +83,16 @@ So we have two newly created arrays and three 'for' loops.
 // The second example will produce something like this
 const source = [1, 2, 3, 4];
 
-const result = 0;
+let result = 0;
 for (let i = 0; i < source.length; i++) {
     if (source[i] % 2 === 0) {
         // Filter
-        const newValue = source * 3; // Map
+        const newValue = source[i] * 3; // Map
         result += newValue; // Sum
     }
 }
 
-console.log(result); // 20
+console.log(result); // 18
 ```
 
 In this case we will iterate only once through the array and we will produce only the final result, without using any extra memory. It is much much better!
