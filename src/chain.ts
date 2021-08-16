@@ -1,5 +1,5 @@
 import { Depth, Primitive } from "./common";
-import { IGenerators, ILazyCollection } from "./contracts";
+import { ILazyCollection } from "./contracts";
 import * as λ from "./generators";
 import * as γ from "./consumers";
 
@@ -80,10 +80,3 @@ export function chain<T, R, N>(iterator: Iterator<T, R, N>): ILazyCollection<T, 
         //#endregion
     };
 }
-
-export const generators: IGenerators = {
-    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
-    randomInt: (lessThan: number): ILazyCollection<number, undefined, undefined> => chain(λ.randomInt(lessThan)),
-    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
-    accumulate: (initial?: number): Generator<number, undefined, number> => λ.accumulate(initial),
-};

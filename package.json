@@ -1,5 +1,5 @@
 {
-  "name": "lazzy-test.ts",
+  "name": "lazzy.ts",
   "version": "1.0.0",
   "description": "Fast and lightweight library for lazy operations with iterable objects.",
   "main": "./lib/index.js",
@@ -8,7 +8,8 @@
     "build": "tsc -p .",
     "test": "mocha -r ts-node/register src/tests/**/*.test.ts",
     "copy": "cp package.json lib/",
-    "dist": "npm run build && npm run copy && cd ./lib && npm publish"
+    "dist": "npm run build && npm run copy && cd ./lib && npm publish",
+    "start": "ts-node ./src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
+    "@types/node": "^16.6.1",
     "chai": "^4.3.4",
     "mocha": "^9.0.3",
     "ts-node": "^10.2.0",

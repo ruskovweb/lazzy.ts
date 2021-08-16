@@ -54,7 +54,7 @@ With the **lazzy.ts** example we will iterate only once through the initial arra
 So let's rewrite these two examples with 'for' loops to see what happens under the hood:
 
 ```typescript
-// The first example will produce something like this
+// The first example will execute something like this
 const source = [1, 2, 3, 4];
 
 const resultAfterMap = [];                            // map
@@ -80,7 +80,7 @@ console.log(result); // 18
 So we have two newly created arrays and three 'for' loops.
 
 ```typescript
-// The second example will produce something like this
+// The second example will execute something like this
 const source = [1, 2, 3, 4];
 
 let result = 0;

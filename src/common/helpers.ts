@@ -1,4 +1,5 @@
 export const InvalidArgumentsMessage = "Invalid arguments.";
+
 export const self = <T>(it: T): T => it;
 export const notUndefined = (it: unknown): boolean => it !== undefined;
 export const notNull = (it: unknown): boolean => it !== null;
@@ -31,11 +32,6 @@ export type FlatArray<Arr, Depth extends number> = {
 export const isIterable = (it: unknown): boolean => {
     const type = typeof it;
     return type === "string" || (it != null && (typeof it === "object" || typeof it === "function") && typeof Reflect.get(nonNullable(it), Symbol.iterator) === "function");
-};
-
-export const isIterableTypeGuard = <U, T extends Iterable<U>>(it: T | unknown): it is T extends Iterable<infer U> ? Iterable<U> : Iterable<unknown> => {
-    const type = typeof it;
-    return type === "string" || (it != null && (typeof it === "object" || typeof it === "function") && typeof Reflect.get(it as object, Symbol.iterator) === "function");
 };
 
 export function getNumericSelector<T>(value: T, ...select: T extends number ? [undefined?] : [(value: T) => number]): ((v: T) => number) | ((v: number) => number) {

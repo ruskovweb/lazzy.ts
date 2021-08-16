@@ -10,6 +10,7 @@ export * from "./filterWithIndex";
 export * from "./flat";
 export * from "./flatMap";
 export * from "./forEach";
+export * from "./generate";
 export * from "./groupBy";
 export * from "./indices";
 export * from "./intercept";
