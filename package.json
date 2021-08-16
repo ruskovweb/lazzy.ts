@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ruskovweb/lazy.js.git"
+    "url": "git+https://github.com/ruskovweb/lazzy.ts.git"
   },
   "keywords": [
     "lazy",
@@ -25,9 +25,9 @@
   "author": "Dimitar Ruskov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ruskovweb/lazy.js/issues"
+    "url": "https://github.com/ruskovweb/lazzy.ts/issues"
   },
-  "homepage": "https://github.com/ruskovweb/lazy.js#readme",
+  "homepage": "https://github.com/ruskovweb/lazzy.ts#readme",
   "devDependencies": {
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
