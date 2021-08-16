@@ -1,0 +1,39 @@
+{
+  "name": "lazzy-test.ts",
+  "version": "1.0.0",
+  "description": "Fast and lightweight library for lazy operations with iterable objects.",
+  "main": "./lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "mocha -r ts-node/register src/tests/**/*.test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruskovweb/lazy.js.git"
+  },
+  "keywords": [
+    "lazy",
+    "iterable",
+    "collection",
+    "array",
+    "generator",
+    "stream",
+    "map",
+    "set"
+  ],
+  "author": "Dimitar Ruskov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruskovweb/lazy.js/issues"
+  },
+  "homepage": "https://github.com/ruskovweb/lazy.js#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  }
+}
