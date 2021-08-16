@@ -16,7 +16,7 @@ What is lazy? What does this mean?
 
 Let's see one simple example to illustrate what lazy is and why it's so useful and powerful.
 
-So lets assume that we have an array of numbers and we want to multiply each number by 3, then we want to filter only the even numbers and finally to take the total sum of the even numbers.
+So let's assume that we have an array of numbers and we want to multiply each number by 3, then we want to filter only the even numbers and finally to take the total sum of the even numbers.
 
 In a traditional JavaScript this logic will look like this:
 
@@ -36,7 +36,7 @@ With **lazzy.ts** it will look like this:
 import Lazy from "lazzy.ts";
 
 const source = [1, 2, 3, 4];
-const result = Lazy.from(source) // result = [6, 12]
+const result = Lazy.from(source)
     .map((number) => number * 3)
     .filter((number) => number % 2 === 0)
     .sum();
@@ -47,9 +47,9 @@ console.log(result); // 18
 So what is the difference? The result is the same, right? Why do we need this **lazzy.ts** library?
 
 The answer is very simple. Because it is **Lazy**.
-In the first example each function (map, filter and reduce) produce a new array or value, which means that we will iterate three times through each array. In this case we have the initial array and two newly created arrays (one from the 'map' function and one from the 'filter' function) and finally we well produce a new value with the 'reduce' function. This is very expensive! Don't do this! You can do it better!
+In the first example each function (map, filter and reduce) produces a new array or value, which means that we will iterate through each array. In this case we have the initial array and two newly created arrays (one from the 'map' function and one from the 'filter' function) and finally we will produce a new value with the 'reduce' function. This is very expensive! Don't do this! You can do it better!
 
-With the **lazzy.ts** example we will iterate only once through the initial array and we will apply all operations for each value. This means that we will not produce new arrays. We will produce only the final result, which is 20 in this case. This is much better, right?
+With the **lazzy.ts** example we will iterate only once through the initial array and we will apply all operations for each value. This means that we will not produce new arrays. We will produce only the final result, which is 18 in this case. This is much better, right?
 
 So let's rewrite these two examples with 'for' loops to see what happens under the hood:
 
@@ -57,19 +57,19 @@ So let's rewrite these two examples with 'for' loops to see what happens under t
 // The first example will produce something like this
 const source = [1, 2, 3, 4];
 
-const resultAfterMap = [];                            // Map
+const resultAfterMap = [];                            // map
 for (let i = 0; i < source.length; i++) {
     resultAfterMap.push(source[i] * 3);
 }
 
-const resultAfterFilter = [];                         // Filter
+const resultAfterFilter = [];                         // filter
 for (let i = 0; i < resultAfterMap.length; i++) {
     if (resultAfterMap[i] % 2 === 0) {
         resultAfterFilter.push(resultAfterMap[i]);
     }
 }
 
-let result = 0;                                       // Sum
+let result = 0;                                       // sum
 for (let i = 0; i < resultAfterFilter.length; i++) {
     result += resultAfterFilter[i];
 }
@@ -85,9 +85,9 @@ const source = [1, 2, 3, 4];
 
 let result = 0;
 for (let i = 0; i < source.length; i++) {
-    if (source[i] % 2 === 0) {            // Filter
-        const newValue = source[i] * 3;   // Map
-        result += newValue;               // Sum
+    if (source[i] % 2 === 0) {            // filter
+        const newValue = source[i] * 3;   // map
+        result += newValue;               // sum
     }
 }
 
