@@ -6,7 +6,9 @@
   "types": "lib",
   "scripts": {
     "build": "tsc -p .",
-    "test": "mocha -r ts-node/register src/tests/**/*.test.ts"
+    "test": "mocha -r ts-node/register src/tests/**/*.test.ts",
+    "copy": "cp package.json lib/",
+    "dist": "npm run build && npm run copy && cd ./lib && npm publish"
   },
   "repository": {
     "type": "git",
