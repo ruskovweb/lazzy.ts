@@ -57,19 +57,19 @@ So let's rewrite these two examples with 'for' loops to see what happens under t
 // The first example will produce something like this
 const source = [1, 2, 3, 4];
 
-const resultAfterMap = []; // Map
+const resultAfterMap = [];                            // Map
 for (let i = 0; i < source.length; i++) {
     resultAfterMap.push(source[i] * 3);
 }
 
-const resultAfterFilter = []; // Filter
+const resultAfterFilter = [];                         // Filter
 for (let i = 0; i < resultAfterMap.length; i++) {
     if (resultAfterMap[i] % 2 === 0) {
         resultAfterFilter.push(resultAfterMap[i]);
     }
 }
 
-let result = 0; // Sum
+let result = 0;                                       // Sum
 for (let i = 0; i < resultAfterFilter.length; i++) {
     result += resultAfterFilter[i];
 }
@@ -85,10 +85,9 @@ const source = [1, 2, 3, 4];
 
 let result = 0;
 for (let i = 0; i < source.length; i++) {
-    if (source[i] % 2 === 0) {
-        // Filter
-        const newValue = source[i] * 3; // Map
-        result += newValue; // Sum
+    if (source[i] % 2 === 0) {            // Filter
+        const newValue = source[i] * 3;   // Map
+        result += newValue;               // Sum
     }
 }
 
