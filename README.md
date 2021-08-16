@@ -5,7 +5,7 @@
 ## Installation
 
 Use the node package manager [npm](https://www.npmjs.com/package/lazzy.ts) to install lazzy.ts.
-
+**It will be available soon!**
 ```bash
 npm install lazzy.ts
 ```
