@@ -38,9 +38,9 @@ export interface ILazyCollection<T, R, N> {
 
     //#region Consumers
     first(predicate: (value: T) => boolean): T | undefined;
-    firstWithIndex(predicate: (value: T) => boolean): [T, number] | undefined;
+    firstWithIndex(predicate: (value: T) => boolean): [T | undefined, number];
     last(predicate: (value: T) => boolean): T | undefined;
-    lastWithIndex(predicate: (value: T) => boolean): [T, number] | undefined;
+    lastWithIndex(predicate: (value: T) => boolean): [T | undefined, number];
     indexOf(predicate: (value: T) => boolean): number;
     lastIndexOf(predicate: (value: T) => boolean): number;
     includes(predicate: (value: T) => boolean): boolean;

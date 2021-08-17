@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { expect, assert } from "chai";
 import Lazy from "../..";
 
 describe("ƒ firstWithIndex()", function () {
@@ -22,5 +22,11 @@ describe("ƒ firstWithIndex()", function () {
         ]).firstWithIndex((o) => o.a === "c");
 
         expect(result).to.be.deep.eq([{ a: "c", d: "d" }, 4]);
+    });
+
+    it("should return [undefined, -1] if the value is not found", function () {
+        const [value, index] = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).firstWithIndex((e) => e.startsWith("K"));
+        assert.isUndefined(value);
+        expect(index).to.be.equal(-1);
     });
 });
