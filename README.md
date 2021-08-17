@@ -12,7 +12,7 @@ npm install lazzy.ts
 
 ## How to use it?
 
-You have two options:
+You have several options:
 
 - you can import the entire **Lazy** object which combines all functions in one place and gives the ability to chain them together:
 ```typescript
