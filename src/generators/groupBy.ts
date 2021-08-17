@@ -1,5 +1,3 @@
-import { nonNullable } from "../common/helpers";
-
 export function* groupBy<T, R, N, TKey, TElement, TResult>(
     iterator: Iterator<T, R, N>,
     keySelector: (v: T) => TKey,
@@ -15,8 +13,9 @@ export function* groupBy<T, R, N, TKey, TElement, TResult>(
         if (!groups.has(key)) {
             groups.set(key, []);
         }
-        const group = nonNullable(groups.get(key));
-        group.push(element);
+
+        const group = groups.get(key);
+        group?.push(element);
         x = iterator.next();
     }
 
