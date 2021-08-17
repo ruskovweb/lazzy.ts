@@ -101,81 +101,1098 @@ In this case we will iterate only once through the array and we will produce onl
 ### Generators
 
 -   **Producing infinite count of values:**
-    -   ƒ range();
-    -   ƒ randomInt();
-    -   ƒ circular();
-    -   ƒ accumulate();
+    -   [ƒ range();](#ƒ-range)
+    -   [ƒ randomInt();](#ƒ-randomint)
+    -   [ƒ circular();](#ƒ-circular)
+    -   [ƒ accumulate();](#ƒ-accumulate)
 
 -   **Manipulating collections:**
-    -   ƒ accumulate();
-    -   ƒ append();
-    -   ƒ chunk();
-    -   ƒ circular();
-    -   ƒ concat();
-    -   ƒ distinct();
-    -   ƒ feed();
-    -   ƒ filter();
-    -   ƒ filterWithIndex();
-    -   ƒ flat();
-    -   ƒ flatMap();
-    -   ƒ forEach();
-    -   ƒ groupBy();
-    -   ƒ indices();
-    -   ƒ intercept();
-    -   ƒ lazyChunk();
-    -   ƒ map();
-    -   ƒ pair();
-    -   ƒ prepend();
-    -   ƒ repeat();
-    -   ƒ skip();
-    -   ƒ skipWhile();
-    -   ƒ spread();
-    -   ƒ take();
-    -   ƒ takeWhile();
-    -   ƒ toLazy();
-    -   ƒ zip();
+    -   [ƒ append();](#ƒ-append)
+    -   [ƒ chunk();](#ƒ-chunk)
+    -   [ƒ circular();](#ƒ-circular)
+    -   [ƒ concat();](#ƒ-concat)
+    -   [ƒ distinct();](#ƒ-distinct)
+    -   [ƒ feed();](#ƒ-feed)
+    -   [ƒ filter();](#ƒ-filter)
+    -   [ƒ filterWithIndex();](#ƒ-filterwithindex)
+    -   [ƒ flat();](#ƒ-flat)
+    -   [ƒ flatMap();](#ƒ-flatmap)
+    -   [ƒ forEach();](#ƒ-foreach)
+    -   [ƒ groupBy();](#ƒ-groupby)
+    -   [ƒ indices();](#ƒ-indices)
+    -   [ƒ intercept();](#ƒ-intercept)
+    -   [ƒ lazyChunk();](#ƒ-lazychunk)
+    -   [ƒ map();](#ƒ-map)
+    -   [ƒ pair();](#ƒ-pair)
+    -   [ƒ prepend();](#ƒ-prepend)
+    -   [ƒ repeat();](#ƒ-repeat)
+    -   [ƒ skip();](#ƒ-skip)
+    -   [ƒ skipWhile();](#ƒ-skipwhile)
+    -   [ƒ spread();](#ƒ-spread)
+    -   [ƒ take();](#ƒ-take)
+    -   [ƒ takeWhile();](#ƒ-takewhile)
+    -   [ƒ toLazy();](#ƒ-tolazy)
+    -   [ƒ zip();](#ƒ-zip)
 
 ### Consumers
 
 -   **Math operations:**
-    -   ƒ average();
-    -   ƒ count();
-    -   ƒ min();
-    -   ƒ max();
-    -   ƒ sum();
-    -   ƒ product();
+    -   [ƒ average();](#ƒ-average)
+    -   [ƒ count();](#ƒ-count)
+    -   [ƒ min();](#ƒ-min)
+    -   [ƒ max();](#ƒ-max)
+    -   [ƒ sum();](#ƒ-sum)
+    -   [ƒ product();](#ƒ-product)
 
 -   **Convert to specific collection:**
-    -   ƒ toIterator();
-    -   ƒ toArray();
-    -   ƒ toMap();
-    -   ƒ toSet();
-    -   ƒ toWeakMap();
-    -   ƒ toWeakSet();
+    -   [ƒ toIterator();](#ƒ-toiterator)
+    -   [ƒ toArray();](#ƒ-toarray)
+    -   [ƒ toMap();](#ƒ-tomap)
+    -   [ƒ toSet();](#ƒ-toset)
+    -   [ƒ toWeakMap();](#ƒ-toweakmap)
+    -   [ƒ toWeakSet();](#ƒ-toweakset)
 
 -   **Produce a new value:**
-    -   ƒ reduce();
-    -   ƒ join();
-    -   ƒ partition();
-    -   ƒ uppend();
+    -   [ƒ reduce();](#ƒ-reduce)
+    -   [ƒ join();](#ƒ-join)
+    -   [ƒ partition();](#ƒ-partition)
+    -   [ƒ uppend();](#ƒ-uppend)
 
 -   **Checks:**
-    -   ƒ includes();
-    -   ƒ indexOf();
-    -   ƒ lastIndexOf();
+    -   [ƒ includes();](#ƒ-includes)
+    -   [ƒ indexOf();](#ƒ-indexof)
+    -   [ƒ lastIndexOf();](#ƒ-lastindexof)
 
 -   **Pick a value:**
-    -   ƒ first();
-    -   ƒ firstWithIndex();
-    -   ƒ last();
-    -   ƒ lastWithIndex();
+    -   [ƒ first();](#ƒ-first)
+    -   [ƒ firstWithIndex();](#ƒ-firstwithindex)
+    -   [ƒ last();](#ƒ-last)
+    -   [ƒ lastWithIndex();](#ƒ-lastwithindex)
 
 -   **Triggers the generator:**
-    -   ƒ run();
+    -   [ƒ run();](#ƒ-run)
 
 ## Usage
 
-Coming soon...
+### **ƒ range();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ randomInt();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ circular();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ accumulate();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ append();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ chunk();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ circular();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ concat();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ distinct();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ feed();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ filter();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ filterWithIndex();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ flat();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ flatMap();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ forEach();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ groupBy();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ indices();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ intercept();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ lazyChunk();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ map();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ pair();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ prepend();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ repeat();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ skip();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ skipWhile();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ spread();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ take();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ takeWhile();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toLazy();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ zip();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ average();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ count();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ min();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ max();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ sum();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ product();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toIterator();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toArray();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toMap();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toSet();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toWeakMap();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ toWeakSet();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ reduce();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ join();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ partition();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ uppend();**
+- **description**: Coming soon...
+- **params**: -
+- **returns**: -
+
+```typescript
+
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ includes();**
+- **description**: Determines whether an interable includes a certain value among its entries, returning true or false as appropriate. 
+- **params**: predicate: (value: T) => boolean
+- **returns**: resutl: boolean
+
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .includes(e => e.startsWith("J"));
+
+console.log(value); // true
+```
+
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .includes(e => e.startsWith("K"));
+
+console.log(value); // false
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ indexOf();**
+- **description**: Returns the first index at which a given element can be found in the stream, or -1 if it is not present.
+- **params**: predicate: (value: T) => boolean
+- **returns**: index: number
+
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("J"));
+
+console.log(value); // 0
+```
+
+If the element is not found then it will return **-1**.
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("K"));
+
+console.log(value); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ lastIndexOf();**
+- **description**: Searches for the last element which matches the predicate and returns the index of that element.
+- **params**: predicate: (value: T) => boolean
+- **returns**: index: number
+
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("J"));
+
+console.log(value); // 2
+```
+
+If the element is not found then it will return **-1**.
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("K"));
+
+console.log(value); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ first();**
+- **description**: Searches for the first element which matches the predicate and returns it.
+- **params**: predicate: (value: T) => boolean
+- **returns**: value: T | undefined
+
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .first(e => e.startsWith("J"));
+
+console.log(value); // "Josh"
+```
+
+If the element is not found then it will return **undefined**.
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .last(e => e.startsWith("K"));
+
+console.log(value); // undefined
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ firstWithIndex();**
+- **description**: Searches for the first element which matches the predicate and returns a tuple **[value, index]**. 
+- **params**: predicate: (value: T) => boolean
+- **returns**: tuple: [T | undefined, number]
+
+```typescript
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("J"));
+
+console.log(value); // "Josh"
+console.log(index); // 0
+``` 
+
+If the searched value is not found then it will return **[undefined, -1]**.
+```typescript
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("K"));
+
+console.log(value); // undefined
+console.log(index); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ last();**
+- **description**: Searches for the last element which matches the predicate and returns it.
+- **params**: predicate: (value: T) => boolean
+- **returns**: value: T | undefined
+
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .last(e => e.startsWith("J"));
+
+console.log(value); // "Jonathan"
+```
+
+If the element is not found then it will return **undefined**.
+```typescript
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .last(e => e.startsWith("K"));
+
+console.log(value); // undefined
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ lastWithIndex();**
+- **description**: Searches for the last element which matches the predicate and returns a tuple **[value, index]**. 
+- **params**: predicate: (value: T) => boolean
+- **returns**: tuple: [T | undefined, number]
+
+```typescript
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("J"));
+
+console.log(value); // "Jonathan"
+console.log(index); // 2
+``` 
+
+If the searched value is not found then it will return **[undefined, -1]**.
+```typescript
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("K"));
+
+console.log(value); // undefined
+console.log(index); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
+
+</br>
+
+### **ƒ run();**
+- **description:** All generators are executed when they are consumed. With this function you can consume the generator, without producing a value. In other words - executes the generator.
+- **params:** -
+- **returns:** void
+
+```typescript
+// At this point the generator is not executed. We have to consume it.
+const generator = Lazy.from([1, 2, 3]).forEach(n => console.log(n));
+
+// Here we consume the generator.
+generator.run();
+
+/* output:
+1
+2
+3
+*/
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="#api-reference">API Referance</a>
+</p>
+
+---
 
 ## Contributing
 
