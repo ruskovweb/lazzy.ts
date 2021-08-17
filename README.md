@@ -189,8 +189,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ randomInt();**
 - **description**: Coming soon...
 - **params**: -
@@ -206,8 +204,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ circular();**
 - **description**: Coming soon...
 - **params**: -
@@ -222,8 +218,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ accumulate();**
 - **description**: Coming soon...
@@ -240,8 +234,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ append();**
 - **description**: Coming soon...
 - **params**: -
@@ -256,8 +248,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ chunk();**
 - **description**: Coming soon...
@@ -274,8 +264,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ circular();**
 - **description**: Coming soon...
 - **params**: -
@@ -290,8 +278,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ concat();**
 - **description**: Coming soon...
@@ -308,8 +294,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ distinct();**
 - **description**: Coming soon...
 - **params**: -
@@ -324,8 +308,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ feed();**
 - **description**: Coming soon...
@@ -342,8 +324,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ filter();**
 - **description**: Coming soon...
 - **params**: -
@@ -358,8 +338,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ filterWithIndex();**
 - **description**: Coming soon...
@@ -376,8 +354,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ flat();**
 - **description**: Coming soon...
 - **params**: -
@@ -392,8 +368,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ flatMap();**
 - **description**: Coming soon...
@@ -410,8 +384,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ forEach();**
 - **description**: Coming soon...
 - **params**: -
@@ -426,8 +398,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ groupBy();**
 - **description**: Coming soon...
@@ -444,8 +414,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ indices();**
 - **description**: Coming soon...
 - **params**: -
@@ -460,8 +428,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ intercept();**
 - **description**: Coming soon...
@@ -478,8 +444,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ lazyChunk();**
 - **description**: Coming soon...
 - **params**: -
@@ -494,8 +458,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ map();**
 - **description**: Coming soon...
@@ -512,8 +474,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ pair();**
 - **description**: Coming soon...
 - **params**: -
@@ -528,8 +488,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ prepend();**
 - **description**: Coming soon...
@@ -546,8 +504,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ repeat();**
 - **description**: Coming soon...
 - **params**: -
@@ -562,8 +518,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ skip();**
 - **description**: Coming soon...
@@ -580,8 +534,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ skipWhile();**
 - **description**: Coming soon...
 - **params**: -
@@ -596,8 +548,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ spread();**
 - **description**: Coming soon...
@@ -614,8 +564,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ take();**
 - **description**: Coming soon...
 - **params**: -
@@ -630,8 +578,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ takeWhile();**
 - **description**: Coming soon...
@@ -648,8 +594,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ toLazy();**
 - **description**: Coming soon...
 - **params**: -
@@ -664,8 +608,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ zip();**
 - **description**: Coming soon...
@@ -682,8 +624,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ average();**
 - **description**: Coming soon...
 - **params**: -
@@ -698,8 +638,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ count();**
 - **description**: Coming soon...
@@ -716,8 +654,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ min();**
 - **description**: Coming soon...
 - **params**: -
@@ -732,8 +668,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ max();**
 - **description**: Coming soon...
@@ -750,8 +684,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ sum();**
 - **description**: Coming soon...
 - **params**: -
@@ -766,8 +698,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ product();**
 - **description**: Coming soon...
@@ -784,8 +714,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ toIterator();**
 - **description**: Coming soon...
 - **params**: -
@@ -800,8 +728,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ toArray();**
 - **description**: Coming soon...
@@ -818,8 +744,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ toMap();**
 - **description**: Coming soon...
 - **params**: -
@@ -834,8 +758,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ toSet();**
 - **description**: Coming soon...
@@ -852,8 +774,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ toWeakMap();**
 - **description**: Coming soon...
 - **params**: -
@@ -868,8 +788,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ toWeakSet();**
 - **description**: Coming soon...
@@ -886,8 +804,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ reduce();**
 - **description**: Coming soon...
 - **params**: -
@@ -902,8 +818,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ join();**
 - **description**: Coming soon...
@@ -920,8 +834,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ partition();**
 - **description**: Coming soon...
 - **params**: -
@@ -937,8 +849,6 @@ In this case we will iterate only once through the array and we will produce onl
 
 ---
 
-</br>
-
 ### **ƒ uppend();**
 - **description**: Coming soon...
 - **params**: -
@@ -953,8 +863,6 @@ In this case we will iterate only once through the array and we will produce onl
 </p>
 
 ---
-
-</br>
 
 ### **ƒ includes();**
 - **description**: Determines whether an interable includes a certain value among its entries, returning true or false as appropriate. 
@@ -982,8 +890,6 @@ console.log(value); // false
 </p>
 
 ---
-
-</br>
 
 ### **ƒ indexOf();**
 - **description**: Returns the first index at which a given element can be found in the stream, or -1 if it is not present.
@@ -1013,8 +919,6 @@ console.log(value); // -1
 
 ---
 
-</br>
-
 ### **ƒ lastIndexOf();**
 - **description**: Searches for the last element which matches the predicate and returns the index of that element.
 - **params**: predicate: (value: T) => boolean
@@ -1043,8 +947,6 @@ console.log(value); // -1
 
 ---
 
-</br>
-
 ### **ƒ first();**
 - **description**: Searches for the first element which matches the predicate and returns it.
 - **params**: predicate: (value: T) => boolean
@@ -1072,8 +974,6 @@ console.log(value); // undefined
 </p>
 
 ---
-
-</br>
 
 ### **ƒ firstWithIndex();**
 - **description**: Searches for the first element which matches the predicate and returns a tuple **[value, index]**. 
@@ -1105,8 +1005,6 @@ console.log(index); // -1
 
 ---
 
-</br>
-
 ### **ƒ last();**
 - **description**: Searches for the last element which matches the predicate and returns it.
 - **params**: predicate: (value: T) => boolean
@@ -1134,8 +1032,6 @@ console.log(value); // undefined
 </p>
 
 ---
-
-</br>
 
 ### **ƒ lastWithIndex();**
 - **description**: Searches for the last element which matches the predicate and returns a tuple **[value, index]**. 
@@ -1166,8 +1062,6 @@ console.log(index); // -1
 </p>
 
 ---
-
-</br>
 
 ### **ƒ run();**
 - **description:** All generators are executed when they are consumed. With this function you can consume the generator, without producing a value. In other words - executes the generator.
