@@ -23,8 +23,8 @@ In a traditional JavaScript this logic will look like this:
 ```typescript
 const source = [1, 2, 3, 4];
 const result = source
-    .map((number) => number * 3)
-    .filter((number) => number % 2 === 0)
+    .map(n => n * 3)
+    .filter(n => n % 2 === 0)
     .reduce((prev, next) => prev + next, 0);
 
 console.log(result); // 18
@@ -37,8 +37,8 @@ import Lazy from "lazzy.ts";
 
 const source = [1, 2, 3, 4];
 const result = Lazy.from(source)
-    .map((number) => number * 3)
-    .filter((number) => number % 2 === 0)
+    .map(n => n * 3)
+    .filter(n => n % 2 === 0)
     .sum();
 
 console.log(result); // 18
@@ -85,8 +85,8 @@ const source = [1, 2, 3, 4];
 
 let result = 0;
 for (let i = 0; i < source.length; i++) {
-    if (source[i] % 2 === 0) {            // filter
-        const newValue = source[i] * 3;   // map
+    const newValue = source[i] * 3;       // map
+    if (newValue % 2 === 0) {             // filter
         result += newValue;               // sum
     }
 }
@@ -96,18 +96,17 @@ console.log(result); // 18
 
 In this case we will iterate only once through the array and we will produce only the final result, without using any extra memory. It is much much better!
 
-## API Referance
+## API Reference
 
 ### Generators
 
--   #### Producing infinite count of values:
-
+-   **Producing infinite count of values:**
     -   ƒ range();
     -   ƒ randomInt();
     -   ƒ circular();
     -   ƒ accumulate();
 
--   #### Manipulating collections:
+-   **Manipulating collections:**
     -   ƒ accumulate();
     -   ƒ append();
     -   ƒ chunk();
@@ -138,8 +137,7 @@ In this case we will iterate only once through the array and we will produce onl
 
 ### Consumers
 
--   #### Math operations:
-
+-   **Math operations:**
     -   ƒ average();
     -   ƒ count();
     -   ƒ min();
@@ -147,8 +145,7 @@ In this case we will iterate only once through the array and we will produce onl
     -   ƒ sum();
     -   ƒ product();
 
--   #### Convert to specific collection:
-
+-   **Convert to specific collection:**
     -   ƒ toIterator();
     -   ƒ toArray();
     -   ƒ toMap();
@@ -156,27 +153,24 @@ In this case we will iterate only once through the array and we will produce onl
     -   ƒ toWeakMap();
     -   ƒ toWeakSet();
 
--   #### Produce a new value:
-
+-   **Produce a new value:**
     -   ƒ reduce();
     -   ƒ join();
     -   ƒ partition();
     -   ƒ uppend();
 
--   #### Checks:
-
+-   **Checks:**
     -   ƒ includes();
     -   ƒ indexOf();
     -   ƒ lastIndexOf();
 
--   #### Pick a value:
-
+-   **Pick a value:**
     -   ƒ first();
     -   ƒ firstWithIndex();
     -   ƒ last();
     -   ƒ lastWithIndex();
 
--   #### Triggers the generator:
+-   **Triggers the generator:**
     -   ƒ run();
 
 ## Usage
