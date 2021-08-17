@@ -1,6 +1,6 @@
 {
   "name": "lazzy.ts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fast and lightweight library for lazy operations with iterable objects.",
   "main": "./lib/index.js",
   "types": "lib",
@@ -17,6 +17,7 @@
   },
   "keywords": [
     "lazy",
+    "lazzy",
     "iterable",
     "collection",
     "array",
@@ -25,7 +26,8 @@
     "map",
     "set",
     "type",
-    "typescript"
+    "typescript",
+    "ts"
   ],
   "author": "Dimitar Ruskov",
   "license": "MIT",
