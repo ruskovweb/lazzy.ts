@@ -23,7 +23,9 @@
     "generator",
     "stream",
     "map",
-    "set"
+    "set",
+    "type",
+    "typescript"
   ],
   "author": "Dimitar Ruskov",
   "license": "MIT",
