@@ -5,10 +5,58 @@
 ## Installation
 
 Use the node package manager [npm](https://www.npmjs.com/package/lazzy.ts) to install lazzy.ts.
-**It will be available soon!**
+
 ```bash
 npm install lazzy.ts
 ```
+
+## How to use it?
+
+You have two options:
+
+- you can import the entire **Lazy** object which combines all functions in one place and gives the ability to chain them together:
+```typescript
+import Lazy from "lazzy.ts";
+
+const sum = Lazy.from([1, 2, 3, 4, 5, 6])
+  .map((n) => n * 3)
+  .filter((n) => n % 2 === 0)
+  .sum();
+
+console.log(sum); // 36
+```
+
+- or you can import each function separately and use them without chaining:
+```typescript
+import { toLazy, map, filter, sum } from "lazzy.ts";
+
+const result = sum(
+  filter(
+    (n) => n % 2 === 0,
+    map(
+        (n) => n * 3, 
+        toLazy([1, 2, 3, 4, 5, 6])
+    )
+  )
+);
+
+console.log(result); // 36
+```
+
+- or you can combine them:
+```typescript
+import Lazy, { filter, sum } from "lazzy.ts";
+
+const iterator = Lazy.from([1, 2, 3, 4, 5, 6])
+  .map((n) => n * 3)
+  .toIterator();
+
+const result = sum(filter((n) => n % 2 === 0, iterator));
+
+console.log(result); // 36
+```
+
+As you can see we can achieve the same thing with three different approaches.
 
 ## Introduction
 
