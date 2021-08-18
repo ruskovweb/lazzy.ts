@@ -1,4 +1,4 @@
-export function* skip<T, R, N>(number: number, iterator: Iterator<T, R, N>): Generator<T, R | undefined, undefined> {
+export function* skip<T, R, N>(iterator: Iterator<T, R, N>, number: number): Generator<T, R | undefined, undefined> {
     while (number-- > 0) {
         const x = iterator.next();
         if (x.done === true) {

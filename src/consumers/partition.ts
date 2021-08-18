@@ -1,4 +1,4 @@
-export function partition<T, R, N>(predicate: (value: T) => boolean, iterator: Iterator<T, R, N>): [T[], T[]] {
+export function partition<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T) => boolean): [T[], T[]] {
     const result: [T[], T[]] = [[], []];
     let x = iterator.next();
     while (x.done !== true) {

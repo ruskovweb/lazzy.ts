@@ -1,4 +1,4 @@
-export function* indices<T, R, N>(predicate: (value: T) => boolean, iterator: Iterator<T, R, N>): Generator<number, R, N> {
+export function* indices<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T) => boolean): Generator<number, R, N> {
     let counter = 0;
     let x = iterator.next();
     while (x.done !== true) {

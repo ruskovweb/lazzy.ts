@@ -2,7 +2,7 @@
  * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.
  * Avoid all other consumers like Array.from(), new Set(), etc.
  */
-export function* lazyChunk<T, R, N>(size: number, iterator: Iterator<T, R, N>): Generator<Generator<T, void>, R, N> {
+export function* lazyChunk<T, R, N>(iterator: Iterator<T, R, N>, size: number): Generator<Generator<T, void>, R, N> {
     if (size <= 0) {
         size = Infinity;
     }

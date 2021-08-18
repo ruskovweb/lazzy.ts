@@ -1,4 +1,4 @@
-export function lastIndexOf<T, R, N>(predicate: (value: T) => boolean, iterator: Iterator<T, R, N>): number {
+export function lastIndexOf<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T) => boolean): number {
     let result = -1;
     let counter = 0;
     let x = iterator.next();

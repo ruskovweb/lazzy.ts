@@ -1,4 +1,4 @@
-export function* chunk<T, R, N>(size: number, iterator: Iterator<T, R, N>): Generator<T[], R, N> {
+export function* chunk<T, R, N>(iterator: Iterator<T, R, N>, size: number): Generator<T[], R, N> {
     if (size <= 0) {
         size = Infinity;
     }

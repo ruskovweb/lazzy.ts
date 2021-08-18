@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import Lazy from "../..";
+import Lazy, { filter, map, sum, toLazy } from "../..";
 
 describe("ƒ first()", function () {
     it("should get the first even number", function () {

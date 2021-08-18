@@ -1,4 +1,4 @@
-export function includes<T, R, N>(predicate: (value: T) => boolean, iterator: Iterator<T, R, N>): boolean {
+export function includes<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T) => boolean): boolean {
     while (true) {
         const x = iterator.next();
         if (x.done === true) {

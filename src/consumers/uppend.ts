@@ -1,4 +1,4 @@
-export function uppend<T, R, N>(array: T[], predicate: (oldElement: T, newElement: T) => boolean, iterator: Iterator<T, R, N>): T[] {
+export function uppend<T, R, N>(iterator: Iterator<T, R, N>, array: T[], predicate: (oldElement: T, newElement: T) => boolean): T[] {
     const duplicate = [...array];
     let x = iterator.next();
     while (x.done !== true) {

@@ -1,4 +1,4 @@
-export function* repeat<T, R, N>(number: number, iterator: Iterator<T, R, N>): Generator<T, R | undefined, undefined> {
+export function* repeat<T, R, N>(iterator: Iterator<T, R, N>, number: number): Generator<T, R | undefined, undefined> {
     if (number < 0) {
         number = 0;
     }

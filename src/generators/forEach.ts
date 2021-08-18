@@ -1,4 +1,4 @@
-export function* forEach<T, R, N>(fun: (v: T, i: number) => void, iterator: Iterator<T, R, N>): Generator<T, R | undefined, undefined> {
+export function* forEach<T, R, N>(iterator: Iterator<T, R, N>, fun: (v: T, i: number) => void): Generator<T, R | undefined, undefined> {
     let index = 0;
     let x = iterator.next();
     while (x.done !== true) {

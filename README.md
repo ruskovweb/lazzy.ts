@@ -54,14 +54,24 @@ console.log(sum); // 36
 ```typescript
 import { toLazy, map, filter, sum } from "lazzy.ts";
 
+// Without chaining:
+const lazy = toLazy([1, 2, 3, 4, 5, 6]);
+const transformed = map(lazy, n => n * 3);
+const filtered = filter(transformed, n => n % 2 === 0);
+const result = sum(filtered);
+
+console.log(result); // 36
+```
+
+```typescript
+import { toLazy, map, filter, sum } from "lazzy.ts";
+
+// Nested:
 const result = sum(
-  filter(
-    n => n % 2 === 0,
-    map(
-         => n * 3, 
-        toLazy([1, 2, 3, 4, 5, 6])
+    filter(
+        map(toLazy([1, 2, 3, 4, 5, 6]), (n) => n * 3),
+        (n) => n % 2 === 0
     )
-  )
 );
 
 console.log(result); // 36
@@ -75,7 +85,7 @@ const iterator = Lazy.from([1, 2, 3, 4, 5, 6])
   .map(n => n * 3)
   .toIterator();
 
-const result = sum(filter(n => n % 2 === 0, iterator));
+const result = sum(filter(iterator, n => n % 2 === 0));
 
 console.log(result); // 36
 ```
