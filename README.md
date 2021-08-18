@@ -2,7 +2,7 @@
     <img src="/assets/images/lazy-corgi.png" />
 </p>
 
-<h1 align="center" style="margin-top: 6px">Lazzy.ts</h1>
+<h1 align="center">Lazzy.ts</h1>
 
 <p align="center">
 Fast, lightweight and easy to use typescript library for lazy operations with iterable objects.
