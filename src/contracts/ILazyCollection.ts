@@ -37,6 +37,7 @@ export interface ILazyCollection<T, R, N> {
     //#endregion
 
     //#region Consumers
+    every(predicate: (value: T, index: number) => boolean): boolean;
     first(predicate: (value: T) => boolean): T | undefined;
     firstWithIndex(predicate: (value: T) => boolean): [T | undefined, number];
     last(predicate: (value: T) => boolean): T | undefined;

@@ -54,6 +54,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         //#endregion
 
         //#region Consumers
+        every: (predicate: (value: T, index: number) => boolean) => γ.every(source, predicate),
         first: (predicate: (value: T) => boolean): T | undefined => γ.first(source, predicate),
         firstWithIndex: (predicate: (value: T) => boolean): [T | undefined, number] => γ.firstWithIndex(source, predicate),
         last: (predicate: (value: T) => boolean): T | undefined => γ.last(source, predicate),
