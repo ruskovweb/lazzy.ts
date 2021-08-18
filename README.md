@@ -1,8 +1,18 @@
-# Lazzy.ts 
+<p align="center">
+    <img src="/assets/images/lazy-corgi.png" />
+</p>
+
+<h1 align="center" style="margin-top: 6px">Lazzy.ts</h1>
+
+<p align="center">
+Fast, lightweight and easy to use typescript library for lazy operations with iterable objects.
+</p>
+
+<div align="center" >
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ruskovweb/lazzy.ts/Node.js%20CI) ![npm](https://img.shields.io/npm/v/lazzy.ts)  ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ruskovweb/lazzy.ts?include_prereleases) ![GitHub](https://img.shields.io/github/license/ruskovweb/lazzy.ts) ![GitHub repo size](https://img.shields.io/github/repo-size/ruskovweb/lazzy.ts) ![npm bundle size](https://img.shields.io/bundlephobia/min/lazzy.ts?color=important)
 
-**Lazzy.ts** is an easy to use, fast and lightweight typescript library, without any dependencies, which provides an easy way to work lazy with all kinds of iterable objects.
+</div>
 
 ## Installation
 
