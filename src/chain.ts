@@ -39,6 +39,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         forEach: (fun: (v: T, i: number) => void): ILazyCollection<T, R | undefined, undefined> => chain(λ.forEach(source, fun)),
         pair: (): ILazyCollection<[T, T], R, N> => chain(λ.pair(source)),
         spread: (): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined> => chain(λ.spread(source)),
+        splice: (start: number, deleteCount?: number | undefined, ...items: T[]): ILazyCollection<T, T[], N> => chain(λ.splice(source, start, deleteCount, ...items)), 
         zip: <T2, TResult>(iterator2: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N> =>
             chain(λ.zip(source, iterator2, resultSelector)),
         feed: <R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, undefined, undefined> => chain(λ.feed(source, into)),

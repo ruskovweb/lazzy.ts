@@ -28,6 +28,7 @@ export interface ILazyCollection<T, R, N> {
     forEach(fun: (v: T, i: number) => void): ILazyCollection<T, R | undefined, undefined>;
     pair(): ILazyCollection<[T, T], R, N>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
+    splice(start: number, deleteCount?: number | undefined, ...items: T[]): ILazyCollection<T, T[], N>;
     zip<T2, TResult>(iterator: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N>;
     intercept<C>(interceptors: Interceptors<C, T, R>, context: C): ILazyCollection<T, R, N>;
     feed<R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, undefined, undefined>;

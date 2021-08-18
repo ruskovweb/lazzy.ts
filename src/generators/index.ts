@@ -23,6 +23,7 @@ export * from "./range";
 export * from "./repeat";
 export * from "./skip";
 export * from "./skipWhile";
+export * from "./splice";
 export * from "./spread";
 export * from "./take";
 export * from "./takeWhile";
