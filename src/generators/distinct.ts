@@ -1,4 +1,16 @@
-import { getPrimitiveSelector, Primitive } from "../common/helpers";
+import { InvalidArgumentsMessage, isPrimitive, Primitive } from "../common/helpers";
+
+export function getPrimitiveSelector<T>(value: T, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]) {
+    if (isPrimitive(value)) {
+        return (v: Primitive): Primitive => v;
+    } 
+    
+    if (select[0] !== undefined) {
+        return select[0];
+    }
+
+    throw new TypeError(InvalidArgumentsMessage);
+}
 
 export function* distinct<T, R, N>(iterator: Iterator<T, R, N>, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): Generator<T, R, undefined> {
     let x = iterator.next();

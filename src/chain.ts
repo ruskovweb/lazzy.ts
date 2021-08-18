@@ -1,4 +1,4 @@
-import { Depth, Primitive } from "./common";
+import { Depth, Primitive, Select } from "./common";
 import { ILazyCollection } from "./contracts";
 import * as λ from "./generators";
 import * as γ from "./consumers";
@@ -76,7 +76,7 @@ export function chain<T, R, N>(iterator: Iterator<T, R, N>): ILazyCollection<T, 
         toWeakMap: <K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V> => γ.toWeakMap(select, iterator),
         min: (...select: T extends number ? [undefined?] : [(value: T) => number]): number => γ.min(iterator, ...select),
         max: (...select: T extends number ? [undefined?] : [(value: T) => number]): number => γ.max(iterator, ...select),
-        join: (separator: string, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): string => γ.join(iterator, separator, ...select),
+        join: (separator: string, ...select: Select<T, Primitive>): string => γ.join(iterator, separator, ...select),
         //#endregion
     };
 }

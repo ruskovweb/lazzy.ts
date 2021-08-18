@@ -1,4 +1,4 @@
-import { Depth, Primitive } from "../common/helpers";
+import { Depth, Primitive, Select } from "../common/helpers";
 import { Interceptors } from "../generators/intercept";
 
 export interface ILazyCollection<T, R, N> {
@@ -59,6 +59,6 @@ export interface ILazyCollection<T, R, N> {
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V>;
     min(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
     max(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
-    join(separator: string, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): string;
+    join(separator: string, ...select: Select<T, Primitive>): string;
     //#endregion
 }

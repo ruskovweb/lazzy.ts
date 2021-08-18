@@ -21,8 +21,8 @@ You have several options:
 import Lazy from "lazzy.ts";
 
 const sum = Lazy.from([1, 2, 3, 4, 5, 6])
-  .map((n) => n * 3)
-  .filter((n) => n % 2 === 0)
+  .map(n => n * 3)
+  .filter(n => n % 2 === 0)
   .sum();
 
 console.log(sum); // 36
@@ -34,9 +34,9 @@ import { toLazy, map, filter, sum } from "lazzy.ts";
 
 const result = sum(
   filter(
-    (n) => n % 2 === 0,
+    n => n % 2 === 0,
     map(
-        (n) => n * 3, 
+         => n * 3, 
         toLazy([1, 2, 3, 4, 5, 6])
     )
   )
@@ -50,10 +50,10 @@ console.log(result); // 36
 import Lazy, { filter, sum } from "lazzy.ts";
 
 const iterator = Lazy.from([1, 2, 3, 4, 5, 6])
-  .map((n) => n * 3)
+  .map(n => n * 3)
   .toIterator();
 
-const result = sum(filter((n) => n % 2 === 0, iterator));
+const result = sum(filter(n => n % 2 === 0, iterator));
 
 console.log(result); // 36
 ```

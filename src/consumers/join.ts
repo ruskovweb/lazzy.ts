@@ -1,17 +1,36 @@
-import { getPrimitiveSelector, Primitive } from "../common/helpers";
+import { InvalidArgumentsMessage, isPrimitive, Primitive, Select } from "../common";
 
-export function join<T, R, N>(iterator: Iterator<T, R, N>, separator: string, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): string {
+type ReturnType<T> = ((value: T) => Primitive) | ((value: Primitive) => Primitive);
+
+function getPrimitiveSelector<T>(value: T, ...select: Select<T, Primitive>): ReturnType<T> {
+    if (isPrimitive(value)) {
+        return (v: Primitive): Primitive => v;
+    } 
+    
+    if (select[0] !== undefined) {
+        return select[0];
+    }
+
+    if ((value as any).toString !== Object.prototype.toString) {
+        return (v: Primitive): Primitive => v.toString();
+    }
+
+    throw new TypeError(InvalidArgumentsMessage);
+}
+
+export function join<T, R, N>(iterator: Iterator<T, R, N>, separator: string, ...select: Select<T, Primitive>): string {
+    let result = "";
     let x = iterator.next();
-    let sb = "";
+    
     const selector = getPrimitiveSelector(x.value, ...select);
 
     while (x.done !== true) {
-        sb += selector(x.value as T & string).toString();
+        result += selector(x.value as T & string);
         x = iterator.next();
         if (x.done !== true) {
-            sb += separator;
+            result += separator;
         }
     }
 
-    return sb;
+    return result;
 }

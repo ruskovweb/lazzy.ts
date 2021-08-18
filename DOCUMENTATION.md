@@ -648,9 +648,12 @@ Here you can see all the functions and how they work:
 ---
 
 ### reduce();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Executes a user-supplied “reducer” callback function on each element of the sequence, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the sequence is a single value.
+- **params**:
+  - `reducer: (value: T, accumulator: U) => U`
+  - `initial: U`
+- **returns**: 
+  - `value: U`
 
 ```typescript
 
@@ -663,12 +666,52 @@ Here you can see all the functions and how they work:
 ---
 
 ### join();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Concatenates the elements of a sequence or the members, using the specified separator between each element or member. If the sequence contains objects, you should use the second parameter 'select' to choose a member.
+- **params**: 
+  - `separator: string`
+  - `select?: (value: T) => string | number | boolean` 
+- **returns**: 
+  - `value: string`
 
 ```typescript
+// If you work with primitive types you just need to pass a separator as an argument:
+const result = Lazy.from([1, 2, 3]).join(", ");
+console.log(result); // "1, 2, 3"
+```
 
+```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // uncomment these lines to test the second approach
+    // toString(): string {
+    //     return `Name: ${this.name}, Age: ${this.age}`;
+    // }
+}
+
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 36),
+    new Person("Jonathan", 30),
+];
+
+// If you work with more complicated types then you are obliged to pass a selector function, 
+// which selects some member of primitive type. 
+const result = Lazy.from(people).join(", ", (person) => person.name);
+console.log(result) // "Josh, Michael, Jonathan"
+
+// If the type has 'toString' method, then you can omit the 'selector' function.
+// But if you want, you can still use it like the example above.
+
+// uncomment these lines to test this approach
+// const result = Lazy.from(people).join("; ");
+// console.log(result) // "Name: Josh, Age: 25; Name: Michael, Age: 36; Name: Jonathan, Age: 30;"
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -709,8 +752,10 @@ Here you can see all the functions and how they work:
 
 ### includes();
 - **description**: Determines whether an interable includes a certain value among its entries, returning true or false as appropriate. 
-- **params**: predicate: (value: T) => boolean
-- **returns**: resutl: boolean
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `result: boolean`
 
 ```typescript
 const value = Lazy
@@ -735,9 +780,11 @@ console.log(value); // false
 ---
 
 ### indexOf();
-- **description**: Returns the first index at which a given element can be found in the stream, or -1 if it is not present.
-- **params**: predicate: (value: T) => boolean
-- **returns**: index: number
+- **description**: Returns the first index of a sequence that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `index: number`
 
 ```typescript
 const value = Lazy
@@ -763,9 +810,11 @@ console.log(value); // -1
 ---
 
 ### lastIndexOf();
-- **description**: Searches for the last element which matches the predicate and returns the index of that element.
-- **params**: predicate: (value: T) => boolean
-- **returns**: index: number
+- **description**: Returns the last index of a sequence that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `index: number`
 
 ```typescript
 const value = Lazy
@@ -791,9 +840,11 @@ console.log(value); // -1
 ---
 
 ### first();
-- **description**: Searches for the first element which matches the predicate and returns it.
-- **params**: predicate: (value: T) => boolean
-- **returns**: value: T | undefined
+- **description**: Returns the first element of a sequence that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `value: T | undefined`
 
 ```typescript
 const value = Lazy
@@ -819,9 +870,11 @@ console.log(value); // undefined
 ---
 
 ### firstWithIndex();
-- **description**: Searches for the first element which matches the predicate and returns a tuple **[value, index]**. 
-- **params**: predicate: (value: T) => boolean
-- **returns**: tuple: [T | undefined, number]
+- **description**: Returns the first element of a sequence, and it's index, (a tuple **[element, index]**) that satisfies a specified condition. 
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `tuple: [T | undefined, number]`
 
 ```typescript
 const [value, index] = Lazy
@@ -849,9 +902,11 @@ console.log(index); // -1
 ---
 
 ### last();
-- **description**: Searches for the last element which matches the predicate and returns it.
-- **params**: predicate: (value: T) => boolean
-- **returns**: value: T | undefined
+- **description**: Returns the last element of a sequence that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `value: T | undefined`
 
 ```typescript
 const value = Lazy
@@ -877,9 +932,11 @@ console.log(value); // undefined
 ---
 
 ### lastWithIndex();
-- **description**: Searches for the last element which matches the predicate and returns a tuple **[value, index]**. 
-- **params**: predicate: (value: T) => boolean
-- **returns**: tuple: [T | undefined, number]
+- **description**: Returns the last element of a sequence, and it's index, (a tuple **[element, index]**) that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `tuple: [T | undefined, number]`
 
 ```typescript
 const [value, index] = Lazy
@@ -890,7 +947,7 @@ console.log(value); // "Jonathan"
 console.log(index); // 2
 ``` 
 
-If the searched value is not found then it will return **[undefined, -1]**.
+If the element is not found then it will return **[undefined, -1]**.
 ```typescript
 const [value, index] = Lazy
     .from(["Josh", "Michael", "Jonathan", "Bob"])
@@ -908,8 +965,10 @@ console.log(index); // -1
 
 ### run();
 - **description:** All generators are executed when they are consumed. With this function you can consume the generator, without producing a value. In other words - executes the generator.
-- **params:** -
-- **returns:** void
+- **params:** 
+  - `no parameters`
+- **returns:** 
+  - `void`
 
 ```typescript
 // At this point the generator is not executed. We have to consume it.
