@@ -22,6 +22,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
             }
             return x.value;
         },
+        at: (index: number) => chain(λ.at(source, index)),
         chunk: (size: number): ILazyCollection<T[], R, N> => chain(λ.chunk(source, size)),
         concat: (...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined> => chain(λ.concat(source, ...iterators)),
         append: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.append(source, ...iterables)),

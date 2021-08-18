@@ -11,6 +11,7 @@ export interface ILazyCollection<T, R, N> {
      */
     lazyChunk(size: number): Generator<ILazyCollection<T, void, unknown>, R, N>;
 
+    at(index: number): ILazyCollection<T, R, N>;
     chunk(size: number): ILazyCollection<T[], R, N>;
     concat(...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined>;
     append(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
