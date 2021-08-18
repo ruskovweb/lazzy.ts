@@ -558,12 +558,35 @@ Here you can see all the functions and how they work:
 ---
 
 ### toIterator();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Returns the iterator from an ILazyCollection.
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - `Iterator<T, R, N>`
 
 ```typescript
+// If you want you can get the iterator and perform some custom operations.
+// In this example we will print the values.
+const iterator = Lazy.generators.range().take(5).toIterator();
 
+function printValues<T, R, N>(iterator: Iterator<T, R, N>): void {
+  let x = iterator.next();
+  while (x.done !== true) {
+    console.log(x.value);
+    x = iterator.next();
+  }
+}
+
+printValues(iterator);
+
+/* output:
+0
+1
+2
+3
+4
+5
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -573,12 +596,17 @@ Here you can see all the functions and how they work:
 ---
 
 ### toArray();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Creates an array from an ILazyCollection.
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - array: `Array<T>`
 
 ```typescript
-
+// With the 'range' method we generate the numbers from 1 to 4.
+// Then we convert them to an array.
+const result = Lazy.generators.range({ from: 1, to: 4 }).toArray();
+console.log(result); // [1, 2, 3, 4]
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -588,12 +616,45 @@ Here you can see all the functions and how they work:
 ---
 
 ### toMap();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Creates a map from an ILazyCollection.
+- **params**: 
+  - `select: (value: T) => [K, V]`
+- **returns**: 
+  - `map: Map<K, V>`
 
 ```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
 
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 36),
+    new Person("Jonathan", 30),
+];
+
+const map = Lazy.from(people).toMap(person => [person.name, person]);
+
+console.log(map);
+/* output:
+Map {}
+    Josh: Person
+    Michael: Person
+    Jonathan: Person
+*/
+
+console.log(map.get("Josh"));
+/* output:
+Person {}
+    name: "Josh"
+    age: 25
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -603,12 +664,23 @@ Here you can see all the functions and how they work:
 ---
 
 ### toSet();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Creates a set from an ILazyCollection.
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - `set: Set<T>`
 
 ```typescript
+const set = Lazy.from([1, 2, 3, 2, 4, 3]).toSet();
+console.log(set);
 
+/* output:
+Set {}
+    0: 1
+    1: 2
+    2: 3
+    3: 4
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -656,7 +728,10 @@ Here you can see all the functions and how they work:
   - `value: U`
 
 ```typescript
+const result = Lazy.from([1, 2, 3, 4])
+  .reduce((prev, next) => prev + next, 0);
 
+console.log(result); // 10
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -666,7 +741,7 @@ Here you can see all the functions and how they work:
 ---
 
 ### join();
-- **description**: Concatenates the elements of a sequence or the members, using the specified separator between each element or member. If the sequence contains objects, you should use the second parameter 'select' to choose a member.
+- **description**: Concatenates the elements of a sequence or the members, using the specified separator between each element or member. If the sequence contains objects, you must use the second parameter 'select' to choose a member.
 - **params**: 
   - `separator: string`
   - `select?: (value: T) => string | number | boolean` 
