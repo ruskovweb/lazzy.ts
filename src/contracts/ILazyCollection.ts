@@ -16,6 +16,7 @@ export interface ILazyCollection<T, R, N> {
     append(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     distinct(...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;
+    fill(value: T, start?: number, end?: number): ILazyCollection<T, R, N>;
     filter(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
     filterWithIndex(predicate: (value: T) => boolean): ILazyCollection<[T, number], R | undefined, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
