@@ -1,4 +1,3 @@
-export * from "./accumulate";
 export * from "./append";
 export * from "./chunk";
 export * from "./circular";
