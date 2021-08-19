@@ -14,12 +14,10 @@ const Lazy: ILazy = {
         }
         return chain(source);
     },
-    generators: {
-        range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
-        randomInt: (lessThan: number): ILazyCollection<number, undefined, undefined> => chain(λ.randomInt(lessThan)),
-        circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
-    },
     generate: <T, R, N> (func: () => T): ILazyCollection<T, R | undefined, N> => chain(λ.generate(func)),
+    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
+    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
+    randomInt: (lessThan: number): ILazyCollection<number, undefined, undefined> => chain(λ.randomInt(lessThan)),
 };
 
 export default Lazy;
