@@ -44,7 +44,7 @@ export interface ILazyCollection<T, R, N> {
     includes(predicate: (value: T) => boolean): boolean;
     indexOf(predicate: (value: T) => boolean): number;
     join(separator: string, ...select: Select<T, Primitive>): string;
-    last(predicate: (value: T) => boolean): T | undefined;
+    last(predicate?: (value: T) => boolean): T | undefined;
     lastIndexOf(predicate: (value: T) => boolean): number;
     lastWithIndex(predicate: (value: T) => boolean): [T | undefined, number];
     max(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
