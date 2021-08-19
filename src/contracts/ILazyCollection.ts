@@ -57,6 +57,7 @@ export interface ILazyCollection<T, R, N> {
     toWeakSet<K extends object>(...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K>;
     toMap<K, V>(select: (value: T) => [K, V]): Map<K, V>;
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V>;
+    average(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
     min(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
     max(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
     join(separator: string, ...select: Select<T, Primitive>): string;
