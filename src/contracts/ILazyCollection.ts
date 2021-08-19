@@ -8,6 +8,7 @@ export interface ILazyCollection<T, R, N> {
     append(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     chunk(size: number): ILazyCollection<T[], R, N>;
     concat(...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined>;
+    custom<T2, R2, N2>(generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>): ILazyCollection<T2, R2, N2>;
     distinct(...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;
     feed<R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, undefined, undefined>;
     filter(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
