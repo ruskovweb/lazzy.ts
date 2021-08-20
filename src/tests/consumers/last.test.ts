@@ -2,6 +2,11 @@ import { expect } from "chai";
 import Lazy from "../..";
 
 describe("ƒ last()", function () {
+    it("should get the last element of a sequence if we omit the predicate", function() {
+        const result = Lazy.from([1, 2, 3, 4]).last();
+        expect(result).to.be.equal(4);
+    });
+
     it("should get the last even number", function () {
         const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).last((n) => n % 2 === 0);
         expect(result).to.be.eql(10);

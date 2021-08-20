@@ -7,13 +7,13 @@ export function average<T, R, N>(iterator: Iterator<T, R, N>, ...select: T exten
     }
     const selector = getNumericSelector(x.value, ...select);
 
-    let c = 0;
+    let count = 0;
     let totalSum = 0;
     while (x.done !== true) {
         totalSum += selector(x.value as T & number);
         x = iterator.next();
-        c++;
+        count++;
     }
 
-    return totalSum / c;
+    return totalSum / count;
 }
