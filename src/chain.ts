@@ -57,6 +57,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         //#region Consumers
         average: (...select: T extends number ? [undefined?] : [(value: T) => number]): number => γ.average(source, ...select),
         count: (): number => γ.count(source),
+        every: (predicate: (value: T, index: number) => boolean) => γ.every(source, predicate),
         first: (predicate?: (value: T) => boolean): T | undefined => γ.first(source, predicate),
         firstWithIndex: (predicate: (value: T) => boolean): [T | undefined, number] => γ.firstWithIndex(source, predicate),
         includes: (predicate: (value: T) => boolean): boolean => γ.includes(source, predicate),

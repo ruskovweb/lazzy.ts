@@ -1,5 +1,6 @@
 export * from "./average";
 export * from "./count";
+export * from "./every";
 export * from "./first";
 export * from "./firstWithIndex";
 export * from "./includes";

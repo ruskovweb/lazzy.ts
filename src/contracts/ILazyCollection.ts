@@ -40,6 +40,7 @@ export interface ILazyCollection<T, R, N> {
     //#region Consumers
     average(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
     count(): number;
+    every(predicate: (value: T, index: number) => boolean): boolean;
     first(predicate?: (value: T) => boolean): T | undefined;
     firstWithIndex(predicate: (value: T) => boolean): [T | undefined, number];
     includes(predicate: (value: T) => boolean): boolean;

@@ -516,6 +516,25 @@ console.log(value); // "Hello, Michael!"
 
 ---
 
+### every();
+- **description**: The every() method tests whether all elements in a the sequence satisfy the condition.
+- **params**: predicate: (value: T, index: number) => boolean
+- **returns**: result: boolean
+
+```typescript
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).every(n => n <= 10);
+console.log(result); // true
+
+const result = Lazy.from([1, 2, 3, 4, 5, 11, 6, 7, 8, 9, 10]).every(n => n <= 10);
+console.log(result); // false
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 ### min();
 - **description**: Coming soon...
 - **params**: -
