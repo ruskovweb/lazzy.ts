@@ -6,5 +6,6 @@ export interface ILazy {
     generate: <T> (func: () => T) => ILazyCollection<T, undefined, undefined>;
     range(parameters?: Partial<RangeParams>): ILazyCollection<number, undefined, undefined>;
     circular<T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined>;
+    randomFrom<T>(array: T[]): ILazyCollection<T, never, never>;
     randomInt(lessThan: number): ILazyCollection<number, undefined, undefined>;
 }
