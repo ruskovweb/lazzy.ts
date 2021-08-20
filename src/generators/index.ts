@@ -1,6 +1,5 @@
-export * from "./at";
-export * from "./accumulate";
 export * from "./append";
+export * from "./at";
 export * from "./chunk";
 export * from "./circular";
 export * from "./concat";
@@ -19,7 +18,7 @@ export * from "./lazyChunk";
 export * from "./map";
 export * from "./pair";
 export * from "./prepend";
-export * from "./randomInt";
+export * from "./random";
 export * from "./range";
 export * from "./repeat";
 export * from "./skip";

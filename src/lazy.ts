@@ -8,19 +8,16 @@ const isIterable = <U, T extends Iterable<U>>(it: T | unknown): it is T extends 
 };
 
 const Lazy: ILazy = {
+    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
     from: <T, R, N>(source: Iterable<T> | Iterator<T, R, N>): ILazyCollection<T, R | undefined, N | undefined> => {
         if (isIterable(source)) {
             return chain(λ.toLazy(source));
         }
         return chain(source);
     },
-    generators: {
-        range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
-        randomInt: (lessThan: number): ILazyCollection<number, undefined, undefined> => chain(λ.randomInt(lessThan)),
-        circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
-        accumulate: (initial?: number): Generator<number, undefined, number> => λ.accumulate(initial),
-    },
     generate: <T, R, N> (func: () => T): ILazyCollection<T, R | undefined, N> => chain(λ.generate(func)),
+    random: (parameters?: Partial<λ.RandomIntParams>): ILazyCollection<number, undefined, undefined> => chain(λ.random(parameters)),
+    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
 };
 
 export default Lazy;
