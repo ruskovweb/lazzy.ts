@@ -17,7 +17,7 @@ export * from "./lazyChunk";
 export * from "./map";
 export * from "./pair";
 export * from "./prepend";
-export * from "./randomInt";
+export * from "./random";
 export * from "./range";
 export * from "./repeat";
 export * from "./skip";
