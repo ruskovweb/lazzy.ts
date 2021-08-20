@@ -6,6 +6,7 @@ export interface ILazyCollection<T, R, N> {
 
     //#region Generators
     append(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
+    at(index: number): ILazyCollection<T, R, N>;
     chunk(size: number): ILazyCollection<T[], R, N>;
     concat(...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined>;
     distinct(...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;

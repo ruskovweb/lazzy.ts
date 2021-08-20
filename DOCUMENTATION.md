@@ -47,21 +47,6 @@ Here you can see all the functions and how they work:
 
 ---
 
-### accumulate();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
-
-```typescript
-
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
 ### generate();
 - **description**: Coming soon...
 - **params**: -
@@ -84,6 +69,40 @@ Here you can see all the functions and how they work:
 
 ```typescript
 
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+### at();
+- **description**: The at() method takes an integer value and returns the item at that index. If the index is outside the bounds of the sequence then 'undefined' is returned.
+- **params**: index: number
+- **returns**: lazyCollection: ILazyCollection<T, R, N>
+
+```typescript
+const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).at(1).first();
+console.log(value); // "Michael"
+
+const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).at(-1).first();
+console.log(value); // undefined
+
+const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).at(4).first();
+console.log(value); // undefined
+```
+
+Note that the 'at' function is a generator. This means that you should use some of the consumers or you can continue to chain the other generator functions. 
+In the above examples we use the 'first()' method to consume the value.
+
+```typescript
+// You can continue the chain like this:
+const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"])
+    .at(1)
+    .map(name => `Hello, ${name}!`)
+    .first();
+console.log(value); // "Hello, Michael!"
 ```
 
 <p align='right' style='font-size: 10px'>
