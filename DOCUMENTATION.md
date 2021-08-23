@@ -634,12 +634,36 @@ console.log(result); // false
 ---
 
 ### min();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Returns the entry with lowest-valued number of the sequence. If the sequence contains objects, then you should select some member of a numeric type.
+- **params**: 
+  - selector?: (value: T) => number
+- **returns**: 
+  - min: number
 
 ```typescript
+const min = Lazy.from([1, 2, 3, 4, 5, 6, -5, 7, 8, 9, 10]).min();
+console.log(min); // -5
+```
 
+```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 35),
+    new Person("Jonathan", 30),
+];
+
+const person = Lazy.from(people).min(p => p.age);
+console.log(person); // 25
 ```
 
 <p align='right' style='font-size: 10px'>
