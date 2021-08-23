@@ -834,11 +834,30 @@ console.log(weakMap.get(people[1])); // 36
 
 ### toWeakSet();
 - **description**: Creates a weak set from an ILazyCollection.
-- **params**: -
-- **returns**: -
+- **params**: 
+  - `selector: (value: T) => Key`
+- **returns**: 
+  - `weakSet: WeakSet<T>`
 
 ```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
 
+const people = [
+    new Person("Michael", 25),
+    new Person("Michael", 36),
+    new Person("Michael", 40),
+];
+
+const set = Lazy.from(people).toWeakSet();
+console.log(set.get(people[1]).age); // 36
 ```
 
 <p align='right' style='font-size: 10px'>
