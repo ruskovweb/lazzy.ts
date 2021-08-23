@@ -72,12 +72,16 @@ Notes **(IMPORTANT)**:
 ---
 
 ### circular();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Generates an infinitely repeating sequence of values.
+- **params**: values: Iterable<T>
+- **returns**: Generator<T, undefined, undefined>
 
 ```typescript
+const result = Lazy.circular([1, 2, 3, 4]).take(8).toArray();
+console.log(result) // [1, 2, 3, 4, 1, 2, 3, 4];
 
+const result = Lazy.circular([1, 2]).take(8).toArray();
+console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 ```
 
 <p align='right' style='font-size: 10px'>
