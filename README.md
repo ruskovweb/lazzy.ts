@@ -194,7 +194,7 @@ We have a bunch of lazy functions that you can see here!
 
 -   **Producing infinite count of values:**
     -   [ƒ range();](DOCUMENTATION.md#range)
-    -   [ƒ randomInt();](DOCUMENTATION.md#randomint)
+    -   [ƒ random();](DOCUMENTATION.md#random)
     -   [ƒ circular();](DOCUMENTATION.md#circular)
     -   [ƒ accumulate();](DOCUMENTATION.md#accumulate)
     -   [ƒ generate();](DOCUMENTATION.md#generate)

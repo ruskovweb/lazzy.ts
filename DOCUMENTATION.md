@@ -17,7 +17,7 @@ Here you can see all the functions and how they work:
 
 ---
 
-### randomInt();
+### random();
 - **description**: Coming soon...
 - **params**: -
 - **returns**: -

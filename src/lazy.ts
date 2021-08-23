@@ -16,7 +16,7 @@ const Lazy: ILazy = {
         return chain(source);
     },
     generate: <T, R, N> (func: () => T): ILazyCollection<T, R | undefined, N> => chain(λ.generate(func)),
-    random: (parameters?: Partial<λ.RandomIntParams>): ILazyCollection<number, undefined, undefined> => chain(λ.random(parameters)),
+    random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, undefined, undefined> => chain(λ.random(parameters)),
     range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
 };
 
