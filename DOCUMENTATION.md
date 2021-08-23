@@ -751,12 +751,36 @@ console.log(sum); // 90
 ---
 
 ### product();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Computes the product of a sequence of numbers. If the sequence contains objects, then you should select some member of a numeric type.
+- **params**: 
+  - selector?: (value: T) => number
+- **returns**: 
+  - product: number
 
 ```typescript
+const product = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).product();
+console.log(product); // 3_628_800;
+```
 
+```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 35),
+    new Person("Jonathan", 30),
+];
+
+const product = Lazy.from(people).product(p => p.age);
+console.log(product); // 26_250
 ```
 
 <p align='right' style='font-size: 10px'>
