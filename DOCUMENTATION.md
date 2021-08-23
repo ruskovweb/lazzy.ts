@@ -28,13 +28,42 @@ console.log(result); // []
 ---
 
 ### random();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Generates an infinite sequence of random floating-point numbers in specific range and precision.
+- **params**: 
+  - `randomParams: { min: number, max: number, precision: number }`
+  - `default: { min: 0, max: Number.MAX_SAFE_INTEGER - 1, precision: 0 }`
+- **returns**: 
+  - `value: Generator<number, undefined, undefined>`
 
 ```typescript
+const result = Lazy.random({ max: 10 }).take(10).toArray();
+console.log(result); // Array of 10 random integers in range [0, 10]
 
+const result = Lazy.random({ min: 10, max: 20 }).take(10).toArray();
+console.log(result); // Array of 10 random integers in range [10-20]
+
+const result = Lazy.random({ min: -20, max: -10 }).take(10).toArray();
+console.log(result); // Array of 10 random integers in range [-20, -10]
 ```
+
+Range:
+- `min: inclusive`
+- `max: exclusive`
+
+Notes **(IMPORTANT)**:
+- If the 'min' value is greater than the 'max' value then they are swapped.
+    ```typescript
+    Lazy.random({ min: 10, max: 1 }).take(10).toArray();
+    // is same as
+    Lazy.random({ min: 1, max: 10 }).take(10).toArray();
+    ```
+
+- If you use a negative 'max' value and small precision you can receive the specified maximum value, although we said that it is exclusive.
+    ```typescript
+    const result = Lazy.random({ min: -2, max: -1, precision: 1 }).take(10).toArray();
+    console.log(result) // The possible values are between -2.0 and -1.0 INCLUSIVE.
+    ```
+    This is possible because the auto generated value can be -1.001 which is less than -1. Here we are in the proper range, but when we round that number to the specified precision, we will receive -1.0, which actually is -1.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
