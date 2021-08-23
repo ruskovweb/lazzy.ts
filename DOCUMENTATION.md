@@ -202,7 +202,7 @@ console.log(value); // "Hello, Michael!"
 - **params**: 
   - size: number
 - **returns**: 
-  - chunks: T[][]
+  - chunks: ILazyCollection<T[], R, N> 
 
 ```typescript
 const chunks = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).chunk(3).toArray();
