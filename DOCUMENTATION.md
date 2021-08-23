@@ -558,12 +558,36 @@ console.log(value); // "Hello, Michael!"
 ---
 
 ### average();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Computes the average value of numeric sequence. If the sequence contains objects, then you should select some member of a numeric type.
+- **params**:
+  - selector?: (value: T) => number
+- **returns**:
+  - average: number
 
 ```typescript
+const result = Lazy.from([1, 2, 3]).average();
+console.log(result); // 2
+```
 
+```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 35),
+    new Person("Jonathan", 30),
+];
+
+const result = Lazy.from([1, 2, 3]).average(p => p.age);
+console.log(result); // 30
 ```
 
 <p align='right' style='font-size: 10px'>
