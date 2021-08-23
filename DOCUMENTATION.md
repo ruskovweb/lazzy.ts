@@ -198,12 +198,15 @@ console.log(value); // "Hello, Michael!"
 ---
 
 ### chunk();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Splits the sequence into multiple chunks of certain size.
+- **params**: 
+  - size: number
+- **returns**: 
+  - chunks: T[][]
 
 ```typescript
-
+const chunks = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).chunk(3).toArray();
+console.log(chunks); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ```
 
 <p align='right' style='font-size: 10px'>
