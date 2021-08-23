@@ -91,12 +91,40 @@ console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 ---
 
 ### generate();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Generates an infinite sequence of values from a custom function.
+- **params**: function: () => T
+- **returns**: Generator<T, undefined, undefined>
 
+Custom generator for infinite sequence of numbers:
 ```typescript
+// We declare an IIFE to create a scope where we can hold the current state of the 'number' variable
+const generator = (function() {
+    let number = 1;
 
+    return function () {
+        return number++;
+    }
+})();
+
+const result = Lazy.generate(generator).take(10).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+The fibonacci number sequence:
+```typescript
+const fibonacci = (function () {
+    let prev = 1, next = 1;
+
+    return function() {
+        const current = prev;
+        prev = next;
+        next += current;
+        return current;
+    }    
+})();
+
+const result = Lazy.generate(fibonacci).take(10).toArray();
+console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ```
 
 <p align='right' style='font-size: 10px'>
