@@ -16,10 +16,18 @@ Fast, lightweight and easy to use typescript library for lazy operations with it
 
 ## Installation
 
-Use the node package manager [npm](https://www.npmjs.com/package/lazzy.ts) to install lazzy.ts.
+You can use one of the following package managers:
+
+- Node package manager [npm](https://www.npmjs.com/package/lazzy.ts):
 
 ```bash
 npm install lazzy.ts
+```
+
+- Yarn package manager [yarn](https://yarnpkg.com/package/lazzy.ts):
+
+```bash
+yarn add lazzy.ts
 ```
 
 ## Try it online!
