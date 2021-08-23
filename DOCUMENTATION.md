@@ -943,12 +943,15 @@ console.log(result) // "Josh, Michael, Jonathan"
 ---
 
 ### partition();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Splits the sequence into two arrays according to certain criteria.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - result: [T[], T[]]
 
 ```typescript
-
+const partition = Lazy.from([1, 2, 3, 4]).partition((n) => n % 2 === 0);
+console.log(partition); // [[2, 4], [1, 3]]
 ```
 
 <p align='right' style='font-size: 10px'>
