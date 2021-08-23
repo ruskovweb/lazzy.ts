@@ -1,24 +1,23 @@
-export interface RandomIntParams {
-    min: number;
-    max: number;
-    precision: Precision;
-}
-
 type Enumerate<N extends number, RESULT extends number[] = []> = 
     RESULT["length"] extends N
     ? RESULT[number]
     : Enumerate<N, [...RESULT, RESULT["length"]]>;
 
 type Range<FROM extends number, TO extends number> = Exclude<Enumerate<TO>, Enumerate<FROM>>;
-type Precision = Range<0, 17>;
 
-const rangeDefaults: RandomIntParams = {
+export interface RandomParams {
+    min: number;
+    max: number;
+    precision: Range<0, 17>;
+}
+
+const rangeDefaults: RandomParams = {
     min: 0,
     max: Number.MAX_SAFE_INTEGER - 1,
     precision: 0
 } as const;
 
-export function* random(parameters?: Partial<RandomIntParams>): Generator<number, undefined, undefined> {
+export function* random(parameters?: Partial<RandomParams>): Generator<number, undefined, undefined> {
     let { min, max, precision } = { ...rangeDefaults, ...parameters };
 
     const tempMax = max;
