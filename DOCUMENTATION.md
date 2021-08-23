@@ -573,12 +573,15 @@ console.log(value); // "Hello, Michael!"
 ---
 
 ### count();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Counts the number of items in the sequence.
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - count: number
 
 ```typescript
-
+const count = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).count();
+console.log(count); // 4
 ```
 
 <p align='right' style='font-size: 10px'>
