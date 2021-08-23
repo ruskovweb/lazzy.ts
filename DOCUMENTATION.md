@@ -212,21 +212,6 @@ console.log(value); // "Hello, Michael!"
 
 ---
 
-### circular();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
-
-```typescript
-
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
 ### concat();
 - **description**: Coming soon...
 - **params**: -
@@ -814,12 +799,31 @@ Set {}
 ---
 
 ### toWeakMap();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Creates a weak map from an ILazyCollection.
+- **params**: 
+  - `selector: (value: T) => [Key, Value]`
+- **returns**: 
+  - `weakMap: WeakMap<T>`
 
 ```typescript
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
 
+const people = [
+    new Person("Michael", 25),
+    new Person("Michael", 36),
+    new Person("Michael", 40),
+];
+
+const weakMap = Lazy.from(people).toWeakMap(p => [p, p.age]);
+console.log(weakMap.get(people[1])); // 36
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -829,7 +833,7 @@ Set {}
 ---
 
 ### toWeakSet();
-- **description**: Coming soon...
+- **description**: Creates a weak set from an ILazyCollection.
 - **params**: -
 - **returns**: -
 
