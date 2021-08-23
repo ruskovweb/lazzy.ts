@@ -134,12 +134,27 @@ console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ---
 
 ### append();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Inserts a set of values after the initial sequence.
+- **params**: 
+  - `values: [...Iterable<T>]`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, N>`
 
 ```typescript
+const result = Lazy.from([1, 2, 3, 4, 5]).append([6, 7, 8, 9, 10]).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
 
+You can pass multiple iterable objects:
+```typescript
+const result = Lazy.from([1, 2, 3, 4, 5]).append([6, 7], new Set([8, 9, 10])).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+Or you can chain them:
+```typescript
+const result = Lazy.from([1, 2, 3, 4, 5]).append([6, 7]).append([8, 9, 10]).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 <p align='right' style='font-size: 10px'>
