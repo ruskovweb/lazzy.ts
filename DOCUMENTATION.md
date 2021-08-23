@@ -3,12 +3,22 @@
 Here you can see all the functions and how they work:
 
 ### range()
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Generates an infinite sequence of numbers in specified range and step.
+- **params**: rangeParams: { from: number, to: number, step: number }
+- **returns**: value: Generator<number, undefined, undefined>
 
 ```typescript
+// In increasing order
+const result = Lazy.range({ from: 1, to: 10, step: 1 }).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+// In decreasing order
+const result = Lazy.range({ from: -1, to: -10, step: -1 }).toArray();
+console.log(result); // [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
+
+// If you pass invalid arguments you will receive an empty sequence
+const result = Lazy.range({ from: 1, to: 10, step: -1 }).toArray();
+console.log(result); // []
 ```
 
 <p align='right' style='font-size: 10px'>
