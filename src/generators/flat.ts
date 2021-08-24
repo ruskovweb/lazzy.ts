@@ -1,4 +1,4 @@
-import { Depth } from "../common/helpers";
+import { Depth, FlatArray } from "../common/helpers";
 import { toLazy } from "./toLazy";
 
 export function* flat<T, R, N, D extends Depth = 20>(iterator: Iterator<T, R, N>, depth: D = 20 as D): Generator<FlatArray<T, D>, R, N> {

@@ -365,12 +365,28 @@ console.log(result);
 ---
 
 ### flat();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Creates a new array with all sub-array elements concatenated into it recursively up to the specified depth
+- **params**:
+  - `depth?: number`
+- **returns**:
+  - `ILazyCollection<FlatArray<T>, R, N>`
 
 ```typescript
+const array = [[1, 2], 3, [[4], [5, 6]], [7, [[8], 9]]];
+const flatten = Lazy.from(array).flat().toArray();
+console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
 
+```typescript
+const array = [[1, 2], 3, [[4], [5, 6]], [7, [[8], 9]]];
+const flatten = Lazy.from(array).flat(1).toArray();
+console.log(flatten); // [1, 2, 3, [4], [5, 6], 7, [[8], 9]]
+```
+
+```typescript
+const array = [[1, 2], 3, [[4], [5, 6]], [7, [[8], 9]]];
+const flatten = Lazy.from(array).flat(2).toArray();
+console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, [8], 9]
 ```
 
 <p align='right' style='font-size: 10px'>

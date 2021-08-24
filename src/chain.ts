@@ -1,4 +1,4 @@
-import { Depth, Primitive, Select } from "./common";
+import { Depth, Primitive, Select, FlatArray } from "./common";
 import { ILazyCollection } from "./contracts";
 import * as λ from "./generators";
 import * as γ from "./consumers";
