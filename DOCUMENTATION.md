@@ -242,12 +242,55 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ---
 
 ### distinct();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Removes all duplicates from the initial sequence.
+- **params**: 
+  - `selector?: (value: T) => string | number | boolean`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, N>`
+
+You can omit the 'selector' if the sequence contains values of primitive type only:
 
 ```typescript
+const result = Lazy.from([1, 2, 2, 1, 3, 5, 4, 5]).distinct().toArray();
+console.log(result); // [1, 2, 3, 5, 4]
+```
 
+```typescript
+const result = Lazy.from(["a", "b", "a", "c", "b", "e", "c", "g"]).distinct().toArray();
+console.log(result); // ["a", "b", "c", "e", "g"]
+```
+
+If the sequence contains objects, you must pass a 'selector' function as an argument, to select a member of primitive type.
+
+```typescript
+class Person {
+    firstName: string;
+    lastName: string;
+    age: number;
+    
+    constructor(firstName: string, lastName: string, age: number) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+}
+
+const people = [
+    new Person("Josh", "Smith", 25),
+    new Person("Michael", "Garcia", 35),
+    new Person("Josh", "Brown", 48),
+    new Person("Jonathan", "Davis", 30),
+];
+
+const result = Lazy.from(people).distinct((p) => p.firstName).toArray();
+console.log(result); 
+/* 
+  [ 
+    { firstName: "Josh", lastName: "Smith", age: 25 },
+    { firstName: "Michael", lastName: "Garcia", age: 35 },
+    { firstName: "Jonathan", lastName: "Davis", age: 30 },
+  ]
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
