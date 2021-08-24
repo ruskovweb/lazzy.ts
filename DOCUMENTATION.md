@@ -433,12 +433,15 @@ Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`))
 ---
 
 ### indices();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Returns the indices of the elements which pass the test implemented by the provided predicate.
+- **params**:
+  - `predicate: (value: T) => boolean`
+- **returns**:
+  - `lazyCollection: ILazyCollection<number, R, N>`
 
 ```typescript
-
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).indices((n) => n % 2 === 0).toArray();
+console.log(result); // [1, 3, 5, 7, 9];
 ```
 
 <p align='right' style='font-size: 10px'>
