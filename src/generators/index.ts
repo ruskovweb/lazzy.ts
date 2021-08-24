@@ -16,6 +16,7 @@ export * from "./indices";
 export * from "./intercept";
 export * from "./lazyChunk";
 export * from "./map";
+export * from "./orderBy";
 export * from "./pair";
 export * from "./prepend";
 export * from "./random";

@@ -1,4 +1,4 @@
-import { Depth, Primitive, Select } from "./common";
+import { Depth, OptionalComparer, Primitive, Select } from "./common";
 import { ILazyCollection } from "./contracts";
 import * as λ from "./generators";
 import * as γ from "./consumers";
@@ -42,6 +42,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
             return x.value;
         },
         map: <U>(transformer: (v: T) => U): ILazyCollection<U, R | undefined, undefined> => chain(λ.map(source, transformer)),
+        orderBy: (...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined> => chain(λ.orderBy(source, ...comparer)),
         pair: (): ILazyCollection<[T, T], R, N> => chain(λ.pair(source)),
         prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.prepend(source, ...iterables)),
         repeat: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.repeat(source, c)),
