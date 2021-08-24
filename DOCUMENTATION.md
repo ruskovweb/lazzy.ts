@@ -396,12 +396,17 @@ console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, [8], 9]
 ---
 
 ### flatMap();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Returns a new array formed by applying a given callback function to each element of the array, and then flattening the result. It is identical to a map() followed by a flat(). 
+- **params**:
+  - `callback: (currentValue: T, index: number) => V`
+  - `depth: D`
+- **returns**:
+  - lazyCollection: ILazyCollection<FlatArray<V, D>, R, N>
 
 ```typescript
-
+const array = ["it's Sunny in", "", "California"];
+const flatten = Lazy.from(array).flatMap((x) => x.split(" ")).toArray();
+console.log(flatten); // ["it's", "Sunny", "in", "", "California"]
 ```
 
 <p align='right' style='font-size: 10px'>
