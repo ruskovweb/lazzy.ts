@@ -216,12 +216,23 @@ console.log(chunks); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ---
 
 ### concat();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Appends one or more iterators at the end of the initial sequence.
+- **params**: 
+  - `iterators: Array<Iterator<T, R, N>>`
+- **returns**: 
+  - `ILazyCollection<T, R, N>`
 
 ```typescript
+const lazyArray = Lazy.from([6, 7, 8, 9, 10]).toIterator();
+const result = Lazy.from([1, 2, 3, 4, 5]).concat(lazyArray).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+```
 
+```typescript
+const iterator1 = Lazy.range({ from: 5: to: 7 }).toIterator();
+const iterator2 = Lazy.range({ from: 8: to: 10 }).toIterator();
+const result = Lazy.from([1, 2, 3, 4]).concat(iterator1, iterator2).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ```
 
 <p align='right' style='font-size: 10px'>
