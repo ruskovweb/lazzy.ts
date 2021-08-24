@@ -498,21 +498,6 @@ console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 ---
 
-### pair();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
-
-```typescript
-
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
 ### prepend();
 - **description**: Coming soon...
 - **params**: -

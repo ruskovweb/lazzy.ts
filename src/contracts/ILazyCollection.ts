@@ -26,7 +26,6 @@ export interface ILazyCollection<T, R, N> {
      */
     lazyChunk(size: number): Generator<ILazyCollection<T, void, unknown>, R, N>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R | undefined, undefined>;
-    pair(): ILazyCollection<[T, T], R, N>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;
     skip(count: number): ILazyCollection<T, R | undefined, undefined>;

@@ -42,7 +42,6 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
             return x.value;
         },
         map: <U>(transformer: (v: T) => U): ILazyCollection<U, R | undefined, undefined> => chain(λ.map(source, transformer)),
-        pair: (): ILazyCollection<[T, T], R, N> => chain(λ.pair(source)),
         prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.prepend(source, ...iterables)),
         repeat: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.repeat(source, c)),
         skip: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.skip(source, c)),
