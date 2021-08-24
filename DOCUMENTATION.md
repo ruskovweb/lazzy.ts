@@ -136,7 +136,7 @@ console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ### append();
 - **description**: Inserts a set of values after the initial sequence.
 - **params**: 
-  - `values: [...Iterable<T>]`
+  - `iterables: Array<Iterable<T>>`
 - **returns**: 
   - `lazyCollection: ILazyCollection<T, R, N>`
 
@@ -499,12 +499,31 @@ console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ---
 
 ### prepend();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Inserts a set of values before the initial sequence.
+- **params**:
+  - `iterables: Array<Iterable<T>>`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, N>`
 
 ```typescript
+const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7, 8, 9, 10]).toArray();
+console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
+```
 
+```typescript
+const set = new Set([6, 7, 6, 8, 8, 9, 10]);
+const result = Lazy.from([1, 2, 3, 4, 5]).prepend(set).toArray();
+console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
+```
+
+```typescript
+const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7], [8, 9, 10]).toArray();
+console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
+```
+
+```typescript
+const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7]).prepend([8, 9, 10]).toArray();
+console.log(result); // [8, 9, 10, 6, 7, 1, 2, 3, 4, 5]
 ```
 
 <p align='right' style='font-size: 10px'>
