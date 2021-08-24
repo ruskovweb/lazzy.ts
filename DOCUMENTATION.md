@@ -315,12 +315,20 @@ console.log(result);
 ---
 
 ### filter();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Removes all elements which don't pass the test implemented by the provided predicate.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, N>`
 
 ```typescript
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).filter((n) => n % 2 === 0).toArray();
+console.log(result); // [2, 4, 6, 8, 10]
+```
 
+```typescript
+const result = Lazy.from([10, 2, 8, 1, 6, 7, 5, 4, 9]).filter((n) => n <= 5).toArray();
+console.log(result); // [2, 1, 5, 4]
 ```
 
 <p align='right' style='font-size: 10px'>
