@@ -1,4 +1,4 @@
-import { Depth, Primitive, Select } from "../common/helpers";
+import { Depth, Primitive, Select, FlatArray } from "../common/helpers";
 import { Interceptors } from "../generators/intercept";
 
 export interface ILazyCollection<T, R, N> {
