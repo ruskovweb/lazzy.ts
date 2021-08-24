@@ -395,12 +395,20 @@ console.log(result);
 ---
 
 ### forEach();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Executes a provided function once for each element in the sequence and doesn't change the elements in that sequence.
+- **params**: 
+  - `action: (value: T, index: number) => void`
+- **returns**:
+  - `lazyCollection: ILazyCollection<T, R, N>`
 
 ```typescript
+Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`)).run();
 
+/*
+  "Value: ${1}; Index: ${0};"
+  "Value: ${2}; Index: ${1};"
+  "Value: ${3}; Index: ${2};"
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
