@@ -338,12 +338,24 @@ console.log(result); // [2, 1, 5, 4]
 ---
 
 ### filterWithIndex();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Removes all elements which don't pass the test implemented by the provided predicate. Also yields a tuple of the current value and its old index.
+- **params**:
+  - predicate: (value: T) => boolean
+- **returns**:
+  - lazyCollection: ILazyCollection<[T, number], R, N>
 
 ```typescript
-
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).filterWithIndex((n) => n % 2 === 0).toArray();
+console.log(result);
+/* 
+  [
+    [2, 1],
+    [4, 3],
+    [6, 5],
+    [8, 7],
+    [10, 9],
+  ]
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
