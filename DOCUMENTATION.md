@@ -481,12 +481,15 @@ console.log(result); // [1, 3, 5, 7, 9];
 ---
 
 ### map();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Transforms each element in the sequence.
+- **params**: 
+  - `transformer: (v: T) => U`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<U, R, N>`
 
 ```typescript
-
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).map((n) => n * 2).toArray();
+console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ```
 
 <p align='right' style='font-size: 10px'>
