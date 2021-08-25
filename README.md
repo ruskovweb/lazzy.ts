@@ -196,7 +196,6 @@ We have a bunch of lazy functions that you can see here!
     -   [ƒ range();](DOCUMENTATION.md#range)
     -   [ƒ random();](DOCUMENTATION.md#random)
     -   [ƒ circular();](DOCUMENTATION.md#circular)
-    -   [ƒ accumulate();](DOCUMENTATION.md#accumulate)
     -   [ƒ generate();](DOCUMENTATION.md#generate)
 
 -   **Manipulating collections:**
@@ -213,7 +212,6 @@ We have a bunch of lazy functions that you can see here!
     -   [ƒ forEach();](DOCUMENTATION.md#foreach)
     -   [ƒ groupBy();](DOCUMENTATION.md#groupby)
     -   [ƒ indices();](DOCUMENTATION.md#indices)
-    -   [ƒ intercept();](DOCUMENTATION.md#intercept)
     -   [ƒ lazyChunk();](DOCUMENTATION.md#lazychunk)
     -   [ƒ map();](DOCUMENTATION.md#map)
     -   [ƒ prepend();](DOCUMENTATION.md#prepend)

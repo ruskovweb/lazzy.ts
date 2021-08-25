@@ -13,7 +13,6 @@ export * from "./forEach";
 export * from "./generate";
 export * from "./groupBy";
 export * from "./indices";
-export * from "./intercept";
 export * from "./lazyChunk";
 export * from "./map";
 export * from "./prepend";
