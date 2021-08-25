@@ -6,7 +6,7 @@ import * as γ from "./consumers";
 export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R, N> {
     return {
         [Symbol.iterator]: (): Iterator<T, R, N> => source,
-        
+
         //#region Generators
         append: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.append(source, ...iterables)),
         at: (index: number) => chain(λ.at(source, index)),
@@ -48,7 +48,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         spread: (): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined> => chain(λ.spread(source)),
         take: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.take(source, c)),
         takeWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined> => chain(λ.takeWhile(source, predicate)),
-        zip: <T2, TResult>(iterator2: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N> =>
+        zip: <T2, R2, TResult>(iterator2: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, N> =>
             chain(λ.zip(source, iterator2, resultSelector)),
         //#endregion
 
