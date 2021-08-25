@@ -49,7 +49,7 @@ export interface ILazyCollection<T, R, N> {
     sum(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
     count(): number;
     reduce<V>(fun: (value: T, accumulator: V) => V, initial: V): V;
-    uppend(array: T[], equals: (oldElement: T, newElement: T) => boolean): T[];
+    uppend(iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[];
     run(): R;
     toIterator(): Iterator<T, R, N>;
     toArray(): T[];
