@@ -690,12 +690,34 @@ console.log(result); // [1, 2, 3, 4, 5]
 ---
 
 ### toLazy();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Creates a generator from an iterable object.
+- **params**:
+  - `iterable: Iterable<T>`
+- **returns**:
+  - `generator: Generator<T, undefined, undefined> `
 
 ```typescript
+const arr = [1, 2, 3, 4];
+const gen = toLazy(arr);
 
+let x = gen.next();
+while(x.done !== true) {
+  console.log(x.value);
+  x = gen.next();
+}
+
+/* output:
+1
+2
+3
+4
+*/
+```
+
+```typescript
+const arr = [1, 2, 3, 4];
+const totalSum = sum(toLazy(arr));
+console.log(totalSum); // 10
 ```
 
 <p align='right' style='font-size: 10px'>
