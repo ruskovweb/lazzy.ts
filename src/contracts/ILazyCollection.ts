@@ -59,6 +59,6 @@ export interface ILazyCollection<T, R, N> {
     toSet(): Set<T>;
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V>;
     toWeakSet<K extends object>(...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K>;
-    uppend(array: T[], equals: (oldElement: T, newElement: T) => boolean): T[];
+    uppend(iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[];
     //#endregion
 }

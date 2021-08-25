@@ -77,7 +77,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         toSet: (): Set<T> => γ.toSet(source),
         toWeakMap: <K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V> => γ.toWeakMap(source, select),
         toWeakSet: <K extends object>(...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K> => γ.toWeakSet(source, ...select),
-        uppend: (array: T[], equals: (oldElement: T, newElement: T) => boolean): T[] => γ.uppend(source, array, equals),
+        uppend: (iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[] => γ.uppend(source, iterator, equals),
         //#endregion
     };
 }
