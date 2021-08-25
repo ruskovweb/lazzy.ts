@@ -646,12 +646,20 @@ console.log(result); // [6, 7, 8, 9, 10]
 ---
 
 ### spread();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Spreads all values from an array of iterable objects into a single dimensional array.
+- **params**:
+  - `no parameters`
+- **returns**:
+  - `generator: Generator<T extends Iterable<infer U> ? U : T, R, undefined>`
 
 ```typescript
+const spread = Lazy.from(["Hello", ",", " ", "World", "!"]).spread().toArray();
+console.log(spread); // ["H", "e", "l", "l", "o", ",", " ", "W", "o", "r", "l", "d", "!"]
+```
 
+```typescript
+const spread = Lazy.from([ [1, 2, 3], [4, 5, 6], [7, 8] ]).spread().toArray();
+console.log(spread); // [1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
 <p align='right' style='font-size: 10px'>
