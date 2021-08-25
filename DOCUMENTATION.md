@@ -615,7 +615,7 @@ console.log(result); // [6, 7, 8, 9, 10]
 ---
 
 ### skipWhile();
-- **description**: Skips the elements of the sequence while the condition is still true.
+- **description**: Skips elements of the sequence while the condition is still true.
 - **params**:
   - `predicate: (value: T) => boolean`
 - **returns**:
@@ -672,12 +672,15 @@ console.log(result); // [4, 5, 6, 7, 8]
 ---
 
 ### takeWhile();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Takes elements of the sequence while the condition is still true.
+- **params**:
+  - `predicate: (value: T) => boolean`
+- **returns**:
+  - `lazyCollection: ILazyCollection<T, R | undefined, undefined>`
 
 ```typescript
-
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).takeWhile((n) => n <= 5).toArray();
+console.log(result); // [1, 2, 3, 4, 5]
 ```
 
 <p align='right' style='font-size: 10px'>
