@@ -1296,12 +1296,38 @@ console.log(partition); // [[2, 4], [1, 3]]
 ---
 
 ### uppend();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Updates the current sequence and appends new elements simultaneously.
+- **params**:
+  - `array: T[]`
+  - `predicate: (oldElement: T, newElement: T) => boolean`
+- **returns**:
+  - `array: T[]`
+
+Updates the elements from the initial sequence with the new values, which match the predicate.
+Appends the new values which don't match the predicate.
 
 ```typescript
+const database = [
+    { name: "Ivan", age: 20 },
+    { name: "Petar", age: 30 },
+];
 
+const userInput = [
+    { name: "Ivan", age: 40 },
+    { name: "Spas", age: 20 }
+];
+
+const it = Lazy.from(userInput).toIterator();
+const uppended = Lazy.from(database).uppend(it, (oldValue, newValue) => oldValue.name === newValue.name);
+console.log(uppended);
+
+/* output:
+[
+  { name: "Ivan", age: 40 },
+  { name: "Petar", age: 30 },
+  { name: "Spas", age: 20 },
+]
+*/
 ```
 
 <p align='right' style='font-size: 10px'>
