@@ -27,7 +27,7 @@ export interface ILazyCollection<T, R, N> {
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;
     skip(count: number): ILazyCollection<T, R, undefined>;
-    skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, undefined, undefined>;
+    skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
     takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, number, undefined>;
