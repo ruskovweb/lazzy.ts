@@ -47,7 +47,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         skipWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R, undefined> => chain(λ.skipWhile(source, predicate)),
         spread: (): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined> => chain(λ.spread(source)),
         take: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.take(source, c)),
-        takeWhile: (predicate: (value: T) => boolean): ILazyCollection<T, number, undefined> => chain(λ.takeWhile(source, predicate)),
+        takeWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined> => chain(λ.takeWhile(source, predicate)),
         zip: <T2, TResult>(iterator2: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N> =>
             chain(λ.zip(source, iterator2, resultSelector)),
         //#endregion

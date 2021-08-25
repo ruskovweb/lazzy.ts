@@ -30,7 +30,7 @@ export interface ILazyCollection<T, R, N> {
     skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
-    takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, number, undefined>;
+    takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
     zip<T2, TResult>(iterator: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N>;
     //#endregion
 
