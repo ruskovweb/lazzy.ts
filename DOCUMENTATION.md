@@ -574,12 +574,20 @@ console.log(result); // [8, 9, 10, 6, 7, 1, 2, 3, 4, 5]
 ---
 
 ### repeat();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Repeats each value in the sequence by a certain number
+- **params**: 
+  - `count: number`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
+const repeated = Lazy.from([1, 2, 3]).repeat(1).toArray();
+console.log(repeated); // [1, 1, 2, 2, 3, 3]
+```
 
+```typescript
+const repeated = Lazy.from([1, 2, 3]).repeat(2).toArray();
+console.log(repeated); // [1, 1, 1, 2, 2, 2, 3, 3, 3]
 ```
 
 <p align='right' style='font-size: 10px'>
