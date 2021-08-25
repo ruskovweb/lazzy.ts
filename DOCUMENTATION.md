@@ -648,12 +648,21 @@ console.log(result); // [6, 7, 8, 9, 10]
 ---
 
 ### take();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Takes a certain number of elements of the sequence.
+- **params**:
+  - `count: number`
+- **returns**:
+  - `lazyCollection: ILazyCollection<T, R | undefined, undefined> `
 
 ```typescript
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).take(5).toArray();
+console.log(result); // [1, 2, 3, 4, 5]
+```
 
+You can combine it with the 'skip' function:
+```typescript
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).skip(3).take(5).toArray();
+console.log(result); // [4, 5, 6, 7, 8]
 ```
 
 <p align='right' style='font-size: 10px'>
