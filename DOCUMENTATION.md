@@ -439,13 +439,48 @@ Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`))
 ---
 
 ### groupBy();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Groups the elements of the sequence.
+- **params**:
+  - `keySelector: (v: T) => TKey`
+    - A function to extract the key for each element.
+  - `elementSelector: (v: T) => TElement`
+    - A function to map each source element to an element in an Map<TKey, TElement>.
+  - `resultSelector: (key: TKey, elements: TElement[]) => TResult`
+    - A function to create a result value from each group.
+- **returns**:
+  - `lazyCollection: ILazyCollection<TResult, R, N>`
 
 ```typescript
+const usersData = [
+    { name: "Ivan", age: 30 },
+    { name: "Ivan", age: 15 },
+    { name: "Georgi", age: 10 },
+    { name: "Georgi", age: 19 },
+    { name: "Ivan", age: 42 },
+];
 
+const grouped = Lazy.from(usersData)
+    .groupBy(
+        (user) => user.name,
+        (user) => user.age,
+        (key, ages) => ({
+            name: key,
+            average: ages.reduce((prev, cur) => prev + cur, 0) / ages.length,
+        })
+    )
+    .toArray();
+
+console.log(grouped);
+
+/*
+[
+  { name: "Ivan", average: 29 },
+  { name: "Georgi", average: 14.5 },
+]
+*/
 ```
+
+In this example we want to group all people by name and to get the average age.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
