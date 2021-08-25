@@ -727,12 +727,19 @@ console.log(totalSum); // 10
 ---
 
 ### zip();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
+- **params**:
+  - `iterator: Iterator<T2, R, N>`
+  - `resultSelector: (first: T1, second: T2) => TResult`
+- **returns**:
+  - `lazyCollection: ILazyCollection<TResult, R | undefined, N>`
 
 ```typescript
-
+const words = Lazy.from(["one", "two", "three"]).toIterator();
+const zipped = Lazy.from([1, 2, 3, 4])
+  .zip(words, (num, word) => `${num} - ${word}`)
+  .toArray();
+console.log(zipped); // ["1 - one", "2 - two", "3 - three"]
 ```
 
 <p align='right' style='font-size: 10px'>
