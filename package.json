@@ -1,6 +1,6 @@
 {
   "name": "lazzy.ts",
-  "version": "1.0.5",
+  "version": "1.1.5",
   "description": "Fast and lightweight library for lazy operations with iterable objects.",
   "main": "./lib/index.js",
   "types": "lib",
