@@ -2,41 +2,26 @@ import { expect } from "chai";
 import Lazy from "../..";
 
 describe("ƒ uppend()", function () {
-    it("should append only those values that do not exist in the new array", function () {
-        const uppended = Lazy.from([1, 2, 3, 4, 6]).uppend([1, 3, 5, 4, 8], (oldValue, newValue) => oldValue === newValue);
-        expect(uppended).to.be.deep.eq([1, 3, 5, 4, 8, 2, 6]);
-    });
 
-    it("should replace matched records with the new one and should append unmatched records", function () {
-        const old = [
-            { a: "a", b: "c" },
-            { a: "j", b: "b" },
-            { a: "w", b: "c" },
-            { a: "b", b: "c" },
-            { a: "c", b: "q" },
-            { a: "z", b: "z" },
-            { a: "j", b: "r" },
+    it("should append only those values that do not exist in the new array and update the old ones", function () {
+        const database = [
+            { name: "Ivan", age: 20 },
+            { name: "Petar", age: 30 },
         ];
-        const newEntities = [
-            { a: "a", b: "b" },
-            { a: "b", b: "b" },
-            { a: "a", b: "c" },
-            { a: "b", b: "c" },
-            { a: "c", b: "d" },
+
+        const userInput = [
+            { name: "Ivan", age: 40 },
+            { name: "Spas", age: 20 }
         ];
+
         const expected = [
-            { a: "a", b: "c" },
-            { a: "b", b: "c" },
-            { a: "a", b: "c" },
-            { a: "b", b: "c" },
-            { a: "c", b: "q" },
-            { a: "j", b: "b" },
-            { a: "w", b: "c" },
-            { a: "z", b: "z" },
-            { a: "j", b: "r" },
-        ];
+            { name: "Ivan", age: 40 },
+            { name: "Petar", age: 30 },
+            { name: "Spas", age: 20 },
+        ]
 
-        const uppended = Lazy.from(old).uppend(newEntities, (oldValue, newValue) => oldValue.a === newValue.a);
+        const it = Lazy.from(userInput).toIterator();
+        const uppended = Lazy.from(database).uppend(it, (oldValue, newValue) => oldValue.name === newValue.name);
         expect(uppended).to.be.deep.eq(expected);
     });
 });

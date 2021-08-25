@@ -1,15 +1,22 @@
-export function uppend<T, R, N>(iterator: Iterator<T, R, N>, array: T[], predicate: (oldElement: T, newElement: T) => boolean): T[] {
-    const duplicate = [...array];
-    let x = iterator.next();
+export function uppend<T, R, N>(source: Iterator<T, R, N>, newValues: Iterator<T, R, N>, predicate: (oldElement: T, newElement: T) => boolean): T[] {
+    const result: T[] = [];
+
+    let x = source.next();
     while (x.done !== true) {
-        const val = x.value;
-        const index = array.findIndex((value) => predicate(value, val));
-        if (index === -1) {
-            duplicate.push(x.value);
-        } else {
-            duplicate[index] = x.value;
-        }
-        x = iterator.next();
+        result.push(x.value);
+        x = source.next();
     }
-    return duplicate;
+
+    let x2 = newValues.next();
+    while (x2.done !== true) {
+        const val = x2.value;
+        const index = result.findIndex((v) => predicate(v, val));
+        if (index < 0) {
+            result.push(x2.value);
+        } else {
+            result[index] = x2.value;
+        }
+        x2 = newValues.next();
+    }
+    return result;
 }
