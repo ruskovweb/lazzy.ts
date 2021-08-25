@@ -507,12 +507,25 @@ console.log(result); // [1, 3, 5, 7, 9];
 ---
 
 ### lazyChunk();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Splits the sequence into multiple chunks of certain size. Returns generators instead of arrays.
+- **params**:
+  - `size: number`
+- **returns**:
+  - `generator: Generator<ILazyCollection<T, void, unknown>, R, N>`
+
+**IMPORTANT!!!** Be very careful with this function!
+Use this function only in for-of loops, otherwise you will fall into an infinite loop!
+
+The chunk must be consumed immediately in the for-of loop.
+The chunk is of type 'ILazyCollection' so you can still use the chain functionality.
 
 ```typescript
+const result: number[] = [];
+for (const chunk of Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).lazyChunk(3)) {
+    result.push(chunk.sum());
+}
 
+console.log(result); // [6, 15, 24, 19]
 ```
 
 <p align='right' style='font-size: 10px'>
