@@ -26,7 +26,6 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
             resultSelector: (key: TKey, elements: TElement[]) => TResult
         ): ILazyCollection<TResult, R, N> => chain(λ.groupBy(source, keySelector, elementSelector, resultSelector)),
         indices: (predicate: (value: T) => boolean): ILazyCollection<number, R, N> => chain(λ.indices(source, predicate)),
-        intercept: <C>(interceptors: λ.Interceptors<C, T, R>, context: C): ILazyCollection<T, R, N> => chain(λ.intercept(source, interceptors, context)),
 
         /**
          * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.

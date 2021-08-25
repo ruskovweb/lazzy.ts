@@ -1,5 +1,4 @@
 import { Depth, Primitive, Select, FlatArray } from "../common/helpers";
-import { Interceptors } from "../generators/intercept";
 
 export interface ILazyCollection<T, R, N> {
     [Symbol.iterator](): Iterator<T, R, N>;
@@ -18,7 +17,6 @@ export interface ILazyCollection<T, R, N> {
     forEach(fun: (v: T, i: number) => void): ILazyCollection<T, R | undefined, undefined>;
     groupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollection<TResult, R, N>;
     indices(predicate: (value: T) => boolean): ILazyCollection<number, R, N>;
-    intercept<C>(interceptors: Interceptors<C, T, R>, context: C): ILazyCollection<T, R, N>;
     
     /**
      * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.

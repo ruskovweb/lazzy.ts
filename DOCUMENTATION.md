@@ -471,21 +471,6 @@ console.log(result); // [1, 3, 5, 7, 9];
 
 ---
 
-### intercept();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
-
-```typescript
-
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
 ### lazyChunk();
 - **description**: Coming soon...
 - **params**: -
