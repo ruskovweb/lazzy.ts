@@ -1,12 +1,12 @@
 import { expect } from "chai";
-import Lazy from "../..";
-import { equals, isPrime, primeGenerator, reverseString } from "../helpers";
+import Lazy, { isPrime } from "../..";
+import { equals, reverseString } from "../helpers";
 
 
 describe("combined", function () {
-    describe("primeGenerator/filter/take/toArray", function () {
+    describe("prime/filter/take/toArray", function () {
         it(`should return an array of the first 100 palindrom prime numbers greater than 10000`, function () {
-            const palindromes = Lazy.from(primeGenerator(10000))
+            const palindromes = Lazy.prime(10000)
                 .filter((p) => equals(p.toString(), reverseString))
                 .take(100)
                 .toArray();
@@ -33,7 +33,7 @@ describe("combined", function () {
         });
 
         it(`should return an array of the first 100 Pythagorean prime numbers`, function () {
-            const pythagoreanPrimes = Lazy.from(primeGenerator())
+            const pythagoreanPrimes = Lazy.prime()
                 .filter((p) => p % 4 === 1)
                 .take(100)
                 .toArray();
@@ -53,17 +53,9 @@ describe("combined", function () {
         });
     });
 
-    describe("range/feed/toArray", function () {
-        it(`should return an array of the first prime numbers greater than a multiple of 1000`, function () {
-            const generator = primeGenerator(1000);
-            const result = Lazy.range({ from: 1000, to: 10000, step: 1000 }).feed(generator).toArray();
-            expect(result).to.eql([1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 10007]);
-        });
-    });
-
-    describe("primeGenerator/take/map/filter/toArray", function () {
+    describe("prime/take/map/filter/toArray", function () {
         it(`should return the first 8 Mersenne primes`, function () {
-            const mersennePrimes = Lazy.from(primeGenerator())
+            const mersennePrimes = Lazy.prime()
                 .take(30)
                 .map((p) => [p, 2 ** p - 1])
                 .filter(([, e]) => isPrime(e))
@@ -141,9 +133,9 @@ describe("combined", function () {
         });
     });
 
-    describe("primeGenerator/skip/take/map/filter/flat/lazyChunk/toMap", function () {
+    describe("prime/skip/take/map/filter/flat/lazyChunk/toMap", function () {
         it(`should skip and take 5 of the Mersenne primes in lazy chunks then convert them to an array`, function () {
-            const mersennePrimes = Lazy.from(primeGenerator())
+            const mersennePrimes = Lazy.prime()
                 .skip(3)
                 .take(30)
                 .map((p) => [p, 2 ** p - 1])

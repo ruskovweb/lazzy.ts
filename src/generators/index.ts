@@ -16,6 +16,7 @@ export * from "./indices";
 export * from "./lazyChunk";
 export * from "./map";
 export * from "./prepend";
+export * from "./prime";
 export * from "./random";
 export * from "./range";
 export * from "./repeat";

@@ -307,7 +307,7 @@ console.log(result);
   - `lazyCollection: ILazyCollection<V, undefined, undefined>`
 
 ```typescript
-const primes = primeGenerator(1000);
+const primes = Lazy.prime(1000);
 const result = Lazy.range({ from: 1000, to: 10000, step: 1000 }).feed(primes).toArray();
 console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 10007]
 ```
@@ -315,9 +315,9 @@ console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 1
 - First the `Lazy.range()` function generates an array with the following values:
 `[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]`
 
-- Then the feed function iterates through these values and replaces each value with the returned value from the 'primeGenerator()'.
+- Then the feed function iterates through these values and replaces each value with the returned value from the 'Lazy.prime()'.
 
-- The 'primeGenerator()' receives each value from the initial sequence and generates a prime number greater than or equal to the received value.
+- The 'Lazy.prime()' receives each value from the initial sequence and generates a prime number greater than or equal to the received value.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
@@ -589,6 +589,29 @@ console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
 ```typescript
 const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7]).prepend([8, 9, 10]).toArray();
 console.log(result); // [8, 9, 10, 6, 7, 1, 2, 3, 4, 5]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+### prime();
+- **description**: Generates prime numbers.
+- **params**: 
+  - `minimum?: number`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<number, void, number>`
+
+```typescript
+const primes = Lazy.prime().take(10).toArray();
+console.log(primes); // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+```
+
+```typescript
+const primes = Lazy.prime(10).take(10).toArray();
+console.log(primes); // [11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
 ```
 
 <p align='right' style='font-size: 10px'>
