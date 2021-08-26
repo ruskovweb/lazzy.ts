@@ -8,6 +8,6 @@ export interface ILazy {
     generate: <T> (func: () => T) => ILazyCollection<T, undefined, undefined>;
     prime(minimum?: number): ILazyCollection<number, void, number>;
     random(parameters?: Partial<RandomParams>): ILazyCollection<number, undefined, undefined>;
-    randomFrom<T>(array: T[]): ILazyCollection<T, never, never>;
+    randomFrom<T>(array: T[]): ILazyCollection<T, void, undefined>;
     range(parameters?: Partial<RangeParams>): ILazyCollection<number, undefined, undefined>;
 }

@@ -71,6 +71,24 @@ Notes **(IMPORTANT)**:
 
 ---
 
+### randomFrom();
+- **description**: Generates random values from an array.
+- **params**: 
+  - `array: T[]`
+- **returns**: 
+  - `ILazyCollection<T, void, undefined>`
+
+```typescript
+const random = Lazy.randomFrom([1, 5, 9]).take(10).toArray();
+console.log(random); // [1, 5, 9, 5, 1, 1, 9, 9, 5, 9]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 ### circular();
 - **description**: Generates an infinitely repeating sequence of values.
 - **params**: values: Iterable<T>
@@ -79,7 +97,9 @@ Notes **(IMPORTANT)**:
 ```typescript
 const result = Lazy.circular([1, 2, 3, 4]).take(8).toArray();
 console.log(result) // [1, 2, 3, 4, 1, 2, 3, 4];
+```
 
+```typescript
 const result = Lazy.circular([1, 2]).take(8).toArray();
 console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 ```
