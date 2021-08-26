@@ -1,13 +1,11 @@
-export function* take<T, R, N>(iterator: Iterator<T, R, N>, number: number): Generator<T, R | undefined, undefined> {
-    while (number-- > 0) {
-        const x = iterator.next();
-        if (x.done === true) {
-            return x.value;
-        } else {
-            yield x.value;
-        }
+export function* take<T, R, N>(iterator: Iterator<T, R, N>, count: number): Generator<T, R | undefined, undefined> {
+    let x = iterator.next();
+    while (x.done !== true && count-- > 0) {
+        yield x.value;
+        x = iterator.next();
     }
-    if (iterator.return != null) {
-        iterator.return();
-    }
+    
+    if (x.done === true) {
+        return x.value;
+    } 
 }

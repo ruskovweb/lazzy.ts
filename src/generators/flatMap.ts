@@ -1,4 +1,4 @@
-import { Depth } from "../common/helpers";
+import { Depth, FlatArray } from "../common/helpers";
 import { flat } from "./flat";
 import { toLazy } from "./toLazy";
 

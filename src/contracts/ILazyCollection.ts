@@ -1,5 +1,4 @@
-import { Depth, OptionalComparer, Primitive, Select } from "../common/helpers";
-import { Interceptors } from "../generators/intercept";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray } from "../common/helpers";
 
 export interface ILazyCollection<T, R, N> {
     [Symbol.iterator](): Iterator<T, R, N>;
@@ -18,7 +17,6 @@ export interface ILazyCollection<T, R, N> {
     forEach(fun: (v: T, i: number) => void): ILazyCollection<T, R | undefined, undefined>;
     groupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollection<TResult, R, N>;
     indices(predicate: (value: T) => boolean): ILazyCollection<number, R, N>;
-    intercept<C>(interceptors: Interceptors<C, T, R>, context: C): ILazyCollection<T, R, N>;
     
     /**
      * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.
@@ -27,15 +25,14 @@ export interface ILazyCollection<T, R, N> {
     lazyChunk(size: number): Generator<ILazyCollection<T, void, unknown>, R, N>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R | undefined, undefined>;
     orderBy(...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined>;
-    pair(): ILazyCollection<[T, T], R, N>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;
-    skip(count: number): ILazyCollection<T, R | undefined, undefined>;
-    skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, undefined, undefined>;
+    skip(count: number): ILazyCollection<T, R, undefined>;
+    skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
-    takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, number, undefined>;
-    zip<T2, TResult>(iterator: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N>;
+    takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
+    zip<T2, R2, TResult>(iterator: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, N>;
     //#endregion
 
     //#region Consumers
@@ -63,6 +60,6 @@ export interface ILazyCollection<T, R, N> {
     toSet(): Set<T>;
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V>;
     toWeakSet<K extends object>(...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K>;
-    uppend(array: T[], equals: (oldElement: T, newElement: T) => boolean): T[];
+    uppend(iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[];
     //#endregion
 }

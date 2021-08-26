@@ -1,4 +1,4 @@
-import { Depth, OptionalComparer, Primitive, Select } from "./common";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray } from "./common";
 import { ILazyCollection } from "./contracts";
 import * as λ from "./generators";
 import * as γ from "./consumers";
@@ -6,7 +6,7 @@ import * as γ from "./consumers";
 export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R, N> {
     return {
         [Symbol.iterator]: (): Iterator<T, R, N> => source,
-        
+
         //#region Generators
         append: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.append(source, ...iterables)),
         at: (index: number) => chain(λ.at(source, index)),
@@ -26,7 +26,6 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
             resultSelector: (key: TKey, elements: TElement[]) => TResult
         ): ILazyCollection<TResult, R, N> => chain(λ.groupBy(source, keySelector, elementSelector, resultSelector)),
         indices: (predicate: (value: T) => boolean): ILazyCollection<number, R, N> => chain(λ.indices(source, predicate)),
-        intercept: <C>(interceptors: λ.Interceptors<C, T, R>, context: C): ILazyCollection<T, R, N> => chain(λ.intercept(source, interceptors, context)),
 
         /**
          * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.
@@ -43,15 +42,14 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         },
         map: <U>(transformer: (v: T) => U): ILazyCollection<U, R | undefined, undefined> => chain(λ.map(source, transformer)),
         orderBy: (...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined> => chain(λ.orderBy(source, ...comparer)),
-        pair: (): ILazyCollection<[T, T], R, N> => chain(λ.pair(source)),
         prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.prepend(source, ...iterables)),
         repeat: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.repeat(source, c)),
-        skip: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.skip(source, c)),
-        skipWhile: (predicate: (value: T) => boolean): ILazyCollection<T, undefined, undefined> => chain(λ.skipWhile(source, predicate)),
+        skip: (c: number): ILazyCollection<T, R, undefined> => chain(λ.skip(source, c)),
+        skipWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R, undefined> => chain(λ.skipWhile(source, predicate)),
         spread: (): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined> => chain(λ.spread(source)),
         take: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.take(source, c)),
-        takeWhile: (predicate: (value: T) => boolean): ILazyCollection<T, number, undefined> => chain(λ.takeWhile(source, predicate)),
-        zip: <T2, TResult>(iterator2: Iterator<T2, R, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | undefined, N> =>
+        takeWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined> => chain(λ.takeWhile(source, predicate)),
+        zip: <T2, R2, TResult>(iterator2: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, N> =>
             chain(λ.zip(source, iterator2, resultSelector)),
         //#endregion
 
@@ -80,7 +78,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         toSet: (): Set<T> => γ.toSet(source),
         toWeakMap: <K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V> => γ.toWeakMap(source, select),
         toWeakSet: <K extends object>(...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K> => γ.toWeakSet(source, ...select),
-        uppend: (array: T[], equals: (oldElement: T, newElement: T) => boolean): T[] => γ.uppend(source, array, equals),
+        uppend: (iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[] => γ.uppend(source, iterator, equals),
         //#endregion
     };
 }
