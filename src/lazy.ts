@@ -10,11 +10,9 @@ const isIterable = <U, T extends Iterable<U>>(it: T | unknown): it is T extends 
 const Lazy: ILazy = {
     circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
     from: <T, R, N>(source: Iterable<T> | Iterator<T, R, N>): ILazyCollection<T, R | undefined, N | undefined> => {
-        if (isIterable(source)) {
-            return chain(λ.toLazy(source));
-        }
-        return chain(source);
+        return isIterable(source) ? chain(λ.toLazy(source)) : chain(source);
     },
+    fibonacci: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.fibonacci(minimum)),
     generate: <T, R, N> (func: () => T): ILazyCollection<T, R | undefined, N> => chain(λ.generate(func)),
     prime: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.prime(minimum)),
     random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, undefined, undefined> => chain(λ.random(parameters)),

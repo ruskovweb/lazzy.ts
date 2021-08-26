@@ -5,6 +5,7 @@ export * from "./circular";
 export * from "./concat";
 export * from "./distinct";
 export * from "./feed";
+export * from "./fibonacci";
 export * from "./filter";
 export * from "./filterWithIndex";
 export * from "./flat";

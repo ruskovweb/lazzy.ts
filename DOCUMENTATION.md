@@ -325,6 +325,36 @@ console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 1
 
 ---
 
+### fibonacci();
+- **description**: Generates the fibonacci sequence.
+- **params**:
+  - `minimum?: number = 1`
+- **returns**:
+  - `lazyCollection: ILazyCollection<number, void, number>`
+
+```typescript
+const fibonacci = Lazy.fibonacci().take(10).toArray();
+console.log(fibonacci); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+```
+
+```typescript
+// Generates 10 fibonacci numbers greater than or equal to 10
+const fibonacci = Lazy.fibonacci(10).take(10).toArray();
+console.log(fibonacci); // [13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
+```
+
+```typescript
+// Skips the first 10 fibonacci numbers
+const fibonacci = Lazy.fibonacci().skip(10).take(10).toArray();
+console.log(fibonacci); // [ 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 ### filter();
 - **description**: Removes all elements which don't pass the test implemented by the provided predicate.
 - **params**: 

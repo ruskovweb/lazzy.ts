@@ -23,7 +23,7 @@ describe("ƒ generate()", function () {
                 prev = next;
                 next += current;
                 return current;
-            }    
+            }
         })();
 
         const result = Lazy.generate(fibonacci).take(10).toArray();
