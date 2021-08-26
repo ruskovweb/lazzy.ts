@@ -261,6 +261,33 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 ---
 
+### custom();
+- **description**: Adds a custom generator function to the chain.
+- **params**: 
+  - `generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T2, R2, N2>`
+
+```typescript
+const double = function* (iterator: Iterator<number, unknown, unknown>) {
+    let x = iterator.next();
+
+    while (x.done !== true) {
+        yield x.value * 2;
+        x = iterator.next();
+    }
+};
+
+const result = Lazy.from([1, 2, 3, 4]).custom(double).sum();
+console.log(result); // 20
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 ### distinct();
 - **description**: Removes all duplicates from the initial sequence.
 - **params**: 
