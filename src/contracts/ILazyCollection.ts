@@ -24,11 +24,11 @@ export interface ILazyCollection<T, R, N> {
      */
     lazyChunk(size: number): Generator<ILazyCollection<T, void, unknown>, R, N>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R | undefined, undefined>;
-    orderBy(...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;
     skip(count: number): ILazyCollection<T, R, undefined>;
     skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
+    sort(...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
     takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;

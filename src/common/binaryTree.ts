@@ -11,12 +11,12 @@ export class BinaryTree<T> {
     public add(node: Node<T>, ...comparer: OptionalComparer<T>) {
         if (comparer[0] != null) {
             this.recursiveAdd(node, this.root, comparer[0]);
-        } else if (typeof node.value === "number") {
+        } else if (typeof node.value === "number" || typeof node.value === "boolean") {
             const numericComparer = (left: T, right: T) => (left as unknown as number) - (right as unknown as number);
             this.recursiveAdd(node, this.root, numericComparer);
         } else if (typeof node.value === "string") {
-            const numericComparer = (left: T, right: T) => (left as unknown as string).localeCompare(right as unknown as string);
-            this.recursiveAdd(node, this.root, numericComparer);
+            const stringComparer = (left: T, right: T) => (left as unknown as string).localeCompare(right as unknown as string);
+            this.recursiveAdd(node, this.root, stringComparer);
         } else {
             throw new TypeError("You must pass a comparer function!");
         }

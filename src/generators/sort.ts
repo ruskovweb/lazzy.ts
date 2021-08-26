@@ -3,7 +3,7 @@ import { BinaryTree } from "../common/binaryTree";
 import { dfs } from "../common/dfs";
 import { Node } from "../common/node";
 
-export function* orderBy<T, R, N>(iterator: Iterator<T, R, N>, ...comparer: OptionalComparer<T>): Generator<T, void, undefined> {
+export function* sort<T, R, N>(iterator: Iterator<T, R, N>, ...comparer: OptionalComparer<T>): Generator<T, void, undefined> {
     let x = iterator.next();
     if (x.done) {
         return;
