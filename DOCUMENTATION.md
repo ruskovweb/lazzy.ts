@@ -612,7 +612,7 @@ console.log(ordered); // [9, 8, 7, 6, 5, 4, 3, 2, 1]
 
 ```typescript
 const ordered = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).sort().toArray();
-expect(ordered).to.be.deep.eq(["Bob", "Jonathan", "Josh", "Michael"])
+console.log(ordered); // ["Bob", "Jonathan", "Josh", "Michael"]
 ```
 
 <p align='right' style='font-size: 10px'>
