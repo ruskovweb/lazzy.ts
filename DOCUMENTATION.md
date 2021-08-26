@@ -593,6 +593,34 @@ console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 ---
 
+### sort();
+- **description**: Sorts the elements of a sequence (by default in ascending order).
+- **params**: 
+  - `comparer: OptionalComparer<T>`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, void, undefined>`
+
+```typescript
+const ordered = Lazy.from([6, 8, 3, 5, 9, 1, 7, 2, 4]).sort().toArray();
+console.log(ordered); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+```typescript
+const ordered = Lazy.from([6, 8, 3, 5, 9, 1, 7, 2, 4]).sort((a, b) => b - a).toArray();
+console.log(ordered); // [9, 8, 7, 6, 5, 4, 3, 2, 1]
+```
+
+```typescript
+const ordered = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).sort().toArray();
+console.log(ordered); // ["Bob", "Jonathan", "Josh", "Michael"]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 ### prepend();
 - **description**: Inserts a set of values before the initial sequence.
 - **params**:

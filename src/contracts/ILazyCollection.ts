@@ -1,4 +1,4 @@
-import { Depth, Primitive, Select, FlatArray } from "../common/helpers";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray } from "../common/helpers";
 
 export interface ILazyCollection<T, R, N> {
     [Symbol.iterator](): Iterator<T, R, N>;
@@ -28,6 +28,7 @@ export interface ILazyCollection<T, R, N> {
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;
     skip(count: number): ILazyCollection<T, R, undefined>;
     skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
+    sort(...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
     takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
