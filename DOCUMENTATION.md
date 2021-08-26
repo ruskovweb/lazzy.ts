@@ -300,13 +300,24 @@ console.log(result);
 ---
 
 ### feed();
-- **description**: Coming soon...
-- **params**: -
-- **returns**: -
+- **description**: Feeds the initial sequence with new values from another iterator.
+- **params**:
+  - `iterator: Iterator<V, R1, T>`
+- **returns**:
+  - `lazyCollection: ILazyCollection<V, undefined, undefined>`
 
 ```typescript
-
+const primes = primeGenerator(1000);
+const result = Lazy.range({ from: 1000, to: 10000, step: 1000 }).feed(primes).toArray();
+console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 10007]
 ```
+
+- First the `Lazy.range()` function generates an array with the following values:
+`[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]`
+
+- Then the feed function iterates through these values and replaces each value with the returned value from the 'primeGenerator()'.
+
+- The 'primeGenerator()' receives each value from the initial sequence and generates a prime number greater than or equal to the received value.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
