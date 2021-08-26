@@ -1,13 +1,12 @@
 import { assert, expect } from "chai";
 import Lazy from "../..";
-import { primeGenerator } from "../helpers";
 
 describe("ƒ toWeakMap()", function () {
     it("shoult convert iterator to a weak map", function () {
         let count = 0;
-        const expected = Lazy.from(primeGenerator()).take(5).toArray();
+        const expected = Lazy.prime().take(5).toArray();
         const keys = [{ n: "five" }, { n: "four" }, { n: "three" }, { n: "two" }, { n: "one" }];
-        const result = Lazy.from(primeGenerator())
+        const result = Lazy.prime()
             .take(5)
             .toWeakMap((v) => [keys[count++], v]);
 

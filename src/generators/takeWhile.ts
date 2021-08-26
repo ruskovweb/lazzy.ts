@@ -1,16 +1,14 @@
-export function* takeWhile<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T) => boolean): Generator<T, number, undefined> {
-    let counter = 0;
-    while (true) {
-        const x = iterator.next();
-        if (x.done === true) {
-            return counter;
-        } else {
-            if (predicate(x.value)) {
-                counter++;
-                yield x.value;
-            } else {
-                return counter;
-            }
+export function* takeWhile<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T) => boolean): Generator<T, R | undefined, undefined> {
+    let x = iterator.next();
+    while (x.done !== true) {
+        if (!predicate(x.value)) {
+            break;
         }
+        yield x.value;
+        x = iterator.next();
+    }
+
+    if (x.done === true) {
+        return x.value;
     }
 }
