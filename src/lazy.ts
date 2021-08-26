@@ -16,6 +16,7 @@ const Lazy: ILazy = {
         return chain(source);
     },
     generate: <T, R, N> (func: () => T): ILazyCollection<T, R | undefined, N> => chain(λ.generate(func)),
+    prime: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.prime(minimum)),
     random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, undefined, undefined> => chain(λ.random(parameters)),
     range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
 };

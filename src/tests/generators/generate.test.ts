@@ -1,6 +1,5 @@
 import { expect } from "chai";
-import Lazy from "../..";
-import { isPrime } from "../helpers";
+import Lazy, { isPrime } from "../..";
 
 describe("ƒ generate()", function () {
     it("should generate 10 numbers", function () {
