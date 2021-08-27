@@ -7,6 +7,7 @@ export * from "./concat";
 export * from "./distinct";
 export * from "./feed";
 export * from "./fibonacci";
+export * from './fill';
 export * from "./filter";
 export * from "./filterWithIndex";
 export * from "./flat";
