@@ -1,6 +1,6 @@
 import { InvalidArgumentsMessage } from "../common";
 
-export function toWeakSet<T, R, N, K extends object>(iterator: Iterator<T, R, N>, ...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K> {
+export function toWeakSet<T, R, N, K extends object>(iterator: Iterator<T, R, N>, ...select: T extends object ? [] : [(value: T) => K]): WeakSet<K> {
     const result = new WeakSet<K>();
     let x = iterator.next();
     if (x.done === true) {

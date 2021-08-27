@@ -10,7 +10,7 @@ export interface ILazyCollection<T, R, N> {
     chunk(size: number): ILazyCollection<T[], R, N>;
     concat(...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined>;
     custom<T2, R2, N2>(generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>): ILazyCollection<T2, R2, N2>;
-    distinct(...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;
+    distinct(...select: T extends Primitive ? [] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;
     feed<R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, undefined, undefined>;
     filter(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
     filterWithIndex(predicate: (value: T) => boolean): ILazyCollection<[T, number], R | undefined, undefined>;
@@ -38,7 +38,7 @@ export interface ILazyCollection<T, R, N> {
     //#endregion
 
     //#region Consumers
-    average(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
+    average(...select: T extends number ? [] : [(value: T) => number]): number;
     count(): number;
     every(predicate: (value: T, index: number) => boolean): boolean;
     first(predicate?: (value: T) => boolean): T | undefined;
@@ -49,19 +49,19 @@ export interface ILazyCollection<T, R, N> {
     last(predicate?: (value: T) => boolean): T | undefined;
     lastIndexOf(predicate: (value: T) => boolean): number;
     lastWithIndex(predicate: (value: T) => boolean): [T | undefined, number];
-    max(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
-    min(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
+    max(...select: T extends number ? [] : [(value: T) => number]): number;
+    min(...select: T extends number ? [] : [(value: T) => number]): number;
     partition(predicate: (value: T) => boolean): [T[], T[]];
-    product(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
+    product(...select: T extends number ? [] : [(value: T) => number]): number;
     reduce<V>(fun: (value: T, accumulator: V) => V, initial: V): V;
     run(): R;
-    sum(...select: T extends number ? [undefined?] : [(value: T) => number]): number;
+    sum(...select: T extends number ? [] : [(value: T) => number]): number;
     toArray(): T[];
     toIterator(): Iterator<T, R, N>;
     toMap<K, V>(select: (value: T) => [K, V]): Map<K, V>;
     toSet(): Set<T>;
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V>;
-    toWeakSet<K extends object>(...select: T extends object ? [undefined?] : [(value: T) => K]): WeakSet<K>;
+    toWeakSet<K extends object>(...select: T extends object ? [] : [(value: T) => K]): WeakSet<K>;
     uppend(iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[];
     //#endregion
 }
