@@ -10,7 +10,7 @@ const rangeDefaults: RangeParams = {
     step: 1,
 } as const;
 
-export function* range(parameters?: Partial<RangeParams>): Generator<number, undefined, undefined> {
+export function* range(parameters?: Partial<RangeParams>): Generator<number, void, undefined> {
     const { from, to, step } = { ...rangeDefaults, ...parameters };
     if (step === 0) {
         return;

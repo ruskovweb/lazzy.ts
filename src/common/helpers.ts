@@ -5,7 +5,14 @@ export function isPrimitive(value: unknown): value is boolean | number | string 
     return ["string", "number", "boolean"].includes(typeof value);
 }
 
-export type Depth = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20;
+export type Enumerate<N extends number, RESULT extends number[] = []> = 
+    RESULT["length"] extends N
+    ? RESULT[number]
+    : Enumerate<N, [...RESULT, RESULT["length"]]>;
+
+export type Range<FROM extends number, TO extends number> = Exclude<Enumerate<TO>, Enumerate<FROM>>;
+
+export type Depth = Enumerate<21>;
 export type FlatArray<Arr, Depth extends number> = {
     done: Arr;
     recur: Arr extends ReadonlyArray<infer InnerArr> ? FlatArray<InnerArr, [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19][Depth]> : Arr;

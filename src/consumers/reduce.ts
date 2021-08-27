@@ -1,11 +1,9 @@
-export function reduce<T, R, N, U>(iterator: Iterator<T, R, N>, reducer: (value: T, accumulator: U) => U, initial: U): U {
+export function reduce<T, R, N, V>(iterator: Iterator<T, R, N>, reducer: (value: T, accumulator: V) => V, initial: V): V {
     let result = initial;
-    while (true) {
-        const x = iterator.next();
-        if (x.done === true) {
-            return result;
-        } else {
-            result = reducer(x.value, result);
-        }
+    let x = iterator.next();
+    while (x.done !== true) {
+        result = reducer(x.value, result);
+        x = iterator.next();
     }
+    return result;
 }

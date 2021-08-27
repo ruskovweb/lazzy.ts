@@ -3,10 +3,10 @@ import { BinaryTree } from "../common/binaryTree";
 import { dfs } from "../common/dfs";
 import { Node } from "../common/node";
 
-export function* sort<T, R, N>(iterator: Iterator<T, R, N>, ...comparer: OptionalComparer<T>): Generator<T, void, undefined> {
+export function* sort<T, R, N>(iterator: Iterator<T, R, N>, ...comparer: OptionalComparer<T>): Generator<T, R, undefined> {
     let x = iterator.next();
     if (x.done) {
-        return;
+        return x.value;
     }
 
     const tree = new BinaryTree<T>(new Node(x.value));
@@ -18,4 +18,6 @@ export function* sort<T, R, N>(iterator: Iterator<T, R, N>, ...comparer: Optiona
     }
 
     yield* dfs(tree.root);
+
+    return x.value;
 }

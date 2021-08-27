@@ -1,10 +1,8 @@
-export function* map<T, R, N, U>(iterator: Iterator<T, R, N>, transformer: (v: T) => U): Generator<U, R | undefined, undefined> {
-    while (true) {
-        const x = iterator.next();
-        if (x.done === true) {
-            return x.value;
-        } else {
-            yield transformer(x.value);
-        }
+export function* map<T, R, N, V>(iterator: Iterator<T, R, N>, transformer: (v: T) => V): Generator<V, R, undefined> {
+    let x = iterator.next();
+    while (x.done !== true) {
+        yield transformer(x.value);
+        x = iterator.next();
     }
+    return x.value;
 }

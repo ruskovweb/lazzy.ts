@@ -1,105 +1,31 @@
 # Documentation
 
-Here you can see all the functions and how they work:
+Here you can see all the functions and how they work. 
 
-### range()
-- **description**: Generates an infinite sequence of numbers in specified range and step.
-- **params**: rangeParams: { from: number, to: number, step: number }
-- **returns**: value: Generator<number, undefined, undefined>
+This documentation is divided into 3 parts:
+  - Methods that start the chain;
+  - Methods that manipulate the sequence without breaking the chain;
+  - Methods that break the chain (Consumers);
 
-```typescript
-// In increasing order
-const result = Lazy.range({ from: 1, to: 10, step: 1 }).toArray();
-console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+<h2 align="center">Methods that can start the chain</h2>
 
-// In decreasing order
-const result = Lazy.range({ from: -1, to: -10, step: -1 }).toArray();
-console.log(result); // [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
-
-// If you pass invalid arguments you will receive an empty sequence
-const result = Lazy.range({ from: 1, to: 10, step: -1 }).toArray();
-console.log(result); // []
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### random();
-- **description**: Generates an infinite sequence of random floating-point numbers in specific range and precision.
-- **params**: 
-  - `randomParams: { min: number, max: number, precision: number }`
-  - `default: { min: 0, max: Number.MAX_SAFE_INTEGER - 1, precision: 0 }`
-- **returns**: 
-  - `value: Generator<number, undefined, undefined>`
-
-```typescript
-const result = Lazy.random({ max: 10 }).take(10).toArray();
-console.log(result); // Array of 10 random integers in range [0, 10]
-
-const result = Lazy.random({ min: 10, max: 20 }).take(10).toArray();
-console.log(result); // Array of 10 random integers in range [10-20]
-
-const result = Lazy.random({ min: -20, max: -10 }).take(10).toArray();
-console.log(result); // Array of 10 random integers in range [-20, -10]
-```
-
-Range:
-- `min: inclusive`
-- `max: exclusive`
-
-Notes **(IMPORTANT)**:
-- If the 'min' value is greater than the 'max' value then they are swapped.
-    ```typescript
-    Lazy.random({ min: 10, max: 1 }).take(10).toArray();
-    // is same as
-    Lazy.random({ min: 1, max: 10 }).take(10).toArray();
-    ```
-
-- If you use a negative 'max' value and small precision you can receive the specified maximum value, although we said that it is exclusive.
-    ```typescript
-    const result = Lazy.random({ min: -2, max: -1, precision: 1 }).take(10).toArray();
-    console.log(result) // The possible values are between -2.0 and -1.0 INCLUSIVE.
-    ```
-    This is possible because the auto generated value can be -1.001 which is less than -1. Here we are in the proper range, but when we round that number to the specified precision, we will receive -1.0, which actually is -1.
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### randomFrom();
-- **description**: Generates random values from an array.
-- **params**: 
-  - `array: T[]`
-- **returns**: 
-  - `ILazyCollection<T, void, undefined>`
-
-```typescript
-const random = Lazy.randomFrom([1, 5, 9]).take(10).toArray();
-console.log(random); // [1, 5, 9, 5, 1, 1, 9, 9, 5, 9]
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### circular();
+#### circular\<T\>();
 - **description**: Generates an infinitely repeating sequence of values.
-- **params**: values: Iterable<T>
-- **returns**: Generator<T, undefined, undefined>
+- **params**: 
+  - `values: Iterable<T>`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, void, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.circular([1, 2, 3, 4]).take(8).toArray();
 console.log(result) // [1, 2, 3, 4, 1, 2, 3, 4];
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.circular([1, 2]).take(8).toArray();
 console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 ```
@@ -110,13 +36,94 @@ console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 
 ---
 
-### generate();
+#### from\<T, R, N\>();
+- **description**: Creates an ILazyCollection from an iterable object.
+- **params**:
+  - `source: Iterable<T> | Iterator<T, R, N>`
+- **returns**:
+  - `lazyCollection: ILazyCollection<T, R | undefined, N | undefined> `
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const arr = [1, 2, 3, 4];
+const gen = Lazy.from(arr);
+
+let x = gen.next();
+while(x.done !== true) {
+  console.log(x.value);
+  x = gen.next();
+}
+
+/* output:
+1
+2
+3
+4
+*/
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const arr = [1, 2, 3, 4];
+const totalSum = Lazy.from(arr).sum();
+console.log(totalSum); // 10
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### fibonacci();
+- **description**: Generates the fibonacci sequence.
+- **params**:
+  - `minimum?: number = 1`
+- **returns**:
+  - `lazyCollection: ILazyCollection<number, void, number>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const fibonacci = Lazy.fibonacci().take(10).toArray();
+console.log(fibonacci); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// Generates 10 fibonacci numbers greater than or equal to 10
+const fibonacci = Lazy.fibonacci(10).take(10).toArray();
+console.log(fibonacci); // [13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// Skips the first 10 fibonacci numbers
+const fibonacci = Lazy.fibonacci().skip(10).take(10).toArray();
+console.log(fibonacci); // [ 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### generate\<T\>();
 - **description**: Generates an infinite sequence of values from a custom function.
-- **params**: function: () => T
-- **returns**: Generator<T, undefined, undefined>
+- **params**: 
+  - `callback: () => T`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, void, undefined>`
 
 Custom generator for infinite sequence of numbers:
 ```typescript
+import Lazy from "lazzy.ts";
+
 // We declare an IIFE to create a scope where we can hold the current state of the 'number' variable
 const generator = (function() {
     let number = 1;
@@ -132,6 +139,8 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 The fibonacci number sequence:
 ```typescript
+import Lazy from "lazzy.ts";
+
 const fibonacci = (function () {
     let prev = 1, next = 1;
 
@@ -153,7 +162,149 @@ console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
 ---
 
-### append();
+#### prime();
+- **description**: Generates prime numbers.
+- **params**: 
+  - `minimum?: number`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<number, void, number>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const primes = Lazy.prime().take(10).toArray();
+console.log(primes); // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const primes = Lazy.prime(10).take(10).toArray();
+console.log(primes); // [11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### random();
+- **description**: Generates an infinite sequence of random floating-point numbers in specific range and precision.
+- **params**: 
+  - `randomParams?: { min: number, max: number, precision: number }`
+  - `default: { min: 0, max: Number.MAX_SAFE_INTEGER - 1, precision: 0 }`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<number, void, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.random({ max: 10 }).take(10).toArray();
+console.log(result); // Array of 10 random integers in range [0, 10]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.random({ min: 10, max: 20 }).take(10).toArray();
+console.log(result); // Array of 10 random integers in range [10-20]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.random({ min: -20, max: -10 }).take(10).toArray();
+console.log(result); // Array of 10 random integers in range [-20, -10]
+```
+
+Range:
+- `min: inclusive`
+- `max: exclusive`
+
+Notes **(IMPORTANT)**:
+- If the 'min' value is greater than the 'max' value then they are swapped.
+    ```typescript
+    Lazy.random({ min: 10, max: 1 }).take(10).toArray();
+    // is same as
+    Lazy.random({ min: 1, max: 10 }).take(10).toArray();
+    ```
+
+- If you use a negative 'max' value and small precision you can receive the specified maximum value, although we said that it is exclusive.
+    ```typescript
+    import Lazy from "lazzy.ts";
+
+    const result = Lazy.random({ min: -2, max: -1, precision: 1 }).take(10).toArray();
+    console.log(result) // The possible values are between -2.0 and -1.0 INCLUSIVE.
+    ```
+    This is possible because the auto generated value can be -1.001 which is less than -1. Here we are in the proper range, but when we round that number to the specified precision, we will receive -1.0, which actually is -1.
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### randomFrom();
+- **description**: Generates random values from an array.
+- **params**: 
+  - `array: T[]`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, void, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const random = Lazy.randomFrom([1, 5, 9]).take(10).toArray();
+console.log(random); // [1, 5, 9, 5, 1, 1, 9, 9, 5, 9]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### range()
+- **description**: Generates an infinite sequence of numbers in specified range and step.
+- **params**: 
+  - `rangeParams?: { from: number, to: number, step: number }`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<number, void, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// In increasing order
+const result = Lazy.range({ from: 1, to: 10, step: 1 }).toArray();
+console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// In decreasing order
+const result = Lazy.range({ from: -1, to: -10, step: -1 }).toArray();
+console.log(result); // [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// If you pass invalid arguments you will receive an empty sequence
+const result = Lazy.range({ from: 1, to: 10, step: -1 }).toArray();
+console.log(result); // []
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+<h2 align="center">Methods that manipulate the sequence without breaking the chain</h2>
+
+#### append\<T, R, N\>();
 - **description**: Inserts a set of values after the initial sequence.
 - **params**: 
   - `iterables: Array<Iterable<T>>`
@@ -161,18 +312,24 @@ console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
   - `lazyCollection: ILazyCollection<T, R, N>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5]).append([6, 7, 8, 9, 10]).toArray();
 console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 You can pass multiple iterable objects:
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5]).append([6, 7], new Set([8, 9, 10])).toArray();
 console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 Or you can chain them:
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5]).append([6, 7]).append([8, 9, 10]).toArray();
 console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
@@ -183,17 +340,29 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 ---
 
-### at();
+#### at\<T, R, N\>();
 - **description**: The at() method takes an integer value and returns the item at that index. If the index is outside the bounds of the sequence then 'undefined' is returned.
-- **params**: index: number
-- **returns**: lazyCollection: ILazyCollection<T, R, N>
+- **params**: 
+  - `index: number`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, N>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).at(1).first();
 console.log(value); // "Michael"
+```
+
+```typescript
+import Lazy from "lazzy.ts";
 
 const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).at(-1).first();
 console.log(value); // undefined
+```
+
+```typescript
+import Lazy from "lazzy.ts";
 
 const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).at(4).first();
 console.log(value); // undefined
@@ -203,6 +372,8 @@ Note that the 'at' function is a generator. This means that you should use some 
 In the above examples we use the 'first()' method to consume the value.
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 // You can continue the chain like this:
 const value = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"])
     .at(1)
@@ -217,15 +388,17 @@ console.log(value); // "Hello, Michael!"
 
 ---
 
-### balancedChunk();
+#### balancedChunk\<T, R, N\>();
 - **description**: Splits the sequence into multiple balanced chunks by specified weight. 
 - **params**: 
   - `weight: number`
   - `select?: (value: T) => number`
 - **returns**: 
-  - chunks: ILazyCollection<T[], R, N> 
+  - `chunks: ILazyCollection<T[], R, N>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Cargo {
     weight: number;
 
@@ -250,7 +423,6 @@ const ships = Lazy.range({ from: 100, to: 1000, step: 20 }) // generates differe
   .toArray();
 
 console.log(ships);
-
 /* output:
   [
     Ship: { cargos: Array(9)  } // total weight 8000,
@@ -267,14 +439,16 @@ console.log(ships);
 
 ---
 
-### chunk();
+#### chunk\<T, R, N\>();
 - **description**: Splits the sequence into multiple chunks of certain size.
 - **params**: 
-  - size: number
+  - `size: number`
 - **returns**: 
-  - chunks: ILazyCollection<T[], R, N> 
+  - `chunks: ILazyCollection<T[], R, N>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const chunks = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).chunk(3).toArray();
 console.log(chunks); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ```
@@ -285,20 +459,24 @@ console.log(chunks); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
 ---
 
-### concat();
+#### concat\<T\>();
 - **description**: Appends one or more iterators at the end of the initial sequence.
 - **params**: 
-  - `iterators: Array<Iterator<T, R, N>>`
+  - `iterators: Array<Iterator<T, unknown, unknown>>`
 - **returns**: 
-  - `ILazyCollection<T, R, N>`
+  - `lazyCollection: ILazyCollection<T, void, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const lazyArray = Lazy.from([6, 7, 8, 9, 10]).toIterator();
 const result = Lazy.from([1, 2, 3, 4, 5]).concat(lazyArray).toArray();
 console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const iterator1 = Lazy.range({ from: 5: to: 7 }).toIterator();
 const iterator2 = Lazy.range({ from: 8: to: 10 }).toIterator();
 const result = Lazy.from([1, 2, 3, 4]).concat(iterator1, iterator2).toArray();
@@ -311,7 +489,7 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 ---
 
-### custom();
+#### custom\<T, R, N, T2, R2, N2\>();
 - **description**: Adds a custom generator function to the chain.
 - **params**: 
   - `generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>`
@@ -319,6 +497,8 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   - `lazyCollection: ILazyCollection<T2, R2, N2>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const double = function* (iterator: Iterator<number, unknown, unknown>) {
     let x = iterator.next();
 
@@ -338,21 +518,25 @@ console.log(result); // 20
 
 ---
 
-### distinct();
+#### distinct\<T, R, N\>();
 - **description**: Removes all duplicates from the initial sequence.
 - **params**: 
   - `selector?: (value: T) => string | number | boolean`
 - **returns**: 
-  - `lazyCollection: ILazyCollection<T, R, N>`
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 You can omit the 'selector' if the sequence contains values of primitive type only:
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 2, 1, 3, 5, 4, 5]).distinct().toArray();
 console.log(result); // [1, 2, 3, 5, 4]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from(["a", "b", "a", "c", "b", "e", "c", "g"]).distinct().toArray();
 console.log(result); // ["a", "b", "c", "e", "g"]
 ```
@@ -360,6 +544,8 @@ console.log(result); // ["a", "b", "c", "e", "g"]
 If the sequence contains objects, you must pass a 'selector' function as an argument, to select a member of primitive type.
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     firstName: string;
     lastName: string;
@@ -396,21 +582,25 @@ console.log(result);
 
 ---
 
-### feed();
+#### feed\<T, R, R2, N, V\>();
+
 - **description**: Feeds the initial sequence with new values from another iterator.
 - **params**:
   - `iterator: Iterator<V, R1, T>`
 - **returns**:
-  - `lazyCollection: ILazyCollection<V, undefined, undefined>`
+  - `lazyCollection: ILazyCollection<V, void, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const primes = Lazy.prime(1000);
 const result = Lazy.range({ from: 1000, to: 10000, step: 1000 }).feed(primes).toArray();
 console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 10007]
 ```
 
 - First the `Lazy.range()` function generates an array with the following values:
-`[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]`
+
+  `[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]`
 
 - Then the feed function iterates through these values and replaces each value with the returned value from the 'Lazy.prime()'.
 
@@ -422,49 +612,23 @@ console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 1
 
 ---
 
-### fibonacci();
-- **description**: Generates the fibonacci sequence.
-- **params**:
-  - `minimum?: number = 1`
-- **returns**:
-  - `lazyCollection: ILazyCollection<number, void, number>`
-
-```typescript
-const fibonacci = Lazy.fibonacci().take(10).toArray();
-console.log(fibonacci); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-```
-
-```typescript
-// Generates 10 fibonacci numbers greater than or equal to 10
-const fibonacci = Lazy.fibonacci(10).take(10).toArray();
-console.log(fibonacci); // [13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
-```
-
-```typescript
-// Skips the first 10 fibonacci numbers
-const fibonacci = Lazy.fibonacci().skip(10).take(10).toArray();
-console.log(fibonacci); // [ 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### filter();
+#### filter\<T, R, N\>();
 - **description**: Removes all elements which don't pass the test implemented by the provided predicate.
 - **params**: 
   - `predicate: (value: T) => boolean`
 - **returns**: 
-  - `lazyCollection: ILazyCollection<T, R, N>`
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).filter((n) => n % 2 === 0).toArray();
 console.log(result); // [2, 4, 6, 8, 10]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([10, 2, 8, 1, 6, 7, 5, 4, 9]).filter((n) => n <= 5).toArray();
 console.log(result); // [2, 1, 5, 4]
 ```
@@ -475,7 +639,7 @@ console.log(result); // [2, 1, 5, 4]
 
 ---
 
-### filterWithIndex();
+#### filterWithIndex\<T, R, N\>();
 - **description**: Removes all elements which don't pass the test implemented by the provided predicate. Also yields a tuple of the current value and its old index.
 - **params**:
   - predicate: (value: T) => boolean
@@ -483,9 +647,11 @@ console.log(result); // [2, 1, 5, 4]
   - lazyCollection: ILazyCollection<[T, number], R, N>
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).filterWithIndex((n) => n % 2 === 0).toArray();
 console.log(result);
-/* 
+/* output:
   [
     [2, 1],
     [4, 3],
@@ -502,26 +668,32 @@ console.log(result);
 
 ---
 
-### flat();
+#### flat\<T, R, N, D extends Depth = 20\>();
 - **description**: Creates a new array with all sub-array elements concatenated into it recursively up to the specified depth
 - **params**:
-  - `depth?: number`
+  - `depth?: Depth`
 - **returns**:
-  - `ILazyCollection<FlatArray<T>, R, N>`
+  - `ILazyCollection<FlatArray<T, D>, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const array = [[1, 2], 3, [[4], [5, 6]], [7, [[8], 9]]];
 const flatten = Lazy.from(array).flat().toArray();
 console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const array = [[1, 2], 3, [[4], [5, 6]], [7, [[8], 9]]];
 const flatten = Lazy.from(array).flat(1).toArray();
 console.log(flatten); // [1, 2, 3, [4], [5, 6], 7, [[8], 9]]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const array = [[1, 2], 3, [[4], [5, 6]], [7, [[8], 9]]];
 const flatten = Lazy.from(array).flat(2).toArray();
 console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, [8], 9]
@@ -533,15 +705,17 @@ console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, [8], 9]
 
 ---
 
-### flatMap();
+#### flatMap\<T, R, N, V, D extends Depth = 20\>();
 - **description**: Returns a new array formed by applying a given callback function to each element of the array, and then flattening the result. It is identical to a map() followed by a flat(). 
 - **params**:
   - `callback: (currentValue: T, index: number) => V`
-  - `depth: D`
+  - `depth?: D = 20`
 - **returns**:
-  - lazyCollection: ILazyCollection<FlatArray<V, D>, R, N>
+  - `lazyCollection: ILazyCollection<FlatArray<V, D>, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const array = ["it's Sunny in", "", "California"];
 const flatten = Lazy.from(array).flatMap((x) => x.split(" ")).toArray();
 console.log(flatten); // ["it's", "Sunny", "in", "", "California"]
@@ -553,17 +727,18 @@ console.log(flatten); // ["it's", "Sunny", "in", "", "California"]
 
 ---
 
-### forEach();
+#### forEach\<T, R, N\>();
 - **description**: Executes a provided function once for each element in the sequence and doesn't change the elements in that sequence.
 - **params**: 
   - `action: (value: T, index: number) => void`
 - **returns**:
-  - `lazyCollection: ILazyCollection<T, R, N>`
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
-Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`)).run();
+import Lazy from "lazzy.ts";
 
-/*
+Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`)).run();
+/* output:
   "Value: ${1}; Index: ${0};"
   "Value: ${2}; Index: ${1};"
   "Value: ${3}; Index: ${2};"
@@ -576,19 +751,21 @@ Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`))
 
 ---
 
-### groupBy();
+#### groupBy\<T, R, N, TKey, TElement, TResult\>();
 - **description**: Groups the elements of the sequence.
 - **params**:
   - `keySelector: (v: T) => TKey`
     - A function to extract the key for each element.
   - `elementSelector: (v: T) => TElement`
-    - A function to map each source element to an element in an Map<TKey, TElement>.
+    - A function to map each source element to an element in an Map\<TKey, TElement\>.
   - `resultSelector: (key: TKey, elements: TElement[]) => TResult`
     - A function to create a result value from each group.
 - **returns**:
-  - `lazyCollection: ILazyCollection<TResult, R, N>`
+  - `lazyCollection: ILazyCollection<TResult, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const usersData = [
     { name: "Ivan", age: 30 },
     { name: "Ivan", age: 15 },
@@ -609,8 +786,7 @@ const grouped = Lazy.from(usersData)
     .toArray();
 
 console.log(grouped);
-
-/*
+/* output:
 [
   { name: "Ivan", average: 29 },
   { name: "Georgi", average: 14.5 },
@@ -626,14 +802,16 @@ In this example we want to group all people by name and to get the average age.
 
 ---
 
-### indices();
+#### indices\<T, R, N\>();
 - **description**: Returns the indices of the elements which pass the test implemented by the provided predicate.
 - **params**:
   - `predicate: (value: T) => boolean`
 - **returns**:
-  - `lazyCollection: ILazyCollection<number, R, N>`
+  - `lazyCollection: ILazyCollection<number, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).indices((n) => n % 2 === 0).toArray();
 console.log(result); // [1, 3, 5, 7, 9];
 ```
@@ -644,18 +822,20 @@ console.log(result); // [1, 3, 5, 7, 9];
 
 ---
 
-### lazyChunk();
+#### lazyChunk\<T, R, N\>();
 - **description**: Splits the sequence into multiple chunks of certain size. Returns lazyCollection instead of arrays.
 - **params**:
   - `size: number`
 - **returns**:
-  - `lazyCollection: ILazyCollection<ILazyCollection<T, void, unknown>, R, N>`
+  - `lazyCollection: ILazyCollection<ILazyCollection<T, void, unknown>, R, undefined>`
 
 **IMPORTANT!!!** Be very careful with this function!
 You must consume the returned chunk immediately, otherwise you will fall into an infinite loop!
 The chunk is of type 'ILazyCollection' so you can still use the chain functionality.
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   .lazyChunk(3)
   .map(chunk => chunk.sum())
@@ -665,6 +845,8 @@ console.log(result); // [6, 15, 24, 19]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result =Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   .lazyChunk(3)
   .map(chunk => chunk.toArray())
@@ -679,14 +861,16 @@ console.log(result); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
 ---
 
-### map();
+#### map\<T, R, N, V\>();
 - **description**: Transforms each element in the sequence.
 - **params**: 
-  - `transformer: (v: T) => U`
+  - `transformer: (v: T) => V`
 - **returns**: 
-  - `lazyCollection: ILazyCollection<U, R, N>`
+  - `lazyCollection: ILazyCollection<V, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).map((n) => n * 2).toArray();
 console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ```
@@ -697,58 +881,38 @@ console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 ---
 
-### sort();
-- **description**: Sorts the elements of a sequence (by default in ascending order).
-- **params**: 
-  - `comparer: OptionalComparer<T>`
-- **returns**: 
-  - `lazyCollection: ILazyCollection<T, void, undefined>`
-
-```typescript
-const ordered = Lazy.from([6, 8, 3, 5, 9, 1, 7, 2, 4]).sort().toArray();
-console.log(ordered); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
-```
-
-```typescript
-const ordered = Lazy.from([6, 8, 3, 5, 9, 1, 7, 2, 4]).sort((a, b) => b - a).toArray();
-console.log(ordered); // [9, 8, 7, 6, 5, 4, 3, 2, 1]
-```
-
-```typescript
-const ordered = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).sort().toArray();
-console.log(ordered); // ["Bob", "Jonathan", "Josh", "Michael"]
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### prepend();
+#### prepend\<T, R, N\>();
 - **description**: Inserts a set of values before the initial sequence.
 - **params**:
   - `iterables: Array<Iterable<T>>`
 - **returns**: 
-  - `lazyCollection: ILazyCollection<T, R, N>`
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7, 8, 9, 10]).toArray();
 console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const set = new Set([6, 7, 6, 8, 8, 9, 10]);
 const result = Lazy.from([1, 2, 3, 4, 5]).prepend(set).toArray();
 console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7], [8, 9, 10]).toArray();
 console.log(result); // [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5]).prepend([6, 7]).prepend([8, 9, 10]).toArray();
 console.log(result); // [8, 9, 10, 6, 7, 1, 2, 3, 4, 5]
 ```
@@ -759,30 +923,7 @@ console.log(result); // [8, 9, 10, 6, 7, 1, 2, 3, 4, 5]
 
 ---
 
-### prime();
-- **description**: Generates prime numbers.
-- **params**: 
-  - `minimum?: number`
-- **returns**: 
-  - `lazyCollection: ILazyCollection<number, void, number>`
-
-```typescript
-const primes = Lazy.prime().take(10).toArray();
-console.log(primes); // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-```
-
-```typescript
-const primes = Lazy.prime(10).take(10).toArray();
-console.log(primes); // [11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### repeat();
+#### repeat\<T, R, N\>();
 - **description**: Repeats each value in the sequence by a certain number
 - **params**: 
   - `count: number`
@@ -790,11 +931,15 @@ console.log(primes); // [11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
   - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const repeated = Lazy.from([1, 2, 3]).repeat(1).toArray();
 console.log(repeated); // [1, 1, 2, 2, 3, 3]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const repeated = Lazy.from([1, 2, 3]).repeat(2).toArray();
 console.log(repeated); // [1, 1, 1, 2, 2, 2, 3, 3, 3]
 ```
@@ -805,7 +950,7 @@ console.log(repeated); // [1, 1, 1, 2, 2, 2, 3, 3, 3]
 
 ---
 
-### skip();
+#### skip\<T, R, N\>();
 - **description**: Skips a certain number of elements of the sequence.
 - **params**:
   - `count: number`
@@ -813,6 +958,8 @@ console.log(repeated); // [1, 1, 1, 2, 2, 2, 3, 3, 3]
   - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).skip(5).toArray();
 console.log(result); // [6, 7, 8, 9, 10]
 ```
@@ -823,7 +970,7 @@ console.log(result); // [6, 7, 8, 9, 10]
 
 ---
 
-### skipWhile();
+#### skipWhile\<T, R, N\>();
 - **description**: Skips elements of the sequence while the condition is still true.
 - **params**:
   - `predicate: (value: T) => boolean`
@@ -831,6 +978,8 @@ console.log(result); // [6, 7, 8, 9, 10]
   - `lazyCollection: ILazyCollection<T, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).skipWhile((n) => n <= 5).toArray();
 console.log(result); // [6, 7, 8, 9, 10]
 ```
@@ -841,7 +990,41 @@ console.log(result); // [6, 7, 8, 9, 10]
 
 ---
 
-### spread();
+#### sort\<T, R, N\>();
+- **description**: Sorts the elements of a sequence (by default in ascending order).
+- **params**: 
+  - `comparer?: OptionalComparer<T>`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const ordered = Lazy.from([6, 8, 3, 5, 9, 1, 7, 2, 4]).sort().toArray();
+console.log(ordered); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const ordered = Lazy.from([6, 8, 3, 5, 9, 1, 7, 2, 4]).sort((a, b) => b - a).toArray();
+console.log(ordered); // [9, 8, 7, 6, 5, 4, 3, 2, 1]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const ordered = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).sort().toArray();
+console.log(ordered); // ["Bob", "Jonathan", "Josh", "Michael"]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### spread\<T, R, N\>();
 - **description**: Spreads all values from an array of iterable objects into a single dimensional array.
 - **params**:
   - `no parameters`
@@ -849,11 +1032,15 @@ console.log(result); // [6, 7, 8, 9, 10]
   - `generator: Generator<T extends Iterable<infer U> ? U : T, R, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const spread = Lazy.from(["Hello", ",", " ", "World", "!"]).spread().toArray();
 console.log(spread); // ["H", "e", "l", "l", "o", ",", " ", "W", "o", "r", "l", "d", "!"]
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const spread = Lazy.from([ [1, 2, 3], [4, 5, 6], [7, 8] ]).spread().toArray();
 console.log(spread); // [1, 2, 3, 4, 5, 6, 7, 8]
 ```
@@ -864,7 +1051,7 @@ console.log(spread); // [1, 2, 3, 4, 5, 6, 7, 8]
 
 ---
 
-### take();
+#### take\<T, R, N\>();
 - **description**: Takes a certain number of elements of the sequence.
 - **params**:
   - `count: number`
@@ -872,12 +1059,16 @@ console.log(spread); // [1, 2, 3, 4, 5, 6, 7, 8]
   - `lazyCollection: ILazyCollection<T, R | undefined, undefined> `
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).take(5).toArray();
 console.log(result); // [1, 2, 3, 4, 5]
 ```
 
 You can combine it with the 'skip' function:
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).skip(3).take(5).toArray();
 console.log(result); // [4, 5, 6, 7, 8]
 ```
@@ -888,7 +1079,7 @@ console.log(result); // [4, 5, 6, 7, 8]
 
 ---
 
-### takeWhile();
+#### takeWhile\<T, R, N\>();
 - **description**: Takes elements of the sequence while the condition is still true.
 - **params**:
   - `predicate: (value: T) => boolean`
@@ -896,6 +1087,8 @@ console.log(result); // [4, 5, 6, 7, 8]
   - `lazyCollection: ILazyCollection<T, R | undefined, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).takeWhile((n) => n <= 5).toArray();
 console.log(result); // [1, 2, 3, 4, 5]
 ```
@@ -906,14 +1099,16 @@ console.log(result); // [1, 2, 3, 4, 5]
 
 ---
 
-### toLazy();
+#### toLazy\<T\>();
 - **description**: Creates a generator from an iterable object.
 - **params**:
   - `iterable: Iterable<T>`
 - **returns**:
-  - `generator: Generator<T, undefined, undefined> `
+  - `generator: Generator<T, void, undefined> `
 
 ```typescript
+import { toLazy } from "lazzy.ts";
+
 const arr = [1, 2, 3, 4];
 const gen = toLazy(arr);
 
@@ -932,6 +1127,8 @@ while(x.done !== true) {
 ```
 
 ```typescript
+import { toLazy, sum } from "lazzy.ts";
+
 const arr = [1, 2, 3, 4];
 const totalSum = sum(toLazy(arr));
 console.log(totalSum); // 10
@@ -943,15 +1140,17 @@ console.log(totalSum); // 10
 
 ---
 
-### zip();
+#### zip\<T, R, N, T2, R2, TResult\>();
 - **description**: Applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
 - **params**:
-  - `iterator: Iterator<T2, R, N>`
+  - `iterator: Iterator<T2, R2, N>`
   - `resultSelector: (first: T1, second: T2) => TResult`
 - **returns**:
-  - `lazyCollection: ILazyCollection<TResult, R | undefined, N>`
+  - `lazyCollection: ILazyCollection<TResult, R | R2 | undefined, undefined>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const words = Lazy.from(["one", "two", "three"]).toIterator();
 const zipped = Lazy.from([1, 2, 3, 4])
   .zip(words, (num, word) => `${num} - ${word}`)
@@ -965,19 +1164,26 @@ console.log(zipped); // ["1 - one", "2 - two", "3 - three"]
 
 ---
 
-### average();
+<h2 align="center">Methods that break the chain</h2>
+<h4 align="center">(Consumers)</h4>
+
+#### average\<T, R, N\>();
 - **description**: Computes the average value of numeric sequence. If the sequence contains objects, then you should select some member of a numeric type.
 - **params**:
-  - selector?: (value: T) => number
+  - `selector?: (value: T) => number`
 - **returns**:
-  - average: number
+  - `average: number`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3]).average();
 console.log(result); // 2
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1004,14 +1210,16 @@ console.log(result); // 30
 
 ---
 
-### count();
+#### count\<T, R, N\>();
 - **description**: Counts the number of items in the sequence.
 - **params**: 
   - `no parameters`
 - **returns**: 
-  - count: number
+  - `count: number`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const count = Lazy.from(["Josh", "Michael", "Jonathan", "Bob"]).count();
 console.log(count); // 4
 ```
@@ -1022,14 +1230,22 @@ console.log(count); // 4
 
 ---
 
-### every();
+#### every\<T, R, N\>();
 - **description**: The every() method tests whether all elements in a the sequence satisfy the condition.
-- **params**: predicate: (value: T, index: number) => boolean
-- **returns**: result: boolean
+- **params**: 
+  - `predicate: (value: T, index: number) => boolean`
+- **returns**: 
+  - `result: boolean`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).every(n => n <= 10);
 console.log(result); // true
+```
+
+```typescript
+import Lazy from "lazzy.ts";
 
 const result = Lazy.from([1, 2, 3, 4, 5, 11, 6, 7, 8, 9, 10]).every(n => n <= 10);
 console.log(result); // false
@@ -1041,37 +1257,101 @@ console.log(result); // false
 
 ---
 
-### min();
-- **description**: Returns the entry with lowest-valued number of the sequence. If the sequence contains objects, then you should select some member of a numeric type.
+#### first\<T, R, N\>();
+- **description**: Returns the first element of a sequence that satisfies a specified condition.
 - **params**: 
-  - selector?: (value: T) => number
+  - `predicate: (value: T) => boolean`
 - **returns**: 
-  - min: number
+  - `value: T | undefined`
 
 ```typescript
-const min = Lazy.from([1, 2, 3, 4, 5, 6, -5, 7, 8, 9, 10]).min();
-console.log(min); // -5
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .first(e => e.startsWith("J"));
+
+console.log(value); // "Josh"
+```
+
+If the element is not found then it will return **undefined**.
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .last(e => e.startsWith("K"));
+
+console.log(value); // undefined
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### firstWithIndex\<T, R, N\>();
+- **description**: Returns the first element of a sequence, and it's index, (a tuple **[element, index]**) that satisfies a specified condition. 
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `tuple: [T | undefined, number]`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("J"));
+
+console.log(value); // "Josh"
+console.log(index); // 0
+``` 
+
+If the searched value is not found then it will return **[undefined, -1]**.
+```typescript
+import Lazy from "lazzy.ts";
+
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("K"));
+
+console.log(value); // undefined
+console.log(index); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### includes\<T, R, N\>();
+- **description**: Determines whether an interable includes a certain value among its entries, returning true or false as appropriate. 
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `result: boolean`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .includes(e => e.startsWith("J"));
+
+console.log(value); // true
 ```
 
 ```typescript
-class Person {
-    name: string;
-    age: number;
-    
-    constructor(name: string, age: number) {
-        this.name = name;
-        this.age = age;
-    }
-}
+import Lazy from "lazzy.ts";
 
-const people = [
-    new Person("Josh", 25),
-    new Person("Michael", 35),
-    new Person("Jonathan", 30),
-];
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .includes(e => e.startsWith("K"));
 
-const youngest = Lazy.from(people).min(p => p.age);
-console.log(youngest); // 25
+console.log(value); // false
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -1080,19 +1360,220 @@ console.log(youngest); // 25
 
 ---
 
-### max();
-- **description**: Returns the entry with largest numeric value of the sequence. If the sequence contains objects, then you should select some member of a numeric type.
+#### indexOf\<T, R, N\>();
+- **description**: Returns the first index of a sequence that satisfies a specified condition.
 - **params**: 
-  - selector?: (value: T) => number
+  - `predicate: (value: T) => boolean`
 - **returns**: 
-  - max: number
+  - `index: number`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("J"));
+
+console.log(value); // 0
+```
+
+If the element is not found then it will return **-1**.
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("K"));
+
+console.log(value); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### join\<T, R, N\>();
+- **description**: Concatenates the elements of a sequence or the members, using the specified separator between each element or member. If the sequence contains objects, you must use the second parameter 'select' to choose a member.
+- **params**: 
+  - `separator: string`
+  - `select?: (value: T) => string | number | boolean` 
+- **returns**: 
+  - `value: string`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// If you work with primitive types you just need to pass a separator as an argument:
+const result = Lazy.from([1, 2, 3]).join(", ");
+console.log(result); // "1, 2, 3"
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // uncomment these lines to test the second approach
+    // toString(): string {
+    //     return `Name: ${this.name}, Age: ${this.age}`;
+    // }
+}
+
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 36),
+    new Person("Jonathan", 30),
+];
+
+// If you work with more complicated types then you are obliged to pass a selector function, 
+// which selects some member of primitive type. 
+const result = Lazy.from(people).join(", ", (person) => person.name);
+console.log(result); // "Josh, Michael, Jonathan"
+
+// If the type has 'toString' method, then you can omit the 'selector' function.
+// But if you want, you can still use it like the example above.
+
+// uncomment these lines to test this approach
+// const result2 = Lazy.from(people).join("; ");
+// console.log(result2) // "Name: Josh, Age: 25; Name: Michael, Age: 36; Name: Jonathan, Age: 30;"
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### last\<T, R, N\>();
+- **description**: Returns the last element of a sequence that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `value: T | undefined`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .last(e => e.startsWith("J"));
+
+console.log(value); // "Jonathan"
+```
+
+If the element is not found then it will return **undefined**.
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .last(e => e.startsWith("K"));
+
+console.log(value); // undefined
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### lastIndexOf\<T, R, N\>();
+- **description**: Returns the last index of a sequence that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `index: number`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("J"));
+
+console.log(value); // 2
+```
+
+If the element is not found then it will return **-1**.
+```typescript
+import Lazy from "lazzy.ts";
+
+const value = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .indexOf(e => e.startsWith("K"));
+
+console.log(value); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### lastWithIndex\<T, R, N\>();
+- **description**: Returns the last element of a sequence, and it's index, (a tuple **[element, index]**) that satisfies a specified condition.
+- **params**: 
+  - `predicate: (value: T) => boolean`
+- **returns**: 
+  - `tuple: [T | undefined, number]`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("J"));
+
+console.log(value); // "Jonathan"
+console.log(index); // 2
+``` 
+
+If the element is not found then it will return **[undefined, -1]**.
+```typescript
+import Lazy from "lazzy.ts";
+
+const [value, index] = Lazy
+    .from(["Josh", "Michael", "Jonathan", "Bob"])
+    .lastWithIndex(name => name.startsWith("K"));
+
+console.log(value); // undefined
+console.log(index); // -1
+``` 
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### max\<T, R, N\>();
+- **description**: Returns the entry with largest numeric value of the sequence. If the sequence contains objects, then you should select some member of a numeric type.
+- **params**: 
+  - `selector?: (value: T) => number`
+- **returns**: 
+  - `max: number`
+
+```typescript
+import Lazy from "lazzy.ts";
+
 const max = Lazy.from([1, 2, 3, 4, 5, 6, -5, 7, 8, 9, 10]).max();
 console.log(max); // 10
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1119,19 +1600,23 @@ console.log(oldest); // 35
 
 ---
 
-### sum();
-- **description**: Computes the total sum of a sequence of numbers. If the sequence contains objects, then you should select some member of a numeric type.
+#### min\<T, R, N\>();
+- **description**: Returns the entry with lowest-valued number of the sequence. If the sequence contains objects, then you should select some member of a numeric type.
 - **params**: 
-  - selector?: (value: T) => number
+  - `selector?: (value: T) => number`
 - **returns**: 
-  - sum: number
+  - `min: number`
 
 ```typescript
-const sum = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).sum();
-console.log(sum); // 55
+import Lazy from "lazzy.ts";
+
+const min = Lazy.from([1, 2, 3, 4, 5, 6, -5, 7, 8, 9, 10]).min();
+console.log(min); // -5
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1148,8 +1633,8 @@ const people = [
     new Person("Jonathan", 30),
 ];
 
-const sum = Lazy.from(people).sum(p => p.age);
-console.log(sum); // 90
+const youngest = Lazy.from(people).min(p => p.age);
+console.log(youngest); // 25
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -1158,19 +1643,41 @@ console.log(sum); // 90
 
 ---
 
-### product();
-- **description**: Computes the product of a sequence of numbers. If the sequence contains objects, then you should select some member of a numeric type.
+#### partition\<T, R, N\>();
+- **description**: Splits the sequence into two arrays according to certain criteria.
 - **params**: 
-  - selector?: (value: T) => number
+  - `predicate: (value: T) => boolean`
 - **returns**: 
-  - product: number
+  - `result: [T[], T[]]`
 
 ```typescript
+const partition = Lazy.from([1, 2, 3, 4]).partition((n) => n % 2 === 0);
+console.log(partition); // [[2, 4], [1, 3]]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### product\<T, R, N\>();
+- **description**: Computes the product of a sequence of numbers. If the sequence contains objects, then you should select some member of a numeric type.
+- **params**: 
+  - `selector?: (value: T) => number`
+- **returns**: 
+  - `product: number`
+
+```typescript
+import Lazy from "lazzy.ts";
+
 const product = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).product();
 console.log(product); // 3_628_800;
 ```
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1197,14 +1704,133 @@ console.log(product); // 26_250
 
 ---
 
-### toIterator();
+#### reduce\<T, R, N, V\>();
+- **description**: Executes a user-supplied “reducer” callback function on each element of the sequence, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the sequence is a single value.
+- **params**:
+  - `reducer: (value: T, accumulator: V) => V`
+  - `initial: V`
+- **returns**:
+  - `value: V`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4])
+  .reduce((prev, next) => prev + next, 0);
+
+console.log(result); // 10
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### run\<T, R, N\>();
+- **description:** All generators are executed when they are consumed. With this function you can consume the generator, without producing a value. In other words - executes the generator.
+- **params:** 
+  - `no parameters`
+- **returns:** 
+  - `value: R`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// At this point the generator is not executed. We have to consume it.
+const generator = Lazy.from([1, 2, 3]).forEach(n => console.log(n));
+
+// Here we consume the generator.
+generator.run();
+
+/* output:
+1
+2
+3
+*/
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### sum\<T, R, N\>();
+- **description**: Computes the total sum of a sequence of numbers. If the sequence contains objects, then you should select some member of a numeric type.
+- **params**: 
+  - `selector?: (value: T) => number`
+- **returns**: 
+  - `sum: number`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const sum = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).sum();
+console.log(sum); // 55
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+class Person {
+    name: string;
+    age: number;
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const people = [
+    new Person("Josh", 25),
+    new Person("Michael", 35),
+    new Person("Jonathan", 30),
+];
+
+const sum = Lazy.from(people).sum(p => p.age);
+console.log(sum); // 90
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### toArray\<T, R, N\>();
+- **description**: Creates an array from an ILazyCollection.
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - `array: T[]`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// With the 'range' method we generate the numbers from 1 to 4.
+// Then we convert them to an array.
+const result = Lazy.range({ from: 1, to: 4 }).toArray();
+console.log(result); // [1, 2, 3, 4]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### toIterator\<T, R, N\>();
 - **description**: Returns the iterator from an ILazyCollection.
 - **params**: 
   - `no parameters`
 - **returns**: 
-  - `Iterator<T, R, N>`
+  - `iterator: Iterator<T, R, N>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 // If you want you can get the iterator and perform some custom operations.
 // In this example we will print the values.
 const iterator = Lazy.range().take(5).toIterator();
@@ -1235,34 +1861,16 @@ printValues(iterator);
 
 ---
 
-### toArray();
-- **description**: Creates an array from an ILazyCollection.
-- **params**: 
-  - `no parameters`
-- **returns**: 
-  - array: `Array<T>`
-
-```typescript
-// With the 'range' method we generate the numbers from 1 to 4.
-// Then we convert them to an array.
-const result = Lazy.range({ from: 1, to: 4 }).toArray();
-console.log(result); // [1, 2, 3, 4]
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### toMap();
+#### toMap\<T, R, N, K, V\>();
 - **description**: Creates a map from an ILazyCollection.
 - **params**: 
   - `select: (value: T) => [K, V]`
-- **returns**: 
+- **returns**:
   - `map: Map<K, V>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1303,7 +1911,7 @@ Person {}
 
 ---
 
-### toSet();
+#### toSet\<T, R, N\>();
 - **description**: Creates a set from an ILazyCollection.
 - **params**: 
   - `no parameters`
@@ -1311,6 +1919,8 @@ Person {}
   - `set: Set<T>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const set = Lazy.from([1, 2, 3, 2, 4, 3]).toSet();
 console.log(set);
 
@@ -1329,14 +1939,16 @@ Set {}
 
 ---
 
-### toWeakMap();
+#### toWeakMap\<T, R, N, K extends object, V\>();
 - **description**: Creates a weak map from an ILazyCollection.
 - **params**: 
-  - `selector: (value: T) => [Key, Value]`
+  - `selector: (value: T) => [K, V]`
 - **returns**: 
-  - `weakMap: WeakMap<T>`
+  - `weakMap: WeakMap<K, V>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1363,14 +1975,16 @@ console.log(weakMap.get(people[1])); // 36
 
 ---
 
-### toWeakSet();
+#### toWeakSet\<T, R, N, K extends object\>();
 - **description**: Creates a weak set from an ILazyCollection.
 - **params**: 
-  - `selector: (value: T) => Key`
+  - `selector: (value: T) => K`
 - **returns**: 
-  - `weakSet: WeakSet<T>`
+  - `weakSet: WeakSet<K>`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 class Person {
     name: string;
     age: number;
@@ -1397,104 +2011,10 @@ console.log(set.get(people[1]).age); // 36
 
 ---
 
-### reduce();
-- **description**: Executes a user-supplied “reducer” callback function on each element of the sequence, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the sequence is a single value.
-- **params**:
-  - `reducer: (value: T, accumulator: U) => U`
-  - `initial: U`
-- **returns**: 
-  - `value: U`
-
-```typescript
-const result = Lazy.from([1, 2, 3, 4])
-  .reduce((prev, next) => prev + next, 0);
-
-console.log(result); // 10
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### join();
-- **description**: Concatenates the elements of a sequence or the members, using the specified separator between each element or member. If the sequence contains objects, you must use the second parameter 'select' to choose a member.
-- **params**: 
-  - `separator: string`
-  - `select?: (value: T) => string | number | boolean` 
-- **returns**: 
-  - `value: string`
-
-```typescript
-// If you work with primitive types you just need to pass a separator as an argument:
-const result = Lazy.from([1, 2, 3]).join(", ");
-console.log(result); // "1, 2, 3"
-```
-
-```typescript
-class Person {
-    name: string;
-    age: number;
-    
-    constructor(name: string, age: number) {
-        this.name = name;
-        this.age = age;
-    }
-
-    // uncomment these lines to test the second approach
-    // toString(): string {
-    //     return `Name: ${this.name}, Age: ${this.age}`;
-    // }
-}
-
-const people = [
-    new Person("Josh", 25),
-    new Person("Michael", 36),
-    new Person("Jonathan", 30),
-];
-
-// If you work with more complicated types then you are obliged to pass a selector function, 
-// which selects some member of primitive type. 
-const result = Lazy.from(people).join(", ", (person) => person.name);
-console.log(result) // "Josh, Michael, Jonathan"
-
-// If the type has 'toString' method, then you can omit the 'selector' function.
-// But if you want, you can still use it like the example above.
-
-// uncomment these lines to test this approach
-// const result = Lazy.from(people).join("; ");
-// console.log(result) // "Name: Josh, Age: 25; Name: Michael, Age: 36; Name: Jonathan, Age: 30;"
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### partition();
-- **description**: Splits the sequence into two arrays according to certain criteria.
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - result: [T[], T[]]
-
-```typescript
-const partition = Lazy.from([1, 2, 3, 4]).partition((n) => n % 2 === 0);
-console.log(partition); // [[2, 4], [1, 3]]
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### uppend();
+#### uppend\<T, R, N\>();
 - **description**: Updates the current sequence and appends new elements simultaneously.
 - **params**:
-  - `array: T[]`
+  - `newValues: Iterator<T, R, N>`
   - `predicate: (oldElement: T, newElement: T) => boolean`
 - **returns**:
   - `array: T[]`
@@ -1503,6 +2023,8 @@ Updates the elements from the initial sequence with the new values, which match 
 Appends the new values which don't match the predicate.
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const database = [
     { name: "Ivan", age: 20 },
     { name: "Petar", age: 30 },
@@ -1523,246 +2045,6 @@ console.log(uppended);
   { name: "Petar", age: 30 },
   { name: "Spas", age: 20 },
 ]
-*/
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### includes();
-- **description**: Determines whether an interable includes a certain value among its entries, returning true or false as appropriate. 
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `result: boolean`
-
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .includes(e => e.startsWith("J"));
-
-console.log(value); // true
-```
-
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .includes(e => e.startsWith("K"));
-
-console.log(value); // false
-```
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### indexOf();
-- **description**: Returns the first index of a sequence that satisfies a specified condition.
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `index: number`
-
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .indexOf(e => e.startsWith("J"));
-
-console.log(value); // 0
-```
-
-If the element is not found then it will return **-1**.
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .indexOf(e => e.startsWith("K"));
-
-console.log(value); // -1
-``` 
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### lastIndexOf();
-- **description**: Returns the last index of a sequence that satisfies a specified condition.
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `index: number`
-
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .indexOf(e => e.startsWith("J"));
-
-console.log(value); // 2
-```
-
-If the element is not found then it will return **-1**.
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .indexOf(e => e.startsWith("K"));
-
-console.log(value); // -1
-``` 
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### first();
-- **description**: Returns the first element of a sequence that satisfies a specified condition.
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `value: T | undefined`
-
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .first(e => e.startsWith("J"));
-
-console.log(value); // "Josh"
-```
-
-If the element is not found then it will return **undefined**.
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .last(e => e.startsWith("K"));
-
-console.log(value); // undefined
-``` 
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### firstWithIndex();
-- **description**: Returns the first element of a sequence, and it's index, (a tuple **[element, index]**) that satisfies a specified condition. 
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `tuple: [T | undefined, number]`
-
-```typescript
-const [value, index] = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .lastWithIndex(name => name.startsWith("J"));
-
-console.log(value); // "Josh"
-console.log(index); // 0
-``` 
-
-If the searched value is not found then it will return **[undefined, -1]**.
-```typescript
-const [value, index] = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .lastWithIndex(name => name.startsWith("K"));
-
-console.log(value); // undefined
-console.log(index); // -1
-``` 
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### last();
-- **description**: Returns the last element of a sequence that satisfies a specified condition.
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `value: T | undefined`
-
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .last(e => e.startsWith("J"));
-
-console.log(value); // "Jonathan"
-```
-
-If the element is not found then it will return **undefined**.
-```typescript
-const value = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .last(e => e.startsWith("K"));
-
-console.log(value); // undefined
-``` 
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### lastWithIndex();
-- **description**: Returns the last element of a sequence, and it's index, (a tuple **[element, index]**) that satisfies a specified condition.
-- **params**: 
-  - `predicate: (value: T) => boolean`
-- **returns**: 
-  - `tuple: [T | undefined, number]`
-
-```typescript
-const [value, index] = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .lastWithIndex(name => name.startsWith("J"));
-
-console.log(value); // "Jonathan"
-console.log(index); // 2
-``` 
-
-If the element is not found then it will return **[undefined, -1]**.
-```typescript
-const [value, index] = Lazy
-    .from(["Josh", "Michael", "Jonathan", "Bob"])
-    .lastWithIndex(name => name.startsWith("K"));
-
-console.log(value); // undefined
-console.log(index); // -1
-``` 
-
-<p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
-</p>
-
----
-
-### run();
-- **description:** All generators are executed when they are consumed. With this function you can consume the generator, without producing a value. In other words - executes the generator.
-- **params:** 
-  - `no parameters`
-- **returns:** 
-  - `void`
-
-```typescript
-// At this point the generator is not executed. We have to consume it.
-const generator = Lazy.from([1, 2, 3]).forEach(n => console.log(n));
-
-// Here we consume the generator.
-generator.run();
-
-/* output:
-1
-2
-3
 */
 ```
 
