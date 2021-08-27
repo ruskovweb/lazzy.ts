@@ -33,8 +33,8 @@ describe("ƒ fill()", function() {
     });
 
     it("shoud fill the sequence with [8, 9] at positions 4 and 5", function() {
-        const result = Lazy.from([1, 2, 3, 4, 5, 6, 7]).fill([8, 9, 10], 4, 6).toArray();
-        expect(result).to.be.deep.eq([1, 2, 3, 4, 8, 9, 7]);
+        const result = Lazy.from([1, 2, 3, 4, 5, 6, 7]).fill([8, 9, 10], 3, 5).toArray();
+        expect(result).to.be.deep.eq([1, 2, 3, 8, 9, 6, 7]);
     });
 
     it("shoud fill the last two elements of the sequence with [8, 9]", function() {
