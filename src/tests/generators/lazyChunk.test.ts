@@ -2,6 +2,13 @@ import { expect } from "chai";
 import Lazy from "../..";
 
 describe("ƒ lazyChunk()", function () {
+    it("should split an array to multiple chunks and get the total sum of each chunk", function () {
+        const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).lazyChunk(3)
+            .map(c => c.sum())
+            .toArray();
+        expect(result).to.be.deep.eq([6, 15, 24, 10]);
+    });
+
     it("should split an array to multiple chunks", function () {
         const result: number[][] = [];
         for (const chunk of Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).lazyChunk(3)) {

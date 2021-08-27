@@ -1,12 +1,11 @@
-export function* feed<T, R1, R2, N, V>(source: Iterator<T, R2, N>, into: Iterator<V, R1, T>): Generator<V, undefined, undefined> {
-    let x = source.next();
+export function* feed<T, R, R2, N, V>(into: Iterator<T, R2, N>, from: Iterator<V, R, T>): Generator<V, void, undefined> {
+    let x = into.next();
     while (x.done !== true) {
-        const r = into.next(x.value);
+        const r = from.next(x.value);
         if (r.done === true) {
             return;
         }
         yield r.value;
-        x = source.next();
+        x = into.next();
     }
-    return;
 }

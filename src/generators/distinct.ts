@@ -1,6 +1,6 @@
 import { InvalidArgumentsMessage, isPrimitive, Primitive } from "../common/helpers";
 
-export function getPrimitiveSelector<T>(value: T, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]) {
+export function getPrimitiveSelector<T>(value: T, ...select: T extends Primitive ? [] : [(value: T) => Primitive]) {
     if (isPrimitive(value)) {
         return (v: Primitive): Primitive => v;
     } 
@@ -12,7 +12,7 @@ export function getPrimitiveSelector<T>(value: T, ...select: T extends Primitive
     throw new TypeError(InvalidArgumentsMessage);
 }
 
-export function* distinct<T, R, N>(iterator: Iterator<T, R, N>, ...select: T extends Primitive ? [undefined?] : [(value: T) => Primitive]): Generator<T, R, undefined> {
+export function* distinct<T, R, N>(iterator: Iterator<T, R, N>, ...select: T extends Primitive ? [] : [(value: T) => Primitive]): Generator<T, R, undefined> {
     let x = iterator.next();
     if (x.done === true) {
         return x.value;

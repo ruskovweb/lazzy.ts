@@ -1,8 +1,8 @@
-import { Depth } from "../common/helpers";
+import { Depth, FlatArray } from "../common/helpers";
 import { flat } from "./flat";
 import { toLazy } from "./toLazy";
 
-export function* flatMap<T, R, N, V, D extends Depth = 20>(iterator: Iterator<T, R, N>, func: (currentValue: T, index: number) => V, depth: D = 20 as D): Generator<FlatArray<V, D>, R, N> {
+export function* flatMap<T, R, N, V, D extends Depth = 20>(iterator: Iterator<T, R, N>, func: (currentValue: T, index: number) => V, depth: D = 20 as D): Generator<FlatArray<V, D>, R, undefined> {
     depth = depth ?? (20 as D);
     let index = 0;
     let x = iterator.next();
