@@ -1,6 +1,6 @@
 import { getNumericSelector } from "../common/helpers";
 
-export function average<T, R, N>(iterator: Iterator<T, R, N>, ...select: T extends number ? [undefined?] : [(value: T) => number]): number {
+export function average<T, R, N>(iterator: Iterator<T, R, N>, ...select: T extends number ? [] : [(value: T) => number]): number {
     let x = iterator.next();
     if (x.done === true) {
         return 0;
