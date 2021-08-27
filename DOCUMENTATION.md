@@ -217,6 +217,56 @@ console.log(value); // "Hello, Michael!"
 
 ---
 
+### balancedChunk();
+- **description**: Splits the sequence into multiple balanced chunks by specified weight. 
+- **params**: 
+  - `weight: number`
+  - `select?: (value: T) => number`
+- **returns**: 
+  - chunks: ILazyCollection<T[], R, N> 
+
+```typescript
+class Cargo {
+    weight: number;
+
+    constructor(weight: number) {
+        this.weight = weight;
+    }
+}
+
+class Ship {
+    cargos: Cargo[] = [];
+
+    constructor(cargos: Cargo[]) {
+        this.cargos = cargos;
+    }
+}
+
+// Each ship has cargo with max weight 8000 tons.
+const ships = Lazy.range({ from: 100, to: 1000, step: 20 }) // generates different weights
+  .map((weight) => new Cargo(weight))                       // creates a new cargo
+  .balancedChunk(8000, (cargo) => cargo.weight)             // balances all cargos
+  .map((cargos) => new Ship(cargos))                        // creates new ship for each group of cargos
+  .toArray();
+
+console.log(ships);
+
+/* output:
+  [
+    Ship: { cargos: Array(9)  } // total weight 8000,
+    Ship: { cargos: Array(11) } // total weight 8000 
+    Ship: { cargos: Array(18) } // total weight 7940 
+    Ship: { cargos: Array(8)  } // total weight 1360 
+  ]
+*/
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 ### chunk();
 - **description**: Splits the sequence into multiple chunks of certain size.
 - **params**: 
