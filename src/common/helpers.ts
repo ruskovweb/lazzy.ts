@@ -12,7 +12,8 @@ export type FlatArray<Arr, Depth extends number> = {
 }[Depth extends 0 ? "done" : "recur"];
 
 export type Select<T, U> = T extends U ? [undefined?] : Extract<keyof T, "toString"> extends never ? [(value: T) => U] : [undefined?] | [(value: T) => U];
-export type OptionalComparer<T> = T extends Primitive ? [((left: T, right: T) => number)?] : [(left: T, right: T) => number];
+export type Comparer<T> = (left: T, right: T) => number;
+export type OptionalComparer<T, U = T> = T extends Primitive ? [Comparer<U>?] : [Comparer<U>];
 
 export const isIterable = (it: unknown): boolean => {
     const type = typeof it;
