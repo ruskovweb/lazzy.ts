@@ -583,7 +583,6 @@ console.log(result);
 ---
 
 #### feed\<T, R, R2, N, V\>();
-
 - **description**: Feeds the initial sequence with new values from another iterator.
 - **params**:
   - `iterator: Iterator<V, R1, T>`
@@ -605,6 +604,49 @@ console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 1
 - Then the feed function iterates through these values and replaces each value with the returned value from the 'Lazy.prime()'.
 
 - The 'Lazy.prime()' receives each value from the initial sequence and generates a prime number greater than or equal to the received value.
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### fill\<T, R, N\>();
+- **description**: Fills the initial sequence with values at specified range.
+- **params**:
+  - `values: Iterable<T>`
+  - `start: number = 0`
+  - `end?: number`
+- **returns**:
+  - `lazyCollection: ILazyCollection<T, R, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7]).fill([0], 3, 5).toArray();
+console.log(result); // [1, 2, 3, 0, 0, 6, 7]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7]).fill([8, 9, 10], 0, 7).toArray();
+console.log(result); // [8, 9, 10, 8, 9, 10, 8]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7]).fill([8, 9, 10], 3, 5).toArray();
+console.log(result); // [1, 2, 3, 8, 9, 6, 7]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7]).fill([0], 3).toArray();
+expect(result).to.be.deep.eq([1, 2, 3, 0, 0, 0, 0]);
+```
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>

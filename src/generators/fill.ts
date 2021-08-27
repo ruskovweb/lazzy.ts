@@ -1,4 +1,4 @@
-export function* fill<T, R, N>(iterator: Iterator<T, R, N>, values: Iterable<T>, start = 0, end?: number): Generator<T, R, N> {
+export function* fill<T, R, N>(iterator: Iterator<T, R, N>, values: Iterable<T>, start = 0, end?: number): Generator<T, R, undefined> {
     let index = 0;
     let x = iterator.next();
 
