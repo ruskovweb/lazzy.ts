@@ -12,7 +12,7 @@ export interface ILazyCollection<T, R, N> {
     custom<T2, R2, N2>(generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>): ILazyCollection<T2, R2, N2>;
     distinct(...select: T extends Primitive ? [] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;
     feed<R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, void, undefined>;
-    fill(value: T, start?: number, end?: number): ILazyCollection<T, R, N>;
+    fill(values: Iterable<T>, start?: number, end?: number): ILazyCollection<T, R, N>;
     filter(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
     filterWithIndex(predicate: (value: T) => boolean): ILazyCollection<[T, number], R, undefined>;
     flat<D extends Depth = 20>(depth?: D): ILazyCollection<FlatArray<T, D>, R, undefined>;
