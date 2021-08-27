@@ -1,4 +1,4 @@
-export function* prepend<T, R, N>(iterator: Iterator<T, R, N>, ...iterables: Array<Iterable<T>>): Generator<T, R, N> {
+export function* prepend<T, R, N>(iterator: Iterator<T, R, N>, ...iterables: Array<Iterable<T>>): Generator<T, R, undefined> {
     for (const iterable of iterables) {
         for (const value of iterable) {
             yield value;

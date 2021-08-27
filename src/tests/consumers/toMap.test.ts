@@ -1,10 +1,9 @@
 import { assert, expect } from "chai";
 import Lazy from "../..";
-import { primeGenerator } from "../helpers";
 
 describe("ƒ toMap()", function () {
     it("shoult convert iterator to a map", function () {
-        const result = Lazy.from(primeGenerator())
+        const result = Lazy.prime()
             .take(5)
             .toMap((v) => [v.toString(), v]);
 

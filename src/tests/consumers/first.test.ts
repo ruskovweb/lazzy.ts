@@ -1,7 +1,12 @@
 import { expect } from "chai";
-import Lazy, { filter, map, sum, toLazy } from "../..";
+import Lazy from "../..";
 
 describe("ƒ first()", function () {
+    it("should get the first element of the sequence", function () {
+        const first = Lazy.from([1, 2, 3, 4, 5]).first();
+        expect(first).to.be.equal(1);
+    });
+
     it("should get the first even number", function () {
         const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).first((n) => n % 2 === 0);
         expect(result).to.be.eql(2);

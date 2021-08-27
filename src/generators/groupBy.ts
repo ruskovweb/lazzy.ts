@@ -3,7 +3,7 @@ export function* groupBy<T, R, N, TKey, TElement, TResult>(
     keySelector: (v: T) => TKey,
     elementSelector: (v: T) => TElement,
     resultSelector: (key: TKey, elements: TElement[]) => TResult
-): Generator<TResult, R, N> {
+): Generator<TResult, R, undefined> {
     const groups = new Map<TKey, TElement[]>();
 
     let x = iterator.next();

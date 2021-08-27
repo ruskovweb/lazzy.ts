@@ -1,5 +1,5 @@
-export function* generate<T> (func: () => T): Generator<T> {
+export function* generate<T> (callback: () => T): Generator<T, void, undefined> {
     while (true) {
-        yield func();
+        yield callback();
     }
 }
