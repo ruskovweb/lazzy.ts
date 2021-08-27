@@ -21,10 +21,9 @@ export interface ILazyCollection<T, R, N> {
     indices(predicate: (value: T) => boolean): ILazyCollection<number, R, N>;
     
     /**
-     * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.
-     * Avoid all other consumers like Array.from(), new Set(), etc.
+     * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
      */
-    lazyChunk(size: number): Generator<ILazyCollection<T, void, unknown>, R, N>;
+    lazyChunk(size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, N>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R | undefined, undefined>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;

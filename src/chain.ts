@@ -30,18 +30,9 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         indices: (predicate: (value: T) => boolean): ILazyCollection<number, R, N> => chain(λ.indices(source, predicate)),
 
         /**
-         * @description Use this function only in for-of loops, otherwise you risk falling into an infinite loop.
-         * Avoid all other consumers like Array.from(), new Set(), etc.
+         * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
          */
-        *lazyChunk(size: number): Generator<ILazyCollection<T, void, unknown>, R, N> {
-            const it = λ.lazyChunk(source, size);
-            let x = it.next();
-            while (x.done !== true) {
-                yield chain(x.value);
-                x = it.next();
-            }
-            return x.value;
-        },
+        lazyChunk: (size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, N> => chain(λ.lazyChunk(source, size)),
         map: <U>(transformer: (v: T) => U): ILazyCollection<U, R | undefined, undefined> => chain(λ.map(source, transformer)),
         prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.prepend(source, ...iterables)),
         repeat: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.repeat(source, c)),
