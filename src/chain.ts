@@ -12,37 +12,37 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         at: (index: number) => chain(λ.at(source, index)),
         balancedChunk: (target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollection<T[], void, undefined> => chain(λ.balancedChunk(source, target, ...select)),
         chunk: (size: number): ILazyCollection<T[], R, N> => chain(λ.chunk(source, size)),
-        concat: (...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined> => chain(λ.concat(source, ...iterators)),
+        concat: (...iterators: Array<Iterator<T, unknown, unknown>>): ILazyCollection<T, void, undefined> => chain(λ.concat(source, ...iterators)),
         custom: <T2, R2, N2>(generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>): ILazyCollection<T2, R2, N2> => chain(generator(source)),
         distinct: (...select: T extends Primitive ? [] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined> => chain(λ.distinct(source, ...select)),
-        feed: <R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, undefined, undefined> => chain(λ.feed(source, into)),
-        filter: (predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined> => chain(λ.filter(source, predicate)),
-        filterWithIndex: (predicate: (value: T) => boolean): ILazyCollection<[T, number], R | undefined, undefined> => chain(λ.filterWithIndex(source, predicate)),
-        flat: <D extends Depth = 20>(depth: D = 20 as D): ILazyCollection<FlatArray<T, D>, R, N> => chain(λ.flat(source, depth)),
-        flatMap: <V, D extends Depth = 20>(transformer: (currentValue: T, index: number) => V, depth: D = 20 as D): ILazyCollection<FlatArray<V, D>, R, N> =>
+        feed: <R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, void, undefined> => chain(λ.feed(source, into)),
+        filter: (predicate: (value: T) => boolean): ILazyCollection<T, R, undefined> => chain(λ.filter(source, predicate)),
+        filterWithIndex: (predicate: (value: T) => boolean): ILazyCollection<[T, number], R, undefined> => chain(λ.filterWithIndex(source, predicate)),
+        flat: <D extends Depth = 20>(depth: D = 20 as D): ILazyCollection<FlatArray<T, D>, R, undefined> => chain(λ.flat(source, depth)),
+        flatMap: <V, D extends Depth = 20>(transformer: (currentValue: T, index: number) => V, depth: D = 20 as D): ILazyCollection<FlatArray<V, D>, R, undefined> =>
             chain(λ.flatMap(source, transformer, depth)),
-        forEach: (fun: (v: T, i: number) => void): ILazyCollection<T, R | undefined, undefined> => chain(λ.forEach(source, fun)),
+        forEach: (fun: (v: T, i: number) => void): ILazyCollection<T, R, undefined> => chain(λ.forEach(source, fun)),
         groupBy: <TKey, TElement, TResult>(
             keySelector: (v: T) => TKey,
             elementSelector: (v: T) => TElement,
             resultSelector: (key: TKey, elements: TElement[]) => TResult
-        ): ILazyCollection<TResult, R, N> => chain(λ.groupBy(source, keySelector, elementSelector, resultSelector)),
-        indices: (predicate: (value: T) => boolean): ILazyCollection<number, R, N> => chain(λ.indices(source, predicate)),
+        ): ILazyCollection<TResult, R, undefined> => chain(λ.groupBy(source, keySelector, elementSelector, resultSelector)),
+        indices: (predicate: (value: T) => boolean): ILazyCollection<number, R, undefined> => chain(λ.indices(source, predicate)),
 
         /**
          * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
          */
-        lazyChunk: (size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, N> => chain(λ.lazyChunk(source, size)),
+        lazyChunk: (size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, undefined> => chain(λ.lazyChunk(source, size)),
         map: <U>(transformer: (v: T) => U): ILazyCollection<U, R | undefined, undefined> => chain(λ.map(source, transformer)),
-        prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.prepend(source, ...iterables)),
+        prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, undefined> => chain(λ.prepend(source, ...iterables)),
         repeat: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.repeat(source, c)),
         skip: (c: number): ILazyCollection<T, R, undefined> => chain(λ.skip(source, c)),
         skipWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R, undefined> => chain(λ.skipWhile(source, predicate)),
-        sort: (...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined> => chain(λ.sort(source, ...comparer)),
+        sort: (...comparer: OptionalComparer<T>): ILazyCollection<T, R, undefined> => chain(λ.sort(source, ...comparer)),
         spread: (): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined> => chain(λ.spread(source)),
         take: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.take(source, c)),
         takeWhile: (predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined> => chain(λ.takeWhile(source, predicate)),
-        zip: <T2, R2, TResult>(iterator2: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, N> =>
+        zip: <T2, R2, TResult>(iterator2: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, undefined> =>
             chain(λ.zip(source, iterator2, resultSelector)),
         //#endregion
 

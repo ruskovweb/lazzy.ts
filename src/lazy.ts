@@ -8,16 +8,16 @@ const isIterable = <U, T extends Iterable<U>>(it: T | unknown): it is T extends 
 };
 
 const Lazy: ILazy = {
-    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, undefined, undefined> => chain(λ.circular(iterable)),
-    from: <T, R, N>(source: Iterable<T> | Iterator<T, R, N>): ILazyCollection<T, R | undefined, N | undefined> => {
+    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, void, undefined> => chain(λ.circular(iterable)),
+    from: <T, R, N>(source: Iterable<T> | Iterator<T, R, N>): ILazyCollection<T, R | void, N | undefined> => {
         return isIterable(source) ? chain(λ.toLazy(source)) : chain(source);
     },
     fibonacci: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.fibonacci(minimum)),
-    generate: <T, R, N> (func: () => T): ILazyCollection<T, R | undefined, N> => chain(λ.generate(func)),
+    generate: <T> (func: () => T): ILazyCollection<T, void, undefined> => chain(λ.generate(func)),
     prime: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.prime(minimum)),
-    random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, undefined, undefined> => chain(λ.random(parameters)),
+    random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, void, undefined> => chain(λ.random(parameters)),
     randomFrom: <T>(array: T[]): ILazyCollection<T, void, undefined> => chain(λ.randomFrom(array)),
-    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, undefined, undefined> => chain(λ.range(parameters)),
+    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, void, undefined> => chain(λ.range(parameters)),
 };
 
 export default Lazy;

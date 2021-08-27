@@ -8,32 +8,32 @@ export interface ILazyCollection<T, R, N> {
     at(index: number): ILazyCollection<T, R, N>;
     balancedChunk(target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollection<T[], void, undefined>;
     chunk(size: number): ILazyCollection<T[], R, N>;
-    concat(...iterators: Array<Iterator<T, R, N>>): ILazyCollection<T, undefined, undefined>;
+    concat(...iterators: Array<Iterator<T, unknown, unknown>>): ILazyCollection<T, void, undefined>;
     custom<T2, R2, N2>(generator: (iterator: Iterator<T, R, N>) => Generator<T2, R2, N2>): ILazyCollection<T2, R2, N2>;
     distinct(...select: T extends Primitive ? [] : [(value: T) => Primitive]): ILazyCollection<T, R, undefined>;
-    feed<R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, undefined, undefined>;
-    filter(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
-    filterWithIndex(predicate: (value: T) => boolean): ILazyCollection<[T, number], R | undefined, undefined>;
-    flat<D extends Depth = 20>(depth?: D): ILazyCollection<FlatArray<T, D>, R, N>;
-    flatMap<V, D extends Depth = 20>(transformer: (currentValue: T, index: number) => V, depth?: D): ILazyCollection<FlatArray<V, D>, R, N>;
-    forEach(fun: (v: T, i: number) => void): ILazyCollection<T, R | undefined, undefined>;
-    groupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollection<TResult, R, N>;
-    indices(predicate: (value: T) => boolean): ILazyCollection<number, R, N>;
+    feed<R2, V>(into: Iterator<V, R2, T>): ILazyCollection<V, void, undefined>;
+    filter(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
+    filterWithIndex(predicate: (value: T) => boolean): ILazyCollection<[T, number], R, undefined>;
+    flat<D extends Depth = 20>(depth?: D): ILazyCollection<FlatArray<T, D>, R, undefined>;
+    flatMap<V, D extends Depth = 20>(transformer: (currentValue: T, index: number) => V, depth?: D): ILazyCollection<FlatArray<V, D>, R, undefined>;
+    forEach(fun: (v: T, i: number) => void): ILazyCollection<T, R, undefined>;
+    groupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollection<TResult, R, undefined>;
+    indices(predicate: (value: T) => boolean): ILazyCollection<number, R, undefined>;
     
     /**
      * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
      */
-    lazyChunk(size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, N>;
+    lazyChunk(size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, undefined>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R | undefined, undefined>;
-    prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
+    prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, undefined>;
     repeat(count: number): ILazyCollection<T, R | undefined, undefined>;
     skip(count: number): ILazyCollection<T, R, undefined>;
     skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
-    sort(...comparer: OptionalComparer<T>): ILazyCollection<T, void, undefined>;
+    sort(...comparer: OptionalComparer<T>): ILazyCollection<T, R, undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
     takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
-    zip<T2, R2, TResult>(iterator: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, N>;
+    zip<T2, R2, TResult>(iterator: Iterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollection<TResult, R | R2 | undefined, undefined>;
     //#endregion
 
     //#region Consumers

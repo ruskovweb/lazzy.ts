@@ -8,6 +8,8 @@ export function min<T, R, N>(iterator: Iterator<T, R, N>, ...select: T extends n
 
     const selector = getNumericSelector(x.value, ...select);
     let minValue = selector(x.value as T & number);
+    
+    x = iterator.next();
     while (x.done !== true) {
         const value = selector(x.value as T & number);
         if (value < minValue) {

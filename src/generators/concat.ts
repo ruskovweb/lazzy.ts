@@ -1,4 +1,4 @@
-export function* concat<T, R, N>(...iterators: Array<Iterator<T, R, N>>): Generator<T, undefined, undefined> {
+export function* concat<T>(...iterators: Array<Iterator<T, unknown, unknown>>): Generator<T, void, undefined> {
     for (const g of iterators) {
         let x = g.next();
         while (x.done !== true) {
@@ -6,5 +6,4 @@ export function* concat<T, R, N>(...iterators: Array<Iterator<T, R, N>>): Genera
             x = g.next();
         }
     }
-    return;
 }

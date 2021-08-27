@@ -1,9 +1,4 @@
-type Enumerate<N extends number, RESULT extends number[] = []> = 
-    RESULT["length"] extends N
-    ? RESULT[number]
-    : Enumerate<N, [...RESULT, RESULT["length"]]>;
-
-type Range<FROM extends number, TO extends number> = Exclude<Enumerate<TO>, Enumerate<FROM>>;
+import {Range} from "../common/helpers";
 
 export interface RandomParams {
     min: number;
@@ -17,7 +12,7 @@ const rangeDefaults: RandomParams = {
     precision: 0
 } as const;
 
-export function* random(parameters?: Partial<RandomParams>): Generator<number, undefined, undefined> {
+export function* random(parameters?: Partial<RandomParams>): Generator<number, void, undefined> {
     let { min, max, precision } = { ...rangeDefaults, ...parameters };
 
     const tempMax = max;

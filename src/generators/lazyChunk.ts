@@ -4,7 +4,7 @@ import { ILazyCollection } from "../contracts";
 /**
  * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
  */
-export function* lazyChunk<T, R, N>(iterator: Iterator<T, R, N>, size: number): Generator<ILazyCollection<T, void, undefined>, R, N> {
+export function* lazyChunk<T, R, N>(iterator: Iterator<T, R, N>, size: number): Generator<ILazyCollection<T, void, undefined>, R, undefined> {
     if (size <= 0) {
         size = Infinity;
     }
