@@ -1066,6 +1066,56 @@ console.log(ordered); // ["Bob", "Jonathan", "Josh", "Michael"]
 
 ---
 
+#### splice\<T, R, N\>();
+- **description**: Changes the contents of the sequence by removing or replacing existing elements and/or adding new elements in place.
+- **params**: 
+  - `start: number`
+  - `deleteCount?: number`
+  - `...items: T[]`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, T[], undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9]).splice(2, 2, 30, 40).toArray();
+console.log(result); // [1, 2, 30, 40, 5, 6, 7, 8, 9]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9]).splice(2, 2, 30, 40, 50, 60).toArray();
+console.log(result); // [1, 2, 30, 40, 50, 60, 5, 6, 7, 8, 9]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9]).splice(2, undefined, 30, 40).toArray();
+console.log(result); // [1, 2, 30, 40]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9]).splice(0).toArray();
+console.log(result); // []
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const result = Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9]).splice(-1).toArray();
+console.log(result); // []
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 #### spread\<T, R, N\>();
 - **description**: Spreads all values from an array of iterable objects into a single dimensional array.
 - **params**:
