@@ -31,6 +31,7 @@ export interface ILazyCollection<T, R, N> {
     skip(count: number): ILazyCollection<T, R, undefined>;
     skipWhile(predicate: (value: T) => boolean): ILazyCollection<T, R, undefined>;
     sort(...comparer: OptionalComparer<T>): ILazyCollection<T, R, undefined>;
+    splice(start: number, deleteCount?: number, ...items: T[]): ILazyCollection<T, T[], undefined>;
     spread(): ILazyCollection<T extends Iterable<infer U> ? U : T, R, undefined>;
     take(count: number): ILazyCollection<T, R | undefined, undefined>;
     takeWhile(predicate: (value: T) => boolean): ILazyCollection<T, R | undefined, undefined>;
