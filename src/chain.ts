@@ -34,6 +34,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
          * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
          */
         lazyChunk: (size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, undefined> => chain(λ.lazyChunk(source, size)),
+        lazyPartition: (predicate: (value: T) => boolean): ILazyCollection<AsyncGenerator<T, void, undefined>, R, undefined> => chain(λ.lazyPartition(source, predicate)),
         map: <U>(transformer: (v: T) => U): ILazyCollection<U, R | undefined, undefined> => chain(λ.map(source, transformer)),
         prepend: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, undefined> => chain(λ.prepend(source, ...iterables)),
         repeat: (c: number): ILazyCollection<T, R | undefined, undefined> => chain(λ.repeat(source, c)),
