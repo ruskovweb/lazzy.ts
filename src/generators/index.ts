@@ -17,6 +17,7 @@ export * from "./generate";
 export * from "./groupBy";
 export * from "./indices";
 export * from "./lazyChunk";
+export * from "./lazyGroupBy";
 export * from "./lazyPartition";
 export * from "./map";
 export * from "./sort";
