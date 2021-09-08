@@ -25,6 +25,7 @@ export interface ILazyCollection<T, R, N> {
      * @description You must consume the returned chunk immediately, otherwise you will fall into an infinite loop.
      */
     lazyChunk(size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, undefined>;
+    lazyGroupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: AsyncGenerator<TElement, void, undefined>) => TResult): ILazyCollection<TResult, R, undefined>;
     lazyPartition(predicate: (value: T) => boolean): ILazyCollection<AsyncGenerator<T, void, undefined>, R, undefined>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R | undefined, undefined>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, undefined>;
