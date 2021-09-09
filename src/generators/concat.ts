@@ -1,9 +1,19 @@
 export function* concat<T>(...iterators: Array<Iterator<T, unknown, unknown>>): Generator<T, void, undefined> {
-    for (const g of iterators) {
-        let x = g.next();
+    for (const iterator of iterators) {
+        let x = iterator.next();
         while (x.done !== true) {
             yield x.value;
-            x = g.next();
+            x = iterator.next();
+        }
+    }
+}
+
+export async function* concatAsync<T>(...iterators: Array<Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>>): AsyncGenerator<T, void, undefined> {
+    for (const iterator of iterators) {
+        let x = await iterator.next();
+        while (x.done !== true) {
+            yield x.value;
+            x = await iterator.next();
         }
     }
 }
