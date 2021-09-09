@@ -3,8 +3,6 @@ import { ILazyCollectionAsync } from "../contracts";
 import { Channel, isClosed } from "../csp/channel";
 
 export function* lazyPartition<T, R, N>(iterator: Iterator<T, R, N>, predicate: (value: T, index: number) => boolean): Generator<ILazyCollectionAsync<T, void, undefined>, R, undefined> {
-    let x = iterator.next();
-    
     const positive = new Channel<T>();
     const negative = new Channel<T>();
     
@@ -28,7 +26,8 @@ export function* lazyPartition<T, R, N>(iterator: Iterator<T, R, N>, predicate: 
         }
     }());
     
-    let index = 0;
+    let index = 0;    
+    let x = iterator.next();
     while (x.done !== true) {
         if (predicate(x.value, index++)) {
             positive.put(x.value);
@@ -45,8 +44,6 @@ export function* lazyPartition<T, R, N>(iterator: Iterator<T, R, N>, predicate: 
 }
 
 export async function* lazyPartitionAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, predicate: (value: T, index: number) => boolean | Promise<boolean>): AsyncGenerator<ILazyCollectionAsync<T, void, undefined>, R, undefined> {
-    let x = await iterator.next();
-
     const positive = new Channel<T>();
     const negative = new Channel<T>();
 
@@ -70,7 +67,8 @@ export async function* lazyPartitionAsync<T, R, N>(iterator: AsyncIterator<T, R,
         }
     }());
 
-    let index = 0;
+    let index = 0;    
+    let x = await iterator.next();
     while (x.done !== true) {
         if (await predicate(x.value, index++)) {
             positive.put(x.value);
