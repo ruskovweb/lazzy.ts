@@ -19,13 +19,14 @@ describe("ƒ lazyGroupBy()", function () {
                     name: key,
                     average: await ages.average(),
                 })
-            );
+            )
+            .promiseAll();
 
         const expected = [
             { name: "Ivan", average: 29 },
             { name: "Georgi", average: 14.5 },
         ];
 
-        expect(await Promise.all(groups)).to.be.deep.eq(expected);
+        expect(groups).to.be.deep.eq(expected);
     });
 });

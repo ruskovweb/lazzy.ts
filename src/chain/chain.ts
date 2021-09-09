@@ -1,4 +1,4 @@
-import { Depth, OptionalComparer, Primitive, Select, FlatArray } from "../common";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue } from "../common";
 import { ILazyCollection, ILazyCollectionAsync } from "../contracts";
 import * as λ from "../generators";
 import * as γ from "../consumers";
@@ -67,6 +67,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
         partition: (predicate: (value: T, index: number) => boolean): [T[], T[]] => γ.partition(source, predicate),
         product: (...select: T extends number ? [] : [(value: T) => number]): number => γ.product(source, ...select),
         reduce: <U>(fun: (value: T, accumulator: U) => U, initial: U): U => γ.reduce(source, fun, initial),
+        promiseAll: (): Promise<PromiseValue<T>[]> => γ.promiseAll(source),
         run: (): R => γ.run(source),
         sum: (...select: T extends number ? [] : [(value: T) => number]): number => γ.sum(source, ...select),
         toArray: (): T[] => γ.toArray(source),

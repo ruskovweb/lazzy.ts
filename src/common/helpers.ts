@@ -23,6 +23,8 @@ export type Select<T, U> = T extends U ? [] : Extract<keyof T, "toString"> exten
 export type Comparer<T> = (left: T, right: T) => number;
 export type OptionalComparer<T, U = T> = T extends Primitive ? [Comparer<U>?] : [Comparer<U>];
 
+export type PromiseValue<T> = T extends Promise<infer U> ? U : T;
+
 export const isIterable = (it: unknown): boolean => {
     const type = typeof it;
     return type === "string" || 

@@ -1,5 +1,5 @@
 import { ILazyCollectionAsync } from ".";
-import { Depth, OptionalComparer, Primitive, Select, FlatArray } from "../common/helpers";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue } from "../common/helpers";
 
 export interface ILazyCollection<T, R, N> {
     [Symbol.iterator](): Iterator<T, R, N>;
@@ -53,6 +53,7 @@ export interface ILazyCollection<T, R, N> {
     min(...select: T extends number ? [] : [(value: T) => number]): number;
     partition(predicate: (value: T, index: number) => boolean): [T[], T[]];
     product(...select: T extends number ? [] : [(value: T) => number]): number;
+    promiseAll(): Promise<PromiseValue<T>[]>;
     reduce<V>(fun: (value: T, accumulator: V) => V, initial: V): V;
     run(): R;
     sum(...select: T extends number ? [] : [(value: T) => number]): number;
