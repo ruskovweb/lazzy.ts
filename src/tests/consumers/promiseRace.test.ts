@@ -18,13 +18,11 @@ describe("ƒ promiseRace()", function () {
 
     it("should return the resolved value of the second promise if the second promise is resolved first", async function () {
         const p1 = async function () {
-            await delay(50);
-            return 1;
+            return delay(50, 1);
         };
 
         const p2 = async function () {
-            await delay(20);
-            return 2;
+            return delay(20, 2);
         };
 
         const result = await Lazy.from([p1(), p2()]).promiseRace();
@@ -33,13 +31,11 @@ describe("ƒ promiseRace()", function () {
 
     it("should return the third value if the third value is not a promise", async function () {
         const p1 = async function () {
-            await delay(100);
-            return 1;
+            return delay(100, 1);
         };
 
         const p2 = async function () {
-            await delay(50);
-            return 2;
+            return delay(50, 2);
         };
 
         const result = await Lazy.from([p1(), p2(), 3, 4]).promiseRace();
