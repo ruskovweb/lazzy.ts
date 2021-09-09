@@ -14,6 +14,7 @@ export * from "./min";
 export * from "./partition";
 export * from "./product";
 export * from "./promiseAll";
+export * from "./promiseRace";
 export * from "./reduce";
 export * from "./run";
 export * from "./sum";
