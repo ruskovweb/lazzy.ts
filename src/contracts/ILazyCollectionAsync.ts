@@ -53,7 +53,6 @@ export interface ILazyCollectionAsync<T, R, N> {
     partition(predicate: (value: T, index: number) => boolean | Promise<boolean>): Promise<[T[], T[]]>;
     product(...select: T extends number ? [] : [(value: T) => number]): Promise<number>;
     reduce<V>(fun: (value: T, accumulator: V) => V, initial: V): Promise<V>;
-    promiseAll(): Promise<PromiseValue<T>[]>;
     run(): Promise<R>;
     sum(...select: T extends number ? [] : [(value: T) => number]): Promise<number>;
     toArray(): Promise<T[]>;
