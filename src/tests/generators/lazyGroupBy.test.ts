@@ -11,32 +11,21 @@ describe("ƒ lazyGroupBy()", function () {
             { name: "Ivan", age: 42 },
         ];
 
-        const groups = Lazy.from(usersData)
+        const groups = await Lazy.from(usersData)
             .lazyGroupBy(
                 (user) => user.name,
                 (user) => user.age,
-                async (key, ages) => {
-                    let sum = 0;
-                    let count = 0;
-                    for await (const age of ages) {
-                        sum += age;
-                        count++;
-                    }
-
-                    return {
-                        name: key,
-                        average: sum / count,
-                    };
-                }
-            )
-            .toArray();
+                async (key, ages) => ({
+                    name: key,
+                    average: await ages.average(),
+                })
+            );
 
         const expected = [
             { name: "Ivan", average: 29 },
             { name: "Georgi", average: 14.5 },
         ];
 
-        const result = await Promise.all(groups);
-        expect(result).to.be.deep.eq(expected);
+        expect(await Promise.all(groups)).to.be.deep.eq(expected);
     });
 });

@@ -34,3 +34,20 @@ export function join<T, R, N>(iterator: Iterator<T, R, N>, separator: string, ..
 
     return result;
 }
+
+export async function joinAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, separator: string, ...select: Select<T, Primitive>): Promise<string> {
+    let result = "";
+    let x = await iterator.next();
+    
+    const selector = getPrimitiveSelector(x.value, ...select);
+
+    while (x.done !== true) {
+        result += selector(x.value as T & string);
+        x = await iterator.next();
+        if (x.done !== true) {
+            result += separator;
+        }
+    }
+
+    return result;
+}
