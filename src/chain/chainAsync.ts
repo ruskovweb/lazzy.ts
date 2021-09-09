@@ -1,4 +1,4 @@
-import { Depth, OptionalComparer, Primitive, Select, FlatArray } from "../common";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue } from "../common";
 import { ILazyCollectionAsync } from "../contracts";
 import * as λ from "../generators";
 import * as γ from "../consumers";
@@ -66,6 +66,7 @@ export function chainAsync<T, R, N>(source: AsyncIterator<T, R, N>): ILazyCollec
         min: (...select: T extends number ? [] : [(value: T) => number]): Promise<number> => γ.minAsync(source, ...select),
         partition: (predicate: (value: T, index: number) => boolean | Promise<boolean>): Promise<[T[], T[]]> => γ.partitionAsync(source, predicate),
         product: (...select: T extends number ? [] : [(value: T) => number]): Promise<number> => γ.productAsync(source, ...select),
+        promiseAll: (): Promise<PromiseValue<T>[]> => γ.promiseAll(source),
         reduce: <U>(fun: (value: T, accumulator: U) => U, initial: U): Promise<U> => γ.reduceAsync(source, fun, initial),
         run: (): Promise<R> => γ.runAsync(source),
         sum: (...select: T extends number ? [] : [(value: T) => number]): Promise<number> => γ.sumAsync(source, ...select),
