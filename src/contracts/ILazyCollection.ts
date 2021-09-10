@@ -19,10 +19,18 @@ export interface ILazyCollection<T, R, N> {
     flat<D extends Depth = 20>(depth?: D): ILazyCollection<FlatArray<T, D>, R, undefined>;
     flatMap<V, D extends Depth = 20>(transformer: (currentValue: T, index: number) => V, depth?: D): ILazyCollection<FlatArray<V, D>, R, undefined>;
     forEach(fun: (v: T, i: number) => void): ILazyCollection<T, R, undefined>;
-    groupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollection<TResult, R, undefined>;
+    groupBy<TKey, TElement, TResult>(
+        keySelector: (v: T) => TKey,
+        elementSelector: (v: T) => TElement,
+        resultSelector: (key: TKey, elements: TElement[]) => TResult
+    ): ILazyCollection<TResult, R, undefined>;
     indices(predicate: (value: T, index: number) => boolean): ILazyCollection<number, R, undefined>;
     lazyChunk(size: number): ILazyCollection<ILazyCollection<T, void, unknown>, R, undefined>;
-    lazyGroupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: ILazyCollectionAsync<TElement, void, undefined>) => TResult): ILazyCollection<TResult, R, undefined>;
+    lazyGroupBy<TKey, TElement, TResult>(
+        keySelector: (v: T) => TKey,
+        elementSelector: (v: T) => TElement,
+        resultSelector: (key: TKey, elements: ILazyCollectionAsync<TElement, void, undefined>) => TResult
+    ): ILazyCollection<TResult, R, undefined>;
     lazyPartition(predicate: (value: T, index: number) => boolean): ILazyCollection<ILazyCollectionAsync<T, void, undefined>, R, undefined>;
     map<V>(transformer: (v: T) => V): ILazyCollection<V, R, undefined>;
     prepend(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, undefined>;
