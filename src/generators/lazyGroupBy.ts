@@ -41,6 +41,10 @@ export function* lazyGroupBy<T, R, N, TKey, TElement, TResult>(
     return x.value;
 }
 
+/**
+ * This is temporary solution. Now it is not effective enough...
+ * @todo We should refactor this function to work even more lazy!
+ */
 export async function* lazyGroupByAsync<T, R, N, TKey, TElement, TResult>(
     iterator: AsyncIterator<T, R, N>,
     keySelector: (v: T) => TKey,
@@ -55,26 +59,25 @@ export async function* lazyGroupByAsync<T, R, N, TKey, TElement, TResult>(
         const element = elementSelector(x.value);
 
         if (!groups.has(key)) {
-            const channel = new Channel<TElement>();
-            yield resultSelector(key, chainAsync(async function *(): AsyncGenerator<TElement, void, undefined> {
-                while (!channel.isClosed()) {
-                    const value = await channel.take();
-                    if (isClosed(value)) {
-                        break;
-                    }
-                    yield value;
-                }
-            }()));
-            groups.set(key, channel);
+            groups.set(key, new Channel<TElement>());
         }
 
         const channel = groups.get(key)!;
-        await channel.put(element);
+        channel.put(element);
         x = await iterator.next();
     }
 
-    for (const [, channel] of groups) {
+    for (const [key, channel] of groups) {
         channel.close();
+        yield resultSelector(key, chainAsync(async function *(): AsyncGenerator<TElement, void, undefined> {
+            while (!channel.isClosed()) {
+                const value = await channel.take();
+                if (isClosed(value)) {
+                    break;
+                }
+                yield value;
+            }
+        }()));
     }
 
     return x.value;

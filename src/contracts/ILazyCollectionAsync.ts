@@ -1,3 +1,4 @@
+import { ILazyCollection } from ".";
 import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue } from "../common/helpers";
 
 export interface ILazyCollectionAsync<T, R, N> {
@@ -22,7 +23,7 @@ export interface ILazyCollectionAsync<T, R, N> {
     indices(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<number, R, undefined>;
     lazyChunk(size: number): ILazyCollectionAsync<ILazyCollectionAsync<T, void, unknown>, R, undefined>;
     lazyGroupBy<TKey, TElement, TResult>(keySelector: (v: T) => TKey, elementSelector: (v: T) => TElement, resultSelector: (key: TKey, elements: ILazyCollectionAsync<TElement, void, undefined>) => TResult): ILazyCollectionAsync<TResult, R, undefined>;
-    lazyPartition(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<ILazyCollectionAsync<T, void, undefined>, R, undefined>;
+    lazyPartition(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollection<ILazyCollectionAsync<T, void, undefined>, void, undefined>;
     map<V>(transformer: (v: T, index: number) => V): ILazyCollectionAsync<V, R, undefined>;
     prepend(...iterables: Array<Iterable<T> | AsyncIterable<T>>): ILazyCollectionAsync<T, R, undefined>;
     repeat(count: number): ILazyCollectionAsync<T, R | undefined, undefined>;

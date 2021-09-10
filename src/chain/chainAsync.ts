@@ -1,7 +1,8 @@
 import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue } from "../common";
-import { ILazyCollectionAsync } from "../contracts";
+import { ILazyCollection, ILazyCollectionAsync } from "../contracts";
 import * as λ from "../generators";
 import * as γ from "../consumers";
+import { chain } from ".";
 
 export function chainAsync<T, R, N>(source: AsyncIterator<T, R, N>): ILazyCollectionAsync<T, R, N> {
     return {
@@ -35,7 +36,7 @@ export function chainAsync<T, R, N>(source: AsyncIterator<T, R, N>): ILazyCollec
             elementSelector: (v: T) => TElement,
             resultSelector: (key: TKey, elements: ILazyCollectionAsync<TElement, void, undefined>) => TResult
         ): ILazyCollectionAsync<TResult, R, undefined> => chainAsync(λ.lazyGroupByAsync(source, keySelector, elementSelector, resultSelector)),
-        lazyPartition: (predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<ILazyCollectionAsync<T, void, undefined>, R, undefined> => chainAsync(λ.lazyPartitionAsync(source, predicate)),
+        lazyPartition: (predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollection<ILazyCollectionAsync<T, void, undefined>, void, undefined> => chain(λ.lazyPartitionAsync(source, predicate)),
         map: <V>(transformer: (v: T, index: number) => V): ILazyCollectionAsync<V, R, undefined> => chainAsync(λ.mapAsync(source, transformer)),
         prepend: (...iterables: Array<Iterable<T> | AsyncIterable<T>>): ILazyCollectionAsync<T, R, undefined> => chainAsync(λ.prependAsync(source, ...iterables)),
         repeat: (c: number): ILazyCollectionAsync<T, R | undefined, undefined> => chainAsync(λ.repeatAsync(source, c)),
