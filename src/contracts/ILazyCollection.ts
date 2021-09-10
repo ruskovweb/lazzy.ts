@@ -6,7 +6,7 @@ export interface ILazyCollection<T, R, N> {
 
     //#region Generators
     append(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
-    at(index: number): ILazyCollection<T, R, N>;
+    at(index: number): ILazyCollection<T | undefined, void, undefined>;
     balancedChunk(target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollection<T[], void, undefined>;
     chunk(size: number): ILazyCollection<T[], R, N>;
     concat(...iterators: Array<Iterator<T, unknown, unknown>>): ILazyCollection<T, void, undefined>;

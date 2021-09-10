@@ -10,7 +10,7 @@ export function chainAsync<T, R, N>(source: AsyncIterator<T, R, N>): ILazyCollec
 
         //#region Generators
         append: (...iterables: Array<Iterable<T | PromiseValue<T>> | AsyncIterable<T | PromiseValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, N> => chainAsync(λ.appendAsync(source, ...iterables)),
-        at: (index: number) => chainAsync(λ.atAsync(source, index)),
+        at: (index: number): ILazyCollectionAsync<PromiseValue<T> | undefined, void, undefined>  => chainAsync(λ.atAsync(source, index)),
         balancedChunk: (target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollectionAsync<T[], void, undefined> => chainAsync(λ.balancedChunkAsync(source, target, ...select)),
         chunk: (size: number): ILazyCollectionAsync<T[], R, N> => chainAsync(λ.chunkAsync(source, size)),
         concat: (...iterators: Array<Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>>): ILazyCollectionAsync<T, void, undefined> => chainAsync(λ.concatAsync(source, ...iterators)),

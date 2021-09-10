@@ -9,7 +9,7 @@ export function chain<T, R, N>(source: Iterator<T, R, N>): ILazyCollection<T, R,
 
         //#region Generators
         append: (...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N> => chain(λ.append(source, ...iterables)),
-        at: (index: number) => chain(λ.at(source, index)),
+        at: (index: number): ILazyCollection<T | undefined, void, undefined> => chain(λ.at(source, index)),
         balancedChunk: (target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollection<T[], void, undefined> => chain(λ.balancedChunk(source, target, ...select)),
         chunk: (size: number): ILazyCollection<T[], R, N> => chain(λ.chunk(source, size)),
         concat: (...iterators: Array<Iterator<T, unknown, unknown>>): ILazyCollection<T, void, undefined> => chain(λ.concat(source, ...iterators)),

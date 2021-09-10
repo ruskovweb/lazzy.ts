@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import Lazy from "../..";
+import { asyncGenerator, asyncIterator } from "../helpers";
 
 describe("ƒ append()", function () {
     it("should append an array", function () {
@@ -64,19 +65,6 @@ describe("ƒ append()", function () {
 });
 
 describe("ƒ appendAsync()", function () {
-    const asyncIterator = function (): AsyncIterator<Promise<number>> {
-        let n = 1;
-        return {
-            next: async function () {
-                return { done: false, value: Promise.resolve(n++) };
-            },
-        };
-    };
-
-    async function* asyncGenerator() {
-        yield* [6, 7, 8, 9, 10];
-    }
-
     it("should append an array", async function () {
         const result = await Lazy.fromAsync(asyncIterator()).take(5).append([6, 7, 8, 9, 10]).toArray();
         expect(result).to.be.deep.eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
