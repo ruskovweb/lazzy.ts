@@ -5,7 +5,7 @@ export interface ILazyCollectionAsync<T, R, N> {
     [Symbol.asyncIterator](): AsyncIterator<T, R, N>;
 
     //#region Generators
-    append(...iterables: Array<Iterable<T> | AsyncIterable<T>>): ILazyCollectionAsync<T, R, N>;
+    append(...iterables: Array<Iterable<T | PromiseValue<T>> | AsyncIterable<T | PromiseValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, N>;
     at(index: number): ILazyCollectionAsync<T, R, N>;
     balancedChunk(target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollectionAsync<T[], void, undefined>;
     chunk(size: number): ILazyCollectionAsync<T[], R, N>;
