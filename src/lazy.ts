@@ -1,4 +1,4 @@
-import { chain, chainAsync } from "./chain";
+import { Chain, ChainAsync } from "./chain";
 import { ILazy, ILazyCollection, ILazyCollectionAsync } from "./contracts";
 import * as λ from "./generators";
 
@@ -12,20 +12,20 @@ const isIterableAsync = <U, T extends AsyncIterable<U>>(it: T | unknown): it is 
 };
 
 const Lazy: ILazy = {
-    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, void, undefined> => chain(λ.circular(iterable)),
+    circular: <T>(iterable: Iterable<T>): ILazyCollection<T, void, undefined> => new Chain(λ.circular(iterable)),
     from: <T, R, N>(source: Iterable<T> | Iterator<T, R, N>): ILazyCollection<T, R | void, N | undefined> => {
-        return isIterable(source) ? chain(source[Symbol.iterator]()) : chain(source);
+        return isIterable(source) ? new Chain(source[Symbol.iterator]()) : new Chain(source);
     },
     fromAsync: <T, R, N>(source: AsyncIterable<T> | AsyncIterator<T, R, N>): ILazyCollectionAsync<T, R | void, N | undefined> => {
-        return isIterableAsync(source) ? chainAsync(source[Symbol.asyncIterator]()) : chainAsync(source);
+        return isIterableAsync(source) ? new ChainAsync(source[Symbol.asyncIterator]()) : new ChainAsync(source);
     },
-    fibonacci: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.fibonacci(minimum)),
-    generate: <T> (func: () => T): ILazyCollection<T, void, undefined> => chain(λ.generate(func)),
-    generateAsync: <T> (func: () => T | Promise<T>): ILazyCollectionAsync<T, void, undefined> => chainAsync(λ.generateAsync(func)),
-    prime: (minimum?: number): ILazyCollection<number, void, number> => chain(λ.prime(minimum)),
-    random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, void, undefined> => chain(λ.random(parameters)),
-    randomFrom: <T>(array: T[]): ILazyCollection<T, void, undefined> => chain(λ.randomFrom(array)),
-    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, void, undefined> => chain(λ.range(parameters)),
+    fibonacci: (minimum?: number): ILazyCollection<number, void, number> => new Chain(λ.fibonacci(minimum)),
+    generate: <T> (func: () => T): ILazyCollection<T, void, undefined> => new Chain(λ.generate(func)),
+    generateAsync: <T> (func: () => T | Promise<T>): ILazyCollectionAsync<T, void, undefined> => new ChainAsync(λ.generateAsync(func)),
+    prime: (minimum?: number): ILazyCollection<number, void, number> => new Chain(λ.prime(minimum)),
+    random: (parameters?: Partial<λ.RandomParams>): ILazyCollection<number, void, undefined> => new Chain(λ.random(parameters)),
+    randomFrom: <T>(array: T[]): ILazyCollection<T, void, undefined> => new Chain(λ.randomFrom(array)),
+    range: (parameters?: Partial<λ.RangeParams>): ILazyCollection<number, void, undefined> => new Chain(λ.range(parameters)),
 };
 
 export default Lazy;

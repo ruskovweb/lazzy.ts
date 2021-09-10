@@ -23,7 +23,7 @@ describe("ƒ lazyPartition()", function() {
         expect(partitions).to.be.deep.eq([6, 4]);
     });
 
-    it("should return the sums of all even and odd numbers", async function () {
+    it("should return the sums of all even and odd numbers from an async iterator", async function () {
         const asyncIt = async function *() {
             yield * [1, 2, 3, 4];
         }
