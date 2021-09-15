@@ -1,4 +1,4 @@
-import { chainAsync } from "../chain";
+import { ChainAsync } from "../chain";
 import { ILazyCollectionAsync } from "../contracts";
 import { Channel, isClosed } from "../csp/channel";
 
@@ -17,7 +17,7 @@ export function* lazyGroupBy<T, R, N, TKey, TElement, TResult>(
 
         if (!groups.has(key)) {
             const channel = new Channel<TElement>();
-            yield resultSelector(key, chainAsync(async function *(): AsyncGenerator<TElement, void, undefined> {
+            yield resultSelector(key, new ChainAsync(async function *(): AsyncGenerator<TElement, void, undefined> {
                 while (!channel.isClosed()) {
                     const value = await channel.take();
                     if (isClosed(value)) {
@@ -69,7 +69,7 @@ export async function* lazyGroupByAsync<T, R, N, TKey, TElement, TResult>(
 
     for (const [key, channel] of groups) {
         channel.close();
-        yield resultSelector(key, chainAsync(async function *(): AsyncGenerator<TElement, void, undefined> {
+        yield resultSelector(key, new ChainAsync(async function *(): AsyncGenerator<TElement, void, undefined> {
             while (!channel.isClosed()) {
                 const value = await channel.take();
                 if (isClosed(value)) {

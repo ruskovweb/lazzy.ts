@@ -1,4 +1,4 @@
-import { chainAsync } from "../chain";
+import { ChainAsync } from "../chain";
 import { ILazyCollectionAsync } from "../contracts";
 import { Channel, isClosed } from "../csp/channel";
 
@@ -6,7 +6,7 @@ export function* lazyPartition<T, R, N>(iterator: Iterator<T, R, N>, predicate: 
     const positive = new Channel<T>();
     const negative = new Channel<T>();
 
-    yield chainAsync(
+    yield new ChainAsync(
         (async function* (): AsyncGenerator<T, void, undefined> {
             while (!positive.isClosed()) {
                 const value = await positive.take();
@@ -18,7 +18,7 @@ export function* lazyPartition<T, R, N>(iterator: Iterator<T, R, N>, predicate: 
         })()
     );
 
-    yield chainAsync(
+    yield new ChainAsync(
         (async function* (): AsyncGenerator<T, void, undefined> {
             while (!negative.isClosed()) {
                 const value = await negative.take();
@@ -58,7 +58,7 @@ export function* lazyPartitionAsync<T, R, N>(
     const positive = new Channel<T>();
     const negative = new Channel<T>();
 
-    yield chainAsync(
+    yield new ChainAsync(
         (async function* (): AsyncGenerator<T, void, undefined> {
             while (!positive.isClosed()) {
                 const value = await positive.take();
@@ -70,7 +70,7 @@ export function* lazyPartitionAsync<T, R, N>(
         })()
     );
 
-    yield chainAsync(
+    yield new ChainAsync(
         (async function* (): AsyncGenerator<T, void, undefined> {
             while (!negative.isClosed()) {
                 const value = await negative.take();
