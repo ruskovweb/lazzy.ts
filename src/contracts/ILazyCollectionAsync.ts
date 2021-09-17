@@ -12,7 +12,7 @@ export interface ILazyCollectionAsync<T, R, N> {
     concat(...iterators: Array<Iterator<PromiseOrValue<T>, unknown, unknown> | AsyncIterator<PromiseOrValue<T>, unknown, unknown>>): ILazyCollectionAsync<PromiseValue<T>, void, undefined>;
     custom<T2, R2, N2>(generator: (iterator: AsyncIterator<T, R, N>) => AsyncGenerator<T2, R2, N2>): ILazyCollectionAsync<T2, R2, N2>;
     distinct(...select: PromiseValue<T> extends Primitive ? [] : [(value: PromiseValue<T>) => Primitive]): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
-    feed<R2, V>(from: Iterator<V, R2, T> | AsyncIterator<V, R2, T>): ILazyCollectionAsync<V, void, undefined>;
+    feed<R2, V>(from: Iterator<V, R2, PromiseValue<T>> | AsyncIterator<V, R2, PromiseValue<T>>): ILazyCollectionAsync<V, void, undefined>;
     fill(values: Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>, start?: number, end?: number): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
     filter(predicate: (value: PromiseValue<T>, index: number) => boolean |  Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
     filterWithIndex(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<[PromiseValue<T>, number], R, undefined>;

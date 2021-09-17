@@ -42,7 +42,7 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return new ChainAsync(λ.distinctAsync(this.#source, ...select));
     }
 
-    feed<R2, V>(from: Iterator<V, R2, T> | AsyncIterator<V, R2, T>): ILazyCollectionAsync<V, void, undefined> {
+    feed<R2, V>(from: Iterator<V, R2, PromiseValue<T>> | AsyncIterator<V, R2, PromiseValue<T>>): ILazyCollectionAsync<V, void, undefined> {
         return new ChainAsync(λ.feedAsync(this.#source, from));
     }
 
