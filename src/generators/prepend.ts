@@ -1,3 +1,5 @@
+import { PromiseOrValue, PromiseValue } from "../common";
+
 export function* prepend<T, R, N>(iterator: Iterator<T, R, N>, ...iterables: Array<Iterable<T>>): Generator<T, R, undefined> {
     for (const iterable of iterables) {
         for (const value of iterable) {
@@ -13,7 +15,7 @@ export function* prepend<T, R, N>(iterator: Iterator<T, R, N>, ...iterables: Arr
     return x.value;
 }
 
-export async function* prependAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...iterables: Array<Iterable<T> | AsyncIterable<T>>): AsyncGenerator<T, R, undefined> {
+export async function* prependAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...iterables: Array<Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>>): AsyncGenerator<PromiseValue<T>, R, undefined> {
     for (const iterable of iterables) {
         for await (const value of iterable) {
             yield value;
@@ -22,7 +24,7 @@ export async function* prependAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, .
 
     let x =  await iterator.next();
     while (x.done !== true) {
-        yield x.value;
+        yield x.value as PromiseValue<T>;
         x = await iterator.next();
     }
     return x.value;

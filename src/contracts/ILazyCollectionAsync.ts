@@ -1,40 +1,40 @@
 import { ILazyCollection } from ".";
-import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue } from "../common/helpers";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue, AsPromise, PromiseOrValue } from "../common/helpers";
 
 export interface ILazyCollectionAsync<T, R, N> {
     [Symbol.asyncIterator](): AsyncIterator<T, R, N>;
 
     //#region Generators
-    append(...iterables: Array<Iterable<T | PromiseValue<T>> | AsyncIterable<T | PromiseValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, N>;
+    append(...iterables: Array<Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, N>;
     at(index: number): ILazyCollectionAsync<PromiseValue<T> | undefined, void, undefined>;
-    balancedChunk(target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollectionAsync<T[], void, undefined>;
-    chunk(size: number): ILazyCollectionAsync<T[], R, N>;
-    concat(...iterators: Array<Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>>): ILazyCollectionAsync<T, void, undefined>;
+    balancedChunk(target: number, ...select: PromiseValue<T> extends number ? [] : [(value: PromiseValue<T>) => number]): ILazyCollectionAsync<PromiseValue<T>[], void, undefined>;
+    chunk(size: number): ILazyCollectionAsync<PromiseValue<T>[], R, N>;
+    concat(...iterators: Array<Iterator<PromiseOrValue<T>, unknown, unknown> | AsyncIterator<PromiseOrValue<T>, unknown, unknown>>): ILazyCollectionAsync<PromiseValue<T>, void, undefined>;
     custom<T2, R2, N2>(generator: (iterator: AsyncIterator<T, R, N>) => AsyncGenerator<T2, R2, N2>): ILazyCollectionAsync<T2, R2, N2>;
-    distinct(...select: T extends Primitive ? [] : [(value: T) => Primitive]): ILazyCollectionAsync<T, R, undefined>;
+    distinct(...select: PromiseValue<T> extends Primitive ? [] : [(value: PromiseValue<T>) => Primitive]): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
     feed<R2, V>(from: Iterator<V, R2, T> | AsyncIterator<V, R2, T>): ILazyCollectionAsync<V, void, undefined>;
-    fill(values: Iterable<T> | AsyncIterable<T>, start?: number, end?: number): ILazyCollectionAsync<T, R, undefined>;
-    filter(predicate: (value: T, index: number) => boolean |  Promise<boolean>): ILazyCollectionAsync<T, R, undefined>;
-    filterWithIndex(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<[T, number], R, undefined>;
+    fill(values: Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>, start?: number, end?: number): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    filter(predicate: (value: PromiseValue<T>, index: number) => boolean |  Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    filterWithIndex(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<[PromiseValue<T>, number], R, undefined>;
     flat<D extends Depth = 20>(depth?: D): ILazyCollectionAsync<FlatArray<T, D>, R, undefined>;
     flatMap<V, D extends Depth = 20>(transformer: (value: T, index: number) => V, depth?: D): ILazyCollectionAsync<FlatArray<V, D>, R, undefined>;
-    forEach(action: (value: T, index: number) => void | Promise<void>): ILazyCollectionAsync<T, R, undefined>;
-    groupBy<TKey, TElement, TResult>(keySelector: (value: T) => TKey, elementSelector: (value: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollectionAsync<TResult, R, undefined>;
-    indices(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<number, R, undefined>;
+    forEach(action: (value: PromiseValue<T>, index: number) => void | Promise<void>): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    groupBy<TKey, TElement, TResult>(keySelector: (value: PromiseValue<T>) => TKey, elementSelector: (value: PromiseValue<T>) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult): ILazyCollectionAsync<TResult, R, undefined>;
+    indices(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<number, R, undefined>;
     lazyChunk(size: number): ILazyCollectionAsync<ILazyCollectionAsync<T, void, unknown>, R, undefined>;
     lazyGroupBy<TKey, TElement, TResult>(keySelector: (value: T) => TKey, elementSelector: (value: T) => TElement, resultSelector: (key: TKey, elements: ILazyCollectionAsync<TElement, void, undefined>) => TResult): ILazyCollectionAsync<TResult, R, undefined>;
     lazyPartition(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollection<ILazyCollectionAsync<T, void, undefined>, void, undefined>;
-    map<V>(transformer: (value: T, index: number) => V): ILazyCollectionAsync<V, R, undefined>;
-    prepend(...iterables: Array<Iterable<T> | AsyncIterable<T>>): ILazyCollectionAsync<T, R, undefined>;
-    repeat(count: number): ILazyCollectionAsync<T, R | undefined, undefined>;
-    skip(count: number): ILazyCollectionAsync<T, R, undefined>;
-    skipWhile(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<T, R, undefined>;
-    sort(...comparer: OptionalComparer<T>): ILazyCollectionAsync<T, R, undefined>;
-    splice(start: number, deleteCount?: number, ...items: T[]): ILazyCollectionAsync<T, T[], undefined>;
+    map<V>(transformer: (value: PromiseValue<T>, index: number) => V): ILazyCollectionAsync<V, R, undefined>;
+    prepend(...iterables: Array<Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    repeat(count: number): ILazyCollectionAsync<PromiseValue<T>, R | undefined, undefined>;
+    skip(count: number): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    skipWhile(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    sort(...comparer: OptionalComparer<PromiseValue<T>>): ILazyCollectionAsync<PromiseValue<T>, R, undefined>;
+    splice(start: number, deleteCount?: number, ...items: PromiseOrValue<T>[]): ILazyCollectionAsync<PromiseValue<T>, T[], undefined>;
     spread(): ILazyCollectionAsync<T extends Iterable<infer U> | AsyncIterable<infer U> ? U : T, R, undefined>;
-    take(count: number): ILazyCollectionAsync<T, R | undefined, undefined>;
-    takeWhile(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<T, R | undefined, undefined>;
-    zip<T2, R2, TResult>(iterator: Iterator<T2, R2, N> | AsyncIterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollectionAsync<TResult, R | R2 | undefined, undefined>;
+    take(count: number): ILazyCollectionAsync<PromiseValue<T>, R | undefined, undefined>;
+    takeWhile(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R | undefined, undefined>;
+    zip<T2, R2, TResult>(iterator: Iterator<T2, R2, N> | AsyncIterator<T2, R2, N>, resultSelector: (first: PromiseValue<T>, second: PromiseValue<T2>) => TResult): ILazyCollectionAsync<TResult, R | R2 | undefined, undefined>;
     //#endregion
 
     //#region Consumers

@@ -1,15 +1,19 @@
 export const equals = <T>(value: T, transformer: (v: T) => T): boolean => value === transformer(value);
 export const reverseString = (s: string): string => s.split("").reverse().join("");
 
-export function asyncIterator (): AsyncIterator<Promise<number>> {
+export function asyncIterator(end: number = Infinity): AsyncIterator<Promise<number>, void, undefined> {
     let n = 1;
     return {
         next: async function () {
+            if (n > end) {
+                return { done: true, value: undefined };
+            }
+
             return { done: false, value: Promise.resolve(n++) };
         },
     };
 };
 
-export async function* asyncGenerator() {
-    yield* [6, 7, 8, 9, 10];
+export async function* asyncGenerator<T>(arr: T[]) {
+    yield * arr;
 }

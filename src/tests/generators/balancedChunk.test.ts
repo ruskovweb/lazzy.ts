@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import Lazy from "../..";
+import { asyncIterator } from "../helpers";
 
 describe("ƒ balancedChunk()", function () {
     it("should split 10 numbers into chunks with total sum 10", function () {
@@ -9,6 +10,31 @@ describe("ƒ balancedChunk()", function () {
 
     it("should balance the cargo", function () {
         const ships = Lazy.range({ from: 100, to: 1000, step: 20 })
+            .map((weight) => new Cargo(weight))
+            .balancedChunk(8000, (cargo) => cargo.weight)
+            .map((cargos) => new Ship(cargos))
+            .toArray();
+
+        expect(ships).to.be.deep.eq(expectedShips);
+    });
+});
+
+describe("ƒ balancedChunkAsync()", function () {
+    it("should split 10 numbers into chunks with total sum 10", async function () {
+        const chunks = await Lazy.fromAsync(asyncIterator(10)).balancedChunk(10).toArray();
+        expect(chunks).to.be.deep.eq([[10], [6, 4], [7, 3], [8, 2], [9, 1], [5]]);
+    });
+
+    it("should balance the cargo", async function () {
+        const generator = function () {
+            let n = 80;
+            return function () {
+                return Promise.resolve(n += 20);
+            };
+        };
+        
+        const ships = await Lazy.generateAsync(generator())
+            .take(46)
             .map((weight) => new Cargo(weight))
             .balancedChunk(8000, (cargo) => cargo.weight)
             .map((cargos) => new Ship(cargos))
@@ -69,5 +95,5 @@ const expectedShips = [
         { weight: 280 },
         { weight: 260 },
     ]),
-    new Ship([{ weight: 240 }, { weight: 220 }, { weight: 200 }, { weight: 180 }, { weight: 160 }, { weight: 140 }, { weight: 120 }, { weight: 100 }])
+    new Ship([{ weight: 240 }, { weight: 220 }, { weight: 200 }, { weight: 180 }, { weight: 160 }, { weight: 140 }, { weight: 120 }, { weight: 100 }]),
 ];

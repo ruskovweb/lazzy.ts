@@ -1,3 +1,5 @@
+import { PromiseValue } from "../common";
+
 export function* groupBy<T, R, N, TKey, TElement, TResult>(
     iterator: Iterator<T, R, N>,
     keySelector: (v: T) => TKey,
@@ -28,16 +30,18 @@ export function* groupBy<T, R, N, TKey, TElement, TResult>(
 
 export async function* groupByAsync<T, R, N, TKey, TElement, TResult>(
     iterator: AsyncIterator<T, R, N>,
-    keySelector: (v: T) => TKey,
-    elementSelector: (v: T) => TElement,
+    keySelector: (v: PromiseValue<T>) => TKey,
+    elementSelector: (v: PromiseValue<T>) => TElement,
     resultSelector: (key: TKey, elements: TElement[]) => TResult
 ): AsyncGenerator<TResult, R, undefined> {
     const groups = new Map<TKey, TElement[]>();
 
     let x = await iterator.next();
     while (x.done !== true) {
-        const key = keySelector(x.value);
-        const element = elementSelector(x.value);
+        const value = await Promise.resolve(x.value) as PromiseValue<T>;
+        const key = keySelector(value);
+        const element = elementSelector(value);
+        
         if (!groups.has(key)) {
             groups.set(key, []);
         }

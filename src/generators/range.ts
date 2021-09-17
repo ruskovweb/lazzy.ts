@@ -15,7 +15,10 @@ export function* range(parameters?: Partial<RangeParams>): Generator<number, voi
     if (step === 0) {
         return;
     }
-    for (let n = from; step < 0 ? n >= to : n <= to; n += step) {
+    
+    const condition = step < 0 ? ((n: number) => n >= to) : ((n: number) => n <= to);
+
+    for (let n = from; condition(n); n += step) {
         if (!Number.isSafeInteger(n)) {
             return;
         }

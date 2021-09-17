@@ -1,4 +1,4 @@
-import { PromiseValue } from "../common";
+import { AsPromise, PromiseValue } from "../common";
 
 export function* append<T, R, N>(iterator: Iterator<T, R, N>, ...iterables: Array<Iterable<T>>): Generator<T, R, N> {
     let x = iterator.next();
@@ -17,7 +17,7 @@ export function* append<T, R, N>(iterator: Iterator<T, R, N>, ...iterables: Arra
     return resuls;
 }
 
-export async function* appendAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...iterables: Array<Iterable<T | PromiseValue<T>> | AsyncIterable<T | PromiseValue<T>>>): AsyncGenerator<PromiseValue<T>, R, N> {
+export async function* appendAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...iterables: Array<Iterable<AsPromise<T> | PromiseValue<T>> | AsyncIterable<AsPromise<T> | PromiseValue<T>>>): AsyncGenerator<PromiseValue<T>, R, N> {
     let x = await iterator.next();
     while (x.done !== true) {
         yield x.value as PromiseValue<T>;

@@ -79,17 +79,17 @@ describe("ƒ appendAsync()", function () {
     });
 
     it("should append an async iterator", async function () {
-        const result = await Lazy.fromAsync(asyncIterator()).take(5).append(asyncGenerator()).toArray();
+        const result = await Lazy.fromAsync(asyncIterator()).take(5).append(asyncGenerator([6, 7, 8, 9, 10])).toArray();
         expect(result).to.be.deep.eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     });
 
     it("should append an array and an async iterator", async function () {
-        const result = await Lazy.fromAsync(asyncIterator()).take(5).append(asyncGenerator(), [11, 12, 13, 14, 15]).toArray();
+        const result = await Lazy.fromAsync(asyncIterator()).take(5).append(asyncGenerator([6, 7, 8, 9, 10]), [11, 12, 13, 14, 15]).toArray();
         expect(result).to.be.deep.eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
     });
 
     it("should append multiple iterables for chained calls", async function () {
-        const result = await Lazy.fromAsync(asyncIterator()).take(5).append(asyncGenerator()).append([11, 12, 13, 14, 15]).toArray();
+        const result = await Lazy.fromAsync(asyncIterator()).take(5).append(asyncGenerator([6, 7, 8, 9, 10])).append([11, 12, 13, 14, 15]).toArray();
         expect(result).to.be.deep.eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
     });
 

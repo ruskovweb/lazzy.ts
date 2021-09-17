@@ -24,6 +24,10 @@ export type Comparer<T> = (left: T, right: T) => number;
 export type OptionalComparer<T, U = T> = T extends Primitive ? [Comparer<U>?] : [Comparer<U>];
 
 export type PromiseValue<T> = T extends Promise<infer U> ? U : T;
+export type AsPromise<T> = T extends Promise<any> ? T : Promise<T>;
+
+export type PromiseOrValue<T> = PromiseValue<T> | AsPromise<T>; 
+
 export type IterableValue<T> = T extends Iterable<infer U> ? U : T;
 export type AnyIterableValue<T> = T extends Iterable<infer U> | AsyncIterable<infer U> ? U : T;
 
