@@ -2,7 +2,6 @@ import { expect } from "chai";
 import Lazy, { isPrime } from "../..";
 import { equals, reverseString } from "../helpers";
 
-
 describe("combined", function () {
     describe("prime/filter/take/toArray", function () {
         it(`should return an array of the first 100 palindrom prime numbers greater than 10000`, function () {

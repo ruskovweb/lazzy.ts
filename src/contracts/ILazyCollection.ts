@@ -6,7 +6,7 @@ export interface ILazyCollection<T, R, N> {
 
     //#region Generators
     append(...iterables: Array<Iterable<T>>): ILazyCollection<T, R, N>;
-    at(index: number): ILazyCollection<T, R, N>;
+    at(index: number): ILazyCollection<T | undefined, void, undefined>;
     balancedChunk(target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollection<T[], void, undefined>;
     chunk(size: number): ILazyCollection<T[], R, N>;
     concat(...iterators: Array<Iterator<T, unknown, unknown>>): ILazyCollection<T, void, undefined>;
@@ -72,6 +72,6 @@ export interface ILazyCollection<T, R, N> {
     toSet(): Set<T>;
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): WeakMap<K, V>;
     toWeakSet<K extends object>(...select: T extends object ? [] : [(value: T) => K]): WeakSet<K>;
-    uppend(iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[];
+    uppend(iterator: Iterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean): T[];
     //#endregion
 }

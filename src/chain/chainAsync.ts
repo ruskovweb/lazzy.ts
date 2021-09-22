@@ -1,4 +1,4 @@
-import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue, AnyIterableValue } from "../common";
+import { Depth, OptionalComparer, Primitive, Select, FlatArray, PromiseValue, AnyIterableValue, AsPromise, PromiseOrValue } from "../common";
 import { ILazyCollection, ILazyCollectionAsync } from "../contracts";
 import * as λ from "../generators";
 import * as γ from "../consumers";
@@ -14,23 +14,23 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
     [Symbol.asyncIterator] = (): AsyncIterator<T, R, N> => this.#source;
 
     //#region Generators
-    append(...iterables: Array<Iterable<T> | AsyncIterable<T>>): ILazyCollectionAsync<T, R, N> {
+    append(...iterables: Array<Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, N> {
         return new ChainAsync(λ.appendAsync(this.#source, ...iterables));
     }
 
-    at(index: number): ILazyCollectionAsync<T, R, N> {
+    at(index: number): ILazyCollectionAsync<PromiseValue<T> | undefined, void, undefined> {
         return new ChainAsync(λ.atAsync(this.#source, index));
     }
 
-    balancedChunk(target: number, ...select: T extends number ? [] : [(value: T) => number]): ILazyCollectionAsync<T[], void, undefined> {
+    balancedChunk(target: number, ...select: PromiseValue<T> extends number ? [] : [(value: PromiseValue<T>) => number]): ILazyCollectionAsync<PromiseValue<T>[], void, undefined> {
         return new ChainAsync(λ.balancedChunkAsync(this.#source, target, ...select));
     }
 
-    chunk(size: number): ILazyCollectionAsync<T[], R, N> {
+    chunk(size: number): ILazyCollectionAsync<PromiseValue<T>[], R, N> {
         return new ChainAsync(λ.chunkAsync(this.#source, size));
     }
 
-    concat(...iterators: Array<Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>>): ILazyCollectionAsync<T, void, undefined> {
+    concat(...iterators: Array<Iterator<PromiseOrValue<T>, unknown, unknown> | AsyncIterator<PromiseOrValue<T>, unknown, unknown>>): ILazyCollectionAsync<PromiseValue<T>, void, undefined> {
         return new ChainAsync(λ.concatAsync(this.#source, ...iterators));
     }
 
@@ -38,23 +38,23 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return new ChainAsync(generator(this.#source));
     }
 
-    distinct(...select: T extends Primitive ? [] : [(value: T) => Primitive]): ILazyCollectionAsync<T, R, undefined> {
+    distinct(...select: PromiseValue<T> extends Primitive ? [] : [(value: PromiseValue<T>) => Primitive]): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.distinctAsync(this.#source, ...select));
     }
 
-    feed<R2, V>(from: Iterator<V, R2, T> | AsyncIterator<V, R2, T>): ILazyCollectionAsync<V, void, undefined> {
+    feed<R2, V>(from: Iterator<V, R2, PromiseValue<T>> | AsyncIterator<V, R2, PromiseValue<T>>): ILazyCollectionAsync<V, void, undefined> {
         return new ChainAsync(λ.feedAsync(this.#source, from));
     }
 
-    fill(values: Iterable<T> | AsyncIterable<T>, start?: number, end?: number): ILazyCollectionAsync<T, R, undefined> {
+    fill(values: Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>, start?: number, end?: number): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.fillAsync(this.#source, values, start, end));
     }
 
-    filter(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<T, R, undefined> {
+    filter(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.filterAsync(this.#source, predicate));
     }
 
-    filterWithIndex(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<[T, number], R, undefined> {
+    filterWithIndex(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<[PromiseValue<T>, number], R, undefined> {
         return new ChainAsync(λ.filterWithIndexAsync(this.#source, predicate));
     }
 
@@ -66,19 +66,19 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return new ChainAsync(λ.flatMapAsync(this.#source, transformer, depth));
     }
 
-    forEach(action: (value: T, index: number) => void): ILazyCollectionAsync<T, R, undefined> {
+    forEach(action: (value: PromiseValue<T>, index: number) => void): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.forEachAsync(this.#source, action));
     }
 
     groupBy<TKey, TElement, TResult>(
-        keySelector: (value: T) => TKey,
-        elementSelector: (value: T) => TElement,
+        keySelector: (value: PromiseValue<T>) => TKey,
+        elementSelector: (value: PromiseValue<T>) => TElement,
         resultSelector: (key: TKey, elements: TElement[]) => TResult
     ): ILazyCollectionAsync<TResult, R, undefined> {
         return new ChainAsync(λ.groupByAsync(this.#source, keySelector, elementSelector, resultSelector));
     }
 
-    indices(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<number, R, undefined> {
+    indices(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<number, R, undefined> {
         return new ChainAsync(λ.indicesAsync(this.#source, predicate));
     }
 
@@ -98,31 +98,31 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return new Chain(λ.lazyPartitionAsync(this.#source, predicate));
     }
 
-    map<V>(transformer: (value: T, index: number) => V): ILazyCollectionAsync<V, R, undefined> {
+    map<V>(transformer: (value: PromiseValue<T>, index: number) => V): ILazyCollectionAsync<V, R, undefined> {
         return new ChainAsync(λ.mapAsync(this.#source, transformer));
     }
 
-    prepend(...iterables: Array<Iterable<T> | AsyncIterable<T>>): ILazyCollectionAsync<T, R, undefined> {
+    prepend(...iterables: Array<Iterable<PromiseOrValue<T>> | AsyncIterable<PromiseOrValue<T>>>): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.prependAsync(this.#source, ...iterables));
     }
 
-    repeat(count: number): ILazyCollectionAsync<T, R | undefined, undefined> {
+    repeat(count: number): ILazyCollectionAsync<PromiseValue<T>, R | undefined, undefined> {
         return new ChainAsync(λ.repeatAsync(this.#source, count));
     }
 
-    skip(count: number): ILazyCollectionAsync<T, R, undefined> {
+    skip(count: number): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.skipAsync(this.#source, count));
     }
 
-    skipWhile(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<T, R, undefined> {
+    skipWhile(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.skipWhileAsync(this.#source, predicate));
     }
 
-    sort(...comparer: OptionalComparer<T>): ILazyCollectionAsync<T, R, undefined> {
+    sort(...comparer: OptionalComparer<PromiseValue<T>>): ILazyCollectionAsync<PromiseValue<T>, R, undefined> {
         return new ChainAsync(λ.sortAsync(this.#source, ...comparer));
     }
 
-    splice(start: number, deleteCount?: number, ...items: T[]): ILazyCollectionAsync<T, T[], undefined> {
+    splice(start: number, deleteCount?: number, ...items: PromiseOrValue<T>[]): ILazyCollectionAsync<PromiseValue<T>, T[], undefined> {
         return new ChainAsync(λ.spliceAsync(this.#source, start, deleteCount, ...items));
     }
 
@@ -130,15 +130,15 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return new ChainAsync(λ.spreadAsync(this.#source));
     }
 
-    take(count: number): ILazyCollectionAsync<T, R | undefined, undefined> {
+    take(count: number): ILazyCollectionAsync<PromiseValue<T>, R | undefined, undefined> {
         return new ChainAsync(λ.takeAsync(this.#source, count));
     }
 
-    takeWhile(predicate: (value: T, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<T, R | undefined, undefined> {
+    takeWhile(predicate: (value: PromiseValue<T>, index: number) => boolean | Promise<boolean>): ILazyCollectionAsync<PromiseValue<T>, R | undefined, undefined> {
         return new ChainAsync(λ.takeWhileAsync(this.#source, predicate));
     }
 
-    zip<T2, R2, TResult>(iterator2: Iterator<T2, R2, N> | AsyncIterator<T2, R2, N>, resultSelector: (first: T, second: T2) => TResult): ILazyCollectionAsync<TResult, R | R2 | undefined, undefined> {
+    zip<T2, R2, TResult>(iterator2: Iterator<T2, R2, N> | AsyncIterator<T2, R2, N>, resultSelector: (first: PromiseValue<T>, second: PromiseValue<T2>) => TResult): ILazyCollectionAsync<TResult, R | R2 | undefined, undefined> {
         return new ChainAsync(λ.zipAsync(this.#source, iterator2, resultSelector));
     }
     //#endregion
@@ -244,7 +244,7 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return γ.toWeakSetAsync(this.#source, ...select);
     }
 
-    uppend(iterator: Iterator<T, R, N> | AsyncIterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]> {
+    uppend(iterator: Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]> {
         return γ.uppendAsync(this.#source, iterator, equals);
     }
 

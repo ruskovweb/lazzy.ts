@@ -1,3 +1,5 @@
+import { AsPromise, PromiseValue } from "../common";
+
 export function* concat<T>(...iterators: Array<Iterator<T, unknown, unknown>>): Generator<T, void, undefined> {
     for (const iterator of iterators) {
         let x = iterator.next();
@@ -8,7 +10,13 @@ export function* concat<T>(...iterators: Array<Iterator<T, unknown, unknown>>): 
     }
 }
 
-export async function* concatAsync<T>(...iterators: Array<Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>>): AsyncGenerator<T, void, undefined> {
+export async function* concatAsync<T, R, N>(source: AsyncIterator<T, R, N>, ...iterators: Array<Iterator<AsPromise<T> | PromiseValue<T>, unknown, unknown> | AsyncIterator<AsPromise<T> | PromiseValue<T>, unknown, unknown>>): AsyncGenerator<PromiseValue<T>, void, undefined> {
+    let s = await source.next();
+    while (s.done !== true) {
+        yield s.value as PromiseValue<T>;
+        s = await source.next();
+    }
+    
     for (const iterator of iterators) {
         let x = await iterator.next();
         while (x.done !== true) {

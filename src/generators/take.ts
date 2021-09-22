@@ -1,3 +1,5 @@
+import { PromiseValue } from "../common";
+
 export function* take<T, R, N>(iterator: Iterator<T, R, N>, count: number): Generator<T, R | undefined, undefined> {
     let x = iterator.next();
     while (x.done !== true && count-- > 0) {
@@ -10,10 +12,10 @@ export function* take<T, R, N>(iterator: Iterator<T, R, N>, count: number): Gene
     } 
 }
 
-export async function* takeAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, count: number): AsyncGenerator<T, R | undefined, undefined> {
+export async function* takeAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, count: number): AsyncGenerator<PromiseValue<T>, R | undefined, undefined> {
     let x = await iterator.next();
     while (x.done !== true && count-- > 0) {
-        yield x.value;
+        yield x.value as PromiseValue<T>;
         x = await iterator.next();
     }
     

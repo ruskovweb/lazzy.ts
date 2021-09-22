@@ -1,4 +1,4 @@
-import { OptionalComparer } from "../common";
+import { OptionalComparer, PromiseValue } from "../common";
 import { BinaryTree } from "../common/binaryTree";
 import { dfs } from "../common/dfs";
 import { Node } from "../common/node";
@@ -22,17 +22,17 @@ export function* sort<T, R, N>(iterator: Iterator<T, R, N>, ...comparer: Optiona
     return x.value;
 }
 
-export async function* sortAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...comparer: OptionalComparer<T>): AsyncGenerator<T, R, undefined> {
+export async function* sortAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...comparer: OptionalComparer<PromiseValue<T>>): AsyncGenerator<PromiseValue<T>, R, undefined> {
     let x = await iterator.next();
     if (x.done) {
         return x.value;
     }
 
-    const tree = new BinaryTree<T>(new Node(x.value));
+    const tree = new BinaryTree<PromiseValue<T>>(new Node(await Promise.resolve(x.value) as PromiseValue<T>));
 
     x = await iterator.next();
     while (x.done !== true) {
-        tree.add(new Node(x.value), ...comparer);
+        tree.add(new Node(await Promise.resolve(x.value) as PromiseValue<T>), ...comparer);
         x = await iterator.next();
     }
 

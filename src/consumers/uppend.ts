@@ -1,4 +1,4 @@
-export function uppend<T, R, N>(source: Iterator<T, R, N>, newValues: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[] {
+export function uppend<T, R, N>(source: Iterator<T, R, N>, newValues: Iterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean): T[] {
     const result: T[] = [];
 
     let x = source.next();
@@ -21,7 +21,7 @@ export function uppend<T, R, N>(source: Iterator<T, R, N>, newValues: Iterator<T
     return result;
 }
 
-export async function uppendAsync<T, R, N>(source: AsyncIterator<T, R, N>, newValues: Iterator<T, R, N> | AsyncIterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]> {
+export async function uppendAsync<T, R, N>(source: AsyncIterator<T, R, N>, newValues: Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]> {
     const result: T[] = [];
 
     let x = await source.next();

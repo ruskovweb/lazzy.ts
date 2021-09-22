@@ -1,3 +1,5 @@
+import { AsPromise, PromiseValue } from "../common";
+
 export function* fill<T, R, N>(iterator: Iterator<T, R, N>, values: Iterable<T>, start = 0, end?: number): Generator<T, R, undefined> {
     let index = 0;
     let x = iterator.next();
@@ -24,12 +26,12 @@ export function* fill<T, R, N>(iterator: Iterator<T, R, N>, values: Iterable<T>,
     return x.value;
 }
 
-export async function* fillAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, values: Iterable<T>| AsyncIterable<T>, start = 0, end?: number): AsyncGenerator<T, R, undefined> {
+export async function* fillAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, values: Iterable<AsPromise<T> | PromiseValue<T>>| AsyncIterable<AsPromise<T> | PromiseValue<T>>, start = 0, end?: number): AsyncGenerator<PromiseValue<T>, R, undefined> {
     let index = 0;
     let x = await iterator.next();
 
     while (x.done !== true && index++ < start) {
-        yield x.value;
+        yield x.value as PromiseValue<T>;
         x = await iterator.next();
     }
 
@@ -43,7 +45,7 @@ export async function* fillAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, valu
     }
 
     while (x.done !== true) {
-        yield x.value;
+        yield x.value as PromiseValue<T>;
         x = await iterator.next();
     }
 

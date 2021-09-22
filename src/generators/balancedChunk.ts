@@ -1,4 +1,5 @@
 import { sort, sortAsync } from ".";
+import { PromiseValue } from "../common";
 
 function swap<T>(array: T[], index: number): void {
     const tempChunks = array[index];
@@ -57,9 +58,9 @@ export function* balancedChunk<T, R, N>(iterator: Iterator<T, R, N>, weight: num
     }
 }
 
-export async function* balancedChunkAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, weight: number, ...select: T extends number ? [] : [(value: T) => number]): AsyncGenerator<T[], void, undefined> {
+export async function* balancedChunkAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, weight: number, ...select: PromiseValue<T> extends number ? [] : [(value: PromiseValue<T>) => number]): AsyncGenerator<PromiseValue<T>[], void, undefined> {
     
-    let selector: ((v: T) => number) | ((v: number) => number);
+    let selector: ((v: PromiseValue<T>) => number) | ((v: number) => number);
     if (select[0] !== undefined) {
         selector = select[0];
     } else {
@@ -68,13 +69,13 @@ export async function* balancedChunkAsync<T, R, N>(iterator: AsyncIterator<T, R,
 
     let index = 0;
     let yieldedChunks = 0;
-    const chunks: T[][] = [];
+    const chunks: PromiseValue<T>[][] = [];
     const chunkSums: number[] = [];
-    const sorted = sortAsync(iterator, (a, b) => selector(b as T & number) - selector(a as T & number));
+    const sorted = sortAsync(iterator, (a, b) => selector(b as PromiseValue<T> & number) - selector(a as PromiseValue<T> & number));
 
     let x = await sorted.next();
     while (x.done !== true) {
-        const n = selector(x.value as T & number);
+        const n = selector(x.value as PromiseValue<T> & number);
 
         while (chunkSums[index - 1] + n <= weight) {
             index--;

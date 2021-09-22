@@ -1,4 +1,4 @@
-import { InvalidArgumentsMessage, isPrimitive, Primitive } from "../common/helpers";
+import { InvalidArgumentsMessage, isPrimitive, Primitive, PromiseValue } from "../common/helpers";
 
 export function getPrimitiveSelector<T>(value: T, ...select: T extends Primitive ? [] : [(value: T) => Primitive]) {
     if (isPrimitive(value)) {
@@ -33,19 +33,31 @@ export function* distinct<T, R, N>(iterator: Iterator<T, R, N>, ...select: T ext
     return x.value;
 }
 
-export async function* distinctAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...select: T extends Primitive ? [] : [(value: T) => Primitive]): AsyncGenerator<T, R, undefined> {
+export async function getPrimitiveSelectorAsync<T>(value: T, ...select: PromiseValue<T> extends Primitive ? [] : [(value: PromiseValue<T>) => Primitive]) {
+    if (isPrimitive(await Promise.resolve(value))) {
+        return (v: Primitive): Primitive => v;
+    }
+    
+    if (select[0] !== undefined) {
+        return select[0];
+    }
+
+    throw new TypeError(InvalidArgumentsMessage);
+}
+
+export async function* distinctAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, ...select: PromiseValue<T> extends Primitive ? [] : [(value: PromiseValue<T>) => Primitive]): AsyncGenerator<PromiseValue<T>, R, undefined> {
     let x = await iterator.next();
     if (x.done === true) {
         return x.value;
     }
 
-    const selector = getPrimitiveSelector(x.value, ...select);
+    const selector = await getPrimitiveSelectorAsync(x.value, ...select);
     const already = new Set<Primitive>();
     while (x.done !== true) {
-        const value = selector(x.value as Primitive & T);
+        const value = selector(await Promise.resolve(x.value) as Primitive & PromiseValue<T>);
         if (!already.has(value)) {
             already.add(value);
-            yield x.value;
+            yield x.value as PromiseValue<T>;
         }
 
         x = await iterator.next();

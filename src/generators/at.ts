@@ -1,4 +1,11 @@
-export function* at<T, R, N>(iterator: Iterator<T, R, N>, index: number): Generator<T, R, N> {
+import { PromiseValue } from "../common";
+
+export function* at<T, R, N>(iterator: Iterator<T, R, N>, index: number): Generator<T | undefined, void, undefined> {
+    if (index < 0) {
+        yield undefined;
+        return;
+    }
+    
     let x = iterator.next();
     while (x.done !== true) {
         if (index-- === 0) {
@@ -6,16 +13,19 @@ export function* at<T, R, N>(iterator: Iterator<T, R, N>, index: number): Genera
         }
         x = iterator.next();
     }
-    return x.value;
 }
 
-export async function* atAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, index: number): AsyncGenerator<T, R, N> {
+export async function* atAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, index: number): AsyncGenerator<PromiseValue<T> | undefined, void, undefined> {
+    if (index < 0) {
+        yield undefined;
+        return;
+    }
+
     let x = await iterator.next();
     while (x.done !== true) {
         if (index-- === 0) {
-            yield x.value;
+            yield x.value as PromiseValue<T>;
         }
         x = await iterator.next();
     }
-    return x.value;
 }

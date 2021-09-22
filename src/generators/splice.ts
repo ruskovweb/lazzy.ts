@@ -1,3 +1,5 @@
+import { PromiseOrValue, PromiseValue } from "../common";
+
 export function* splice<T, R, N>(iterator: Iterator<T, R, N>, start: number, deleteCount?: number, ...items: T[]): Generator<T, T[], undefined> {
     let index = 0;
     const deleted: T[] = [];
@@ -25,13 +27,13 @@ export function* splice<T, R, N>(iterator: Iterator<T, R, N>, start: number, del
     return deleted;
 }
 
-export async function* spliceAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, start: number, deleteCount?: number, ...items: T[]): AsyncGenerator<T, T[], undefined> {
+export async function* spliceAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, start: number, deleteCount?: number, ...items: PromiseOrValue<T>[]): AsyncGenerator<PromiseValue<T>, T[], undefined> {
     let index = 0;
     const deleted: T[] = [];
 
     let x = await iterator.next();
     while (x.done !== true && start > index++) {
-        yield x.value;
+        yield x.value as PromiseValue<T>;
         x = await iterator.next();
     }
     
@@ -45,7 +47,7 @@ export async function* spliceAsync<T, R, N>(iterator: AsyncIterator<T, R, N>, st
     }
 
     while (x.done !== true) {
-        yield x.value;
+        yield x.value as PromiseValue<T>;
         x = await iterator.next();
     }
 
