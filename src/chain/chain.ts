@@ -248,7 +248,7 @@ export class Chain<T, R, N> implements ILazyCollection<T, R, N> {
         return γ.toWeakSet(this.#source, ...select);
     }
 
-    uppend(iterator: Iterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean): T[] {
+    uppend(iterator: Iterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean): T[] {
         return γ.uppend(this.#source, iterator, equals);
     }
 

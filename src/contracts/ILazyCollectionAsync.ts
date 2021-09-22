@@ -63,6 +63,6 @@ export interface ILazyCollectionAsync<T, R, N> {
     toSet(): Promise<Set<T>>;
     toWeakMap<K extends object, V>(select: (value: T) => [K, V]): Promise<WeakMap<K, V>>;
     toWeakSet<K extends object>(...select: T extends object ? [] : [(value: T) => K]): Promise<WeakSet<K>>;
-    uppend(iterator: Iterator<T, R, N> | AsyncIterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]>;
+    uppend(iterator: Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]>;
     //#endregion
 }

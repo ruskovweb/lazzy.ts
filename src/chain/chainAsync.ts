@@ -244,7 +244,7 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return γ.toWeakSetAsync(this.#source, ...select);
     }
 
-    uppend(iterator: Iterator<T, R, N> | AsyncIterator<T, R, N>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]> {
+    uppend(iterator: Iterator<T, unknown, unknown> | AsyncIterator<T, unknown, unknown>, equals: (oldElement: T, newElement: T) => boolean | Promise<boolean>): Promise<T[]> {
         return γ.uppendAsync(this.#source, iterator, equals);
     }
 

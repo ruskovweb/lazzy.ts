@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import Lazy, { isPrime } from "../..";
+import { primesAsync } from "../helpers";
 
 describe("ƒ generate()", function () {
     it("should generate 10 numbers", function () {
@@ -33,7 +34,7 @@ describe("ƒ generate()", function () {
     it("should generate 25 prime numbers", function () {
         const primes = (function () {
             let n = 2;
-        
+
             return function() {
                 while (!isPrime(n)) {
                     n++;
@@ -97,18 +98,7 @@ describe("ƒ generateAsync()", function () {
     });
 
     it("should generate 25 prime numbers", async function () {
-        const primes = (function () {
-            let n = 2;
-        
-            return function() {
-                while (!isPrime(n)) {
-                    n++;
-                }
-                return Promise.resolve(n++);
-            }
-        })();
-
-        const result = await Lazy.generateAsync(primes).take(25).toArray();
+        const result = await Lazy.generateAsync(primesAsync()).take(25).toArray();
         expect(result).to.be.eql([
             2,   3,  5,  7, 11, 
             13, 17, 19, 23, 29, 
