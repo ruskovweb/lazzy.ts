@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import Lazy from "../..";
+import { asyncGenerator } from "../helpers";
 
 describe("ƒ lazyPartition()", function() {
     it("should split the array into two parts", async function () {
@@ -22,13 +23,23 @@ describe("ƒ lazyPartition()", function() {
         
         expect(partitions).to.be.deep.eq([6, 4]);
     });
+});
 
-    it("should return the sums of all even and odd numbers from an async iterator", async function () {
-        const asyncIt = async function *() {
-            yield * [1, 2, 3, 4];
-        }
+describe("ƒ lazyPartitionAsync()", function() {
+    it("should split the array into two parts", async function () {
+        const partitions = await Lazy.fromAsync(asyncGenerator([1, 2, 3, 4]))
+            .lazyPartition((n) => n % 2 === 0)
+            .map(partition => partition.toArray())
+            .promiseAll();
+        
+        expect(partitions).to.be.deep.eq([
+            [2, 4],
+            [1, 3],
+        ]);
+    });
 
-        const partitions = await Lazy.fromAsync(asyncIt())
+    it("should return the sums of all even and odd numbers", async function () {
+        const partitions = await Lazy.fromAsync(asyncGenerator([1, 2, 3, 4]))
             .lazyPartition((n) => n % 2 === 0)
             .map(partition => partition.sum())
             .promiseAll();

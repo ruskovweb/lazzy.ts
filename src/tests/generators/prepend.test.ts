@@ -19,7 +19,7 @@ describe("ƒ prepend()", function () {
     });
 });
 
-describe("ƒ prepend()", function () {
+describe("ƒ prependAsync()", function () {
     it("should prepend an array", async function () {
         const result = await Lazy.fromAsync(asyncIterator(5))
             .prepend([Promise.resolve(6), 7, 8, 9, 10])
