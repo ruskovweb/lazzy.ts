@@ -952,6 +952,8 @@ console.log(grouped);
 
 In this example we want to group all people by name and to get the average age.
 
+See also the [lazyGroupBy()](#lazygroupbyt-r-n) function.
+
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
 </p>
@@ -1062,7 +1064,7 @@ console.log(groups);
 */
 ```
 
-You can compare this example with the regular 'groupBy()' function to see the difference.
+You can compare this example with the regular [groupBy()](#groupbyt-r-n-tkey-telement-tresult) function to see the difference.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
@@ -1128,7 +1130,7 @@ async function main() {
 main();
 ```
 
-You can compare this example with the regular 'partition()' function to see the difference.
+You can compare this example with the regular [partition()](#partitiont-r-n) function to see the difference.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
@@ -1990,6 +1992,8 @@ const partition = Lazy.from([1, 2, 3, 4])
   .map(partition => partition.reduce((acc, cur) => acc + cur), 0); // This transformation is not so efficient. Checkout the lazyPartition()
 console.log(partition); // [6, 4]
 ```
+
+See also the [lazyPartition()](#lazypartitiont-r-n) function.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
