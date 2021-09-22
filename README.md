@@ -192,19 +192,28 @@ We have a bunch of lazy functions that you can see here!
 
 ### Generators
 
--   **Producing infinite count of values:**
-    -   [ƒ range();](DOCUMENTATION.md#range)
-    -   [ƒ random();](DOCUMENTATION.md#random)
+-   **Methods that start the chain:**
     -   [ƒ circular();](DOCUMENTATION.md#circular)
+    -   [ƒ fibonacci();](DOCUMENTATION.md#fibonacci)
+    -   [ƒ from();](DOCUMENTATION.md#from)
+    -   [ƒ fromAsync();](DOCUMENTATION.md#fromAsync)
     -   [ƒ generate();](DOCUMENTATION.md#generate)
+    -   [ƒ generateAsync();](DOCUMENTATION.md#generate)
+    -   [ƒ prime();](DOCUMENTATION.md#prime)
+    -   [ƒ random();](DOCUMENTATION.md#random)
+    -   [ƒ randomFrom();](DOCUMENTATION.md#randomFrom)
+    -   [ƒ range();](DOCUMENTATION.md#range)
 
 -   **Manipulating collections:**
     -   [ƒ append();](DOCUMENTATION.md#append)
+    -   [ƒ at();](DOCUMENTATION.md#at)
+    -   [ƒ balancedChunk();](DOCUMENTATION.md#balancedChunk)
     -   [ƒ chunk();](DOCUMENTATION.md#chunk)
-    -   [ƒ circular();](DOCUMENTATION.md#circular)
     -   [ƒ concat();](DOCUMENTATION.md#concat)
+    -   [ƒ custom();](DOCUMENTATION.md#custom)
     -   [ƒ distinct();](DOCUMENTATION.md#distinct)
     -   [ƒ feed();](DOCUMENTATION.md#feed)
+    -   [ƒ fill();](DOCUMENTATION.md#fill)
     -   [ƒ filter();](DOCUMENTATION.md#filter)
     -   [ƒ filterWithIndex();](DOCUMENTATION.md#filterwithindex)
     -   [ƒ flat();](DOCUMENTATION.md#flat)
@@ -213,11 +222,15 @@ We have a bunch of lazy functions that you can see here!
     -   [ƒ groupBy();](DOCUMENTATION.md#groupby)
     -   [ƒ indices();](DOCUMENTATION.md#indices)
     -   [ƒ lazyChunk();](DOCUMENTATION.md#lazychunk)
+    -   [ƒ lazyGroupBy();](DOCUMENTATION.md#lazyGroupBy)
+    -   [ƒ lazyPartition();](DOCUMENTATION.md#lazyPartition)
     -   [ƒ map();](DOCUMENTATION.md#map)
     -   [ƒ prepend();](DOCUMENTATION.md#prepend)
     -   [ƒ repeat();](DOCUMENTATION.md#repeat)
     -   [ƒ skip();](DOCUMENTATION.md#skip)
     -   [ƒ skipWhile();](DOCUMENTATION.md#skipwhile)
+    -   [ƒ sort();](DOCUMENTATION.md#sort)
+    -   [ƒ splice();](DOCUMENTATION.md#splice)
     -   [ƒ spread();](DOCUMENTATION.md#spread)
     -   [ƒ take();](DOCUMENTATION.md#take)
     -   [ƒ takeWhile();](DOCUMENTATION.md#takewhile)
@@ -249,6 +262,7 @@ We have a bunch of lazy functions that you can see here!
     -   [ƒ uppend();](DOCUMENTATION.md#uppend)
 
 -   **Checks:**
+    -   [ƒ every();](DOCUMENTATION.md#every)
     -   [ƒ includes();](DOCUMENTATION.md#includes)
     -   [ƒ indexOf();](DOCUMENTATION.md#indexof)
     -   [ƒ lastIndexOf();](DOCUMENTATION.md#lastindexof)
@@ -260,6 +274,8 @@ We have a bunch of lazy functions that you can see here!
     -   [ƒ lastWithIndex();](DOCUMENTATION.md#lastwithindex)
 
 -   **Triggers the generator:**
+    -   [ƒ promiseAll();](DOCUMENTATION.md#promiseAll)   // TODO:
+    -   [ƒ promiseRace();](DOCUMENTATION.md#promiseRace) // TODO:
     -   [ƒ run();](DOCUMENTATION.md#run)
 
 ## Contributing

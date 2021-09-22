@@ -36,6 +36,42 @@ console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 
 ---
 
+#### fibonacci();
+- **description**: Generates the fibonacci sequence.
+- **params**:
+  - `minimum?: number = 1`
+- **returns**:
+  - `lazyCollection: ILazyCollection<number, void, number>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const fibonacci = Lazy.fibonacci().take(10).toArray();
+console.log(fibonacci); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// Generates 10 fibonacci numbers greater than or equal to 10
+const fibonacci = Lazy.fibonacci(10).take(10).toArray();
+console.log(fibonacci); // [13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+// Skips the first 10 fibonacci numbers
+const fibonacci = Lazy.fibonacci().skip(10).take(10).toArray();
+console.log(fibonacci); // [ 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
 #### from\<T, R, N\>();
 - **description**: Creates an ILazyCollection from an iterable object.
 - **params**:
@@ -77,34 +113,55 @@ console.log(totalSum); // 10
 
 ---
 
-#### fibonacci();
-- **description**: Generates the fibonacci sequence.
+#### fromAsync\<T, R, N\>();
+- **description**: Creates an ILazyCollectionAsync from an async iterable object.
 - **params**:
-  - `minimum?: number = 1`
+  - `source: AsyncIterable<T> | AsyncIterator<T, R, N>`
 - **returns**:
-  - `lazyCollection: ILazyCollection<number, void, number>`
+  - `lazyCollection: ILazyCollectionAsync<T, R | void, N | undefined>`
 
 ```typescript
 import Lazy from "lazzy.ts";
 
-const fibonacci = Lazy.fibonacci().take(10).toArray();
-console.log(fibonacci); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+async function main() {
+
+  async function* asyncGenerator<T>(arr: T[]) {
+      yield * [1, 2, 3, 4];
+  }
+
+  const gen = await Lazy.fromAsync(asyncGenerator());
+
+  let x = await gen.next();
+  while(x.done !== true) {
+    console.log(x.value);
+    x = await gen.next();
+  }
+}
+
+main();
+
+/* output:
+1
+2
+3
+4
+*/
 ```
 
 ```typescript
 import Lazy from "lazzy.ts";
 
-// Generates 10 fibonacci numbers greater than or equal to 10
-const fibonacci = Lazy.fibonacci(10).take(10).toArray();
-console.log(fibonacci); // [13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
-```
+async function main() {
 
-```typescript
-import Lazy from "lazzy.ts";
+  async function* asyncGenerator<T>(arr: T[]) {
+      yield * [1, 2, 3, 4];
+  }
 
-// Skips the first 10 fibonacci numbers
-const fibonacci = Lazy.fibonacci().skip(10).take(10).toArray();
-console.log(fibonacci); // [ 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+  const totalSum = await Lazy.fromAsync(asyncGenerator()).sum();
+  console.log(totalSum); // 10
+}
+
+main();
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -154,6 +211,63 @@ const fibonacci = (function () {
 
 const result = Lazy.generate(fibonacci).take(10).toArray();
 console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### generateAsync\<T\>();
+- **description**: Generates an infinite sequence of values from a custom async function.
+- **params**: 
+  - `callback: () => T`
+- **returns**: 
+  - `lazyCollection: ILazyCollection<T, void, undefined>`
+
+Custom generator for infinite sequence of numbers:
+```typescript
+import Lazy from "lazzy.ts";
+
+async function main() {
+  // We declare an IIFE to create a scope where we can hold the current state of the 'number' variable
+  const asyncGenerator = (function() {
+      let number = 1;
+
+      return function () {
+          return Promise.resolve(number++);
+      }
+  })();
+
+  const result = await Lazy.generateAsync(asyncGenerator).take(10).toArray();
+  console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+main();
+```
+
+The fibonacci number sequence:
+```typescript
+import Lazy from "lazzy.ts";
+
+async function main() {
+  const asyncFibonacci = (function () {
+      let prev = 1, next = 1;
+
+      return function() {
+          const current = prev;
+          prev = next;
+          next += current;
+          return Promise.resolve(current);
+      }
+  })();
+
+  const result = await Lazy.generateAsync(asyncFibonacci).take(10).toArray();
+  console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+}
+
+main();
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -896,6 +1010,125 @@ const result =Lazy.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 console.log(result); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### lazyGroupBy\<T, R, N\>();
+- **description**: Groups the elements of the sequence. In the result selector we receive an ILazyCollection instead of arrays.
+- **params**:
+  - `keySelector: (v: T) => TKey`
+    - A function to extract the key for each element.
+  - `elementSelector: (v: T) => TElement`
+    - A function to map each source element to an element in an Map\<TKey, TElement\>.
+  - `resultSelector: (key: TKey, elements: ILazyCollectionAsync<TElement, void, undefined>) => TResult`
+    - A function to create a result value from each group.
+- **returns**:
+  - `lazyCollection: ILazyCollection<TResult, R, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const usersData = [
+    { name: "Ivan", age: 30 },
+    { name: "Ivan", age: 15 },
+    { name: "Georgi", age: 10 },
+    { name: "Georgi", age: 19 },
+    { name: "Ivan", age: 42 },
+];
+
+// Important thing to note! Always use promiseAll() with lazyGroupBy()!
+const groups = await Lazy.from(usersData)
+    .lazyGroupBy(
+        (user) => user.name,
+        (user) => user.age,
+        async (key, ages) => ({
+            name: key,
+            average: await ages.average(),
+        })
+    )
+    .promiseAll();
+
+console.log(groups);
+
+/* output:
+[
+  { name: "Ivan", average: 29 },
+  { name: "Georgi", average: 14.5 },
+]
+*/
+```
+
+You can compare this example with the regular 'groupBy()' function to see the difference.
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### lazyPartition\<T, R, N\>();
+- **description**: Splits the sequence into two new 'ILazyCollectionAsync' objects according to certain criteria.
+- **params**:
+  - `predicate: (value: T, index: number) => boolean`
+- **returns**:
+  - `ILazyCollection<ILazyCollectionAsync<T, void, undefined>, R, undefined>`
+
+```typescript
+import Lazy from "lazzy.ts";
+
+async function main() {
+  const generator = (function() {
+    let n = 1;
+
+    return function() {
+      return n++;
+    }
+  })();
+
+  // Important thing to note! Always use promiseAll() with lazyGroupBy()!
+  const partitions = await Lazy.generateAsync(generator)
+    .take(4)
+    .lazyPartition((n) => n % 2 === 0)
+     // Each partition is of type ILazyCollectionAsync. Now you can decide what to do. You can convert it to array, set or map, or you can get the sum of all numbers in each partition (see the example below).
+    .map(partition => partition.toArray())
+    .promiseAll();
+
+  console.log(partitions); // [[2, 4], [1, 3]]
+}
+
+main();
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+async function main() {
+  const generator = (function() {
+    let n = 1;
+
+    return function() {
+      return n++;
+    }
+  })();
+
+// Important thing to note! Always use promiseAll() with lazyGroupBy()!
+  const partitions = await Lazy.generateAsync(generator)
+    .take(4)
+    .lazyPartition((n) => n % 2 === 0)
+    .map(partition => partition.sum()) // We are getting the sum of each partition.
+    .promiseAll();
+
+  console.log(partitions); // [6, 4]
+}
+
+main();
+```
+
+You can compare this example with the regular 'partition()' function to see the difference.
 
 <p align='right' style='font-size: 10px'>
     <a href="README.md#api-reference">API Referance</a>
@@ -1743,8 +1976,19 @@ console.log(youngest); // 25
   - `result: [T[], T[]]`
 
 ```typescript
+import Lazy from "lazzy.ts";
+
 const partition = Lazy.from([1, 2, 3, 4]).partition((n) => n % 2 === 0);
 console.log(partition); // [[2, 4], [1, 3]]
+```
+
+```typescript
+import Lazy from "lazzy.ts";
+
+const partition = Lazy.from([1, 2, 3, 4])
+  .partition((n) => n % 2 === 0)
+  .map(partition => partition.reduce((acc, cur) => acc + cur), 0); // This transformation is not so efficient. Checkout the lazyPartition()
+console.log(partition); // [6, 4]
 ```
 
 <p align='right' style='font-size: 10px'>
@@ -1788,6 +2032,72 @@ const people = [
 
 const product = Lazy.from(people).product(p => p.age);
 console.log(product); // 26_250
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### promiseAll\<T, R, N\>();
+- **description**: The method returns a single Promise that resolves to an array of the results of the input promises. This returned promise will resolve when all of the input's promises have resolved, or if the input iterable contains no promises. It rejects immediately upon any of the input promises rejecting or non-promises throwing an error, and will reject with this first rejection message / error. 
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - `promise: Promise<PromiseValue<T>[]>`
+
+```typescript
+import Lazy from "lazzy.ts";
+import { delay } from "lazzy.ts/common/delay";
+
+async function main() {
+  const p1 = async function () {
+      return delay(100, 1); // delays with 100 ms, then returns 1
+  }
+
+  const p2 = async function () {
+      return delay(50, 2); // delays with 50 ms, then returns 2
+  }
+
+  const result = await Lazy.from([p1(), p2(), 3, 4]).promiseAll();
+  console.log(result); // [1, 2, 3, 4]
+}
+
+main();
+```
+
+<p align='right' style='font-size: 10px'>
+    <a href="README.md#api-reference">API Referance</a>
+</p>
+
+---
+
+#### promiseRace\<T, R, N\>();
+- **description**: The method returns a promise that fulfills or rejects as soon as one of the promises in an iterable fulfills or rejects, with the value or reason from that promise.  
+- **params**: 
+  - `no parameters`
+- **returns**: 
+  - `promise: Promise<PromiseValue<T>>`
+
+```typescript
+import Lazy from "lazzy.ts";
+import { delay } from "lazzy.ts/common/delay";
+
+async function main() {
+  const p1 = async function () {
+      return delay(50, 1); // delays with 50 ms, then returns 1
+  };
+
+  const p2 = async function () {
+      return delay(20, 2); // delays with 20 ms, then returns 2
+  };
+
+  const result = await Lazy.from([p1(), p2()]).promiseRace();
+  console.log(result); // 2;
+}
+
+main();
 ```
 
 <p align='right' style='font-size: 10px'>

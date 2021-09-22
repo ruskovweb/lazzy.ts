@@ -89,7 +89,7 @@ describe("ƒ generateAsync()", function () {
                 const current = prev;
                 prev = next;
                 next += current;
-                return current;
+                return Promise.resolve(current);
             }
         })();
 

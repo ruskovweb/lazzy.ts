@@ -31,7 +31,9 @@
     "typescript",
     "ts",
     "lightweight",
-    "no dependencies"
+    "no dependencies",
+    "linq",
+    "async"
   ],
   "author": "Dimitar Ruskov",
   "license": "MIT",
@@ -41,9 +43,11 @@
   "homepage": "https://github.com/ruskovweb/lazzy.ts#readme",
   "devDependencies": {
     "@types/chai": "^4.2.21",
+    "@types/chai-as-promised": "^7.1.4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.6.1",
     "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "mocha": "^9.0.3",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"

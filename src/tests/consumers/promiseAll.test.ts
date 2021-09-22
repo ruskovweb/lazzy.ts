@@ -1,4 +1,7 @@
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+
 import { delay } from "../../common/delay";
 import Lazy from "../..";
 import { asyncGenerator } from "../helpers";
@@ -15,6 +18,18 @@ describe("ƒ promiseAll()", function () {
 
         const result = await Lazy.from([p1(), p2(), 3, 4]).promiseAll();
         expect(result).to.be.deep.eq([1, 2, 3, 4]);
+    });
+
+    it("should reject if some promise reject too", async function () {
+        const p1 = async function () {
+            throw new Error("Another error");
+        }
+
+        const p2 = async function () {
+            throw new Error("Some error");
+        }
+
+        expect(Lazy.from([p1(), p2(), 3, 4]).promiseAll()).to.be.rejectedWith(Error("Some error"));
     });
 
     it("should resolve only the promises and return all values in the same order", async function () {
@@ -48,6 +63,18 @@ describe("ƒ promiseAllAsync()", function () {
 
         const result = await Lazy.fromAsync(asyncGenerator([p1(), p2(), 3, 4])).promiseAll();
         expect(result).to.be.deep.eq([1, 2, 3, 4]);
+    });
+
+    it("should reject if some promise reject too", async function () {
+        const p1 = async function () {
+            throw new Error("Another error");
+        }
+
+        const p2 = async function () {
+            throw new Error("Some error");
+        }
+
+        expect(Lazy.fromAsync(asyncGenerator([p1(), p2(), 3, 4])).promiseAll()).to.be.rejectedWith(Error("Some error"));
     });
 
     it("should resolve only the promises and return all values in the same order", async function () {
