@@ -49,8 +49,8 @@ export interface ILazyCollectionAsync<T, R, N> {
     last(predicate?: (value: T) => boolean | Promise<boolean>): Promise<T | undefined>;
     lastIndexOf(predicate: (value: T, index: number) => boolean | Promise<boolean>): Promise<number>;
     lastWithIndex(predicate: (value: T, index: number) => boolean | Promise<boolean>): Promise<[T | undefined, number]>;
-    max(...select: T extends number ? [] : [(value: T) => number]): Promise<number>;
-    min(...select: T extends number ? [] : [(value: T) => number]): Promise<number>;
+    max(...select: T extends number ? [] : [(value: T) => number]): Promise<T | undefined>;
+    min(...select: T extends number ? [] : [(value: T) => number]): Promise<T | undefined>;
     partition(predicate: (value: T, index: number) => boolean | Promise<boolean>): Promise<[T[], T[]]>;
     product(...select: T extends number ? [] : [(value: T) => number]): Promise<number>;
     promiseAll(): Promise<PromiseValue<T>[]>;

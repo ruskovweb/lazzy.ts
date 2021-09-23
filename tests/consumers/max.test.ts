@@ -10,7 +10,7 @@ describe("ƒ max()", function () {
 
     it("should get the biggest number of all numbers from objects", function () {
         const max = Lazy.from([{ n: 2 }, { n: 4 }, { n: 1 }, { n: 3 }]).max((obj) => obj.n);
-        expect(max).to.be.equal(4);
+        expect(max?.n).to.be.equal(4);
     });
 });
 
@@ -22,6 +22,6 @@ describe("ƒ maxAsync()", function () {
 
     it("should get the biggest number of all numbers from objects", async function () {
         const max = await Lazy.fromAsync(asyncGenerator([{ n: 2 }, { n: 4 }, { n: 1 }, { n: 3 }])).max((obj) => obj.n);
-        expect(max).to.be.equal(4);
+        expect(max?.n).to.be.equal(4);
     });
 });

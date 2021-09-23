@@ -188,11 +188,11 @@ export class ChainAsync<T, R, N> implements ILazyCollectionAsync<T, R, N> {
         return γ.lastWithIndexAsync(this.#source, predicate);
     }
 
-    max(...select: T extends number ? [] : [(value: T) => number]): Promise<number> {
+    max(...select: T extends number ? [] : [(value: T) => number]): Promise<T | undefined> {
         return γ.maxAsync(this.#source, ...select);
     }
 
-    min(...select: T extends number ? [] : [(value: T) => number]): Promise<number> {
+    min(...select: T extends number ? [] : [(value: T) => number]): Promise<T | undefined> {
         return γ.minAsync(this.#source, ...select);
     }
 

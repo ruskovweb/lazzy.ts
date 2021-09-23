@@ -188,11 +188,11 @@ export class Chain<T, R, N> implements ILazyCollection<T, R, N> {
         return γ.lastWithIndex(this.#source, predicate);
     }
 
-    max(...select: T extends number ? [] : [(value: T) => number]): number {
+    max(...select: T extends number ? [] : [(value: T) => number]): T | undefined {
         return γ.max(this.#source, ...select);
     }
 
-    min(...select: T extends number ? [] : [(value: T) => number]): number {
+    min(...select: T extends number ? [] : [(value: T) => number]): T | undefined {
         return γ.min(this.#source, ...select);
     }
 

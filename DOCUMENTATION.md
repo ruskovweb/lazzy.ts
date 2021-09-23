@@ -31,7 +31,7 @@ console.log(result) // [1, 2, 1, 2, 1, 2, 1, 2];
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -67,7 +67,7 @@ console.log(fibonacci); // [ 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -108,7 +108,7 @@ console.log(totalSum); // 10
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -165,7 +165,7 @@ main();
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -214,7 +214,7 @@ console.log(result); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -271,7 +271,7 @@ main();
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -298,7 +298,7 @@ console.log(primes); // [11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -354,7 +354,7 @@ Notes **(IMPORTANT)**:
     This is possible because the auto generated value can be -1.001 which is less than -1. Here we are in the proper range, but when we round that number to the specified precision, we will receive -1.0, which actually is -1.
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -374,7 +374,7 @@ console.log(random); // [1, 5, 9, 5, 1, 1, 9, 9, 5, 9]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -411,7 +411,7 @@ console.log(result); // []
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -449,7 +449,7 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -497,7 +497,7 @@ console.log(value); // "Hello, Michael!"
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -548,7 +548,7 @@ console.log(ships);
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -568,7 +568,7 @@ console.log(chunks); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -598,7 +598,7 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -627,7 +627,7 @@ console.log(result); // 20
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -691,7 +691,7 @@ console.log(result);
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -720,7 +720,7 @@ console.log(result); // [1009, 2003, 3001, 4001, 5003, 6007, 7001, 8009, 9001, 1
 - The 'Lazy.prime()' receives each value from the initial sequence and generates a prime number greater than or equal to the received value.
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -763,7 +763,7 @@ expect(result).to.be.deep.eq([1, 2, 3, 0, 0, 0, 0]);
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -790,7 +790,7 @@ console.log(result); // [2, 1, 5, 4]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -819,7 +819,7 @@ console.log(result);
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -856,7 +856,7 @@ console.log(flatten); // [1, 2, 3, 4, 5, 6, 7, [8], 9]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -878,7 +878,7 @@ console.log(flatten); // ["it's", "Sunny", "in", "", "California"]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -902,7 +902,7 @@ Lazy.from([1, 2, 3]).forEach((n, i) => console.log(`Value: ${n}; Index: ${i};`))
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -955,7 +955,7 @@ In this example we want to group all people by name and to get the average age.
 See also the [lazyGroupBy()](#lazygroupbyt-r-n) function.
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -975,7 +975,7 @@ console.log(result); // [1, 3, 5, 7, 9];
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1014,7 +1014,7 @@ console.log(result); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1067,7 +1067,7 @@ console.log(groups);
 You can compare this example with the regular [groupBy()](#groupbyt-r-n-tkey-telement-tresult) function to see the difference.
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1133,7 +1133,7 @@ main();
 You can compare this example with the regular [partition()](#partitiont-r-n) function to see the difference.
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1153,7 +1153,7 @@ console.log(result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1195,7 +1195,7 @@ console.log(result); // [8, 9, 10, 6, 7, 1, 2, 3, 4, 5]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1222,7 +1222,7 @@ console.log(repeated); // [1, 1, 1, 2, 2, 2, 3, 3, 3]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1242,7 +1242,7 @@ console.log(result); // [6, 7, 8, 9, 10]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1262,7 +1262,7 @@ console.log(result); // [6, 7, 8, 9, 10]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1296,7 +1296,7 @@ console.log(ordered); // ["Bob", "Jonathan", "Josh", "Michael"]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1346,7 +1346,7 @@ console.log(result); // []
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1373,7 +1373,7 @@ console.log(spread); // [1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1401,7 +1401,7 @@ console.log(result); // [4, 5, 6, 7, 8]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1421,7 +1421,7 @@ console.log(result); // [1, 2, 3, 4, 5]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1462,7 +1462,7 @@ console.log(totalSum); // 10
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1486,7 +1486,7 @@ console.log(zipped); // ["1 - one", "2 - two", "3 - three"]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1532,7 +1532,7 @@ console.log(result); // 30
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1552,7 +1552,7 @@ console.log(count); // 4
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1579,7 +1579,7 @@ console.log(result); // false
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1613,7 +1613,7 @@ console.log(value); // undefined
 ``` 
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1649,7 +1649,7 @@ console.log(index); // -1
 ``` 
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1682,7 +1682,7 @@ console.log(value); // false
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1716,7 +1716,7 @@ console.log(value); // -1
 ``` 
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1775,7 +1775,7 @@ console.log(result); // "Josh, Michael, Jonathan"
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1809,7 +1809,7 @@ console.log(value); // undefined
 ``` 
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1843,7 +1843,7 @@ console.log(value); // -1
 ``` 
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1879,7 +1879,7 @@ console.log(index); // -1
 ``` 
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1889,7 +1889,7 @@ console.log(index); // -1
 - **params**: 
   - `selector?: (value: T) => number`
 - **returns**: 
-  - `max: number`
+  - `max: T | undefined`
 
 ```typescript
 import Lazy from "lazzy.ts";
@@ -1918,11 +1918,11 @@ const people = [
 ];
 
 const oldest = Lazy.from(people).max(p => p.age);
-console.log(oldest); // 35
+console.log(oldest); // Person: { name: "Michael", age: "35" }
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1932,7 +1932,7 @@ console.log(oldest); // 35
 - **params**: 
   - `selector?: (value: T) => number`
 - **returns**: 
-  - `min: number`
+  - `min: T | undefined`
 
 ```typescript
 import Lazy from "lazzy.ts";
@@ -1961,11 +1961,11 @@ const people = [
 ];
 
 const youngest = Lazy.from(people).min(p => p.age);
-console.log(youngest); // 25
+console.log(oldest); // Person: { name: "Josh", age: "25" }
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -1996,7 +1996,7 @@ console.log(partition); // [6, 4]
 See also the [lazyPartition()](#lazypartitiont-r-n) function.
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2039,7 +2039,7 @@ console.log(product); // 26_250
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2072,7 +2072,7 @@ main();
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2105,7 +2105,7 @@ main();
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2128,7 +2128,7 @@ console.log(result); // 10
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2157,7 +2157,7 @@ generator.run();
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2200,7 +2200,7 @@ console.log(sum); // 90
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2222,7 +2222,7 @@ console.log(result); // [1, 2, 3, 4]
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2262,7 +2262,7 @@ printValues(iterator);
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2312,7 +2312,7 @@ Person {}
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2340,7 +2340,7 @@ Set {}
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2376,7 +2376,7 @@ console.log(weakMap.get(people[1])); // 36
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2412,7 +2412,7 @@ console.log(set.get(people[1]).age); // 36
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
@@ -2455,7 +2455,7 @@ console.log(uppended);
 ```
 
 <p align='right' style='font-size: 10px'>
-    <a href="README.md#api-reference">API Referance</a>
+    <a href="README.md#api-reference">API Reference</a>
 </p>
 
 ---
