@@ -204,7 +204,7 @@ We have a bunch of lazy functions that you can see here!
     -   [ƒ randomFrom();](DOCUMENTATION.md#randomFrom)
     -   [ƒ range();](DOCUMENTATION.md#range)
 
--   **Manipulating collections:**
+-   **Methods that manipulate the sequence without breaking the chain:**
     -   [ƒ append();](DOCUMENTATION.md#appendt-r-n)
     -   [ƒ at();](DOCUMENTATION.md#att-r-n)
     -   [ƒ balancedChunk();](DOCUMENTATION.md#balancedchunkt-r-n)
